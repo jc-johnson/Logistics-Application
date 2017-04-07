@@ -1,0 +1,242 @@
+<FacilityNetwork>
+    <Facility Location="Seattle, Wa">
+        <Rate>8</Rate>
+        <CostPerDay>300</CostPerDay>
+        <link Location="Fargo, ND">
+            <distance>1426</distance>
+        </link>
+        <link Location="San Francisco">
+            <distance>808</distance>
+        </link>
+    </Facility>
+    <Facility Location="San Francisco, CA">
+        <Rate>12</Rate>
+        <CostPerDay>300</CostPerDay>
+        <link Location="Seattle, WA">
+            <distance>808</distance>
+        </link>
+        <link Location="Denver, CO">
+            <distance>1249</distance>
+        </link>
+        <link Location="Los Angeles, CA">
+            <distance>382</distance>
+        </link>
+    </Facility>
+    <Facility Location="Los Angeles, CA">
+        <Rate>10</Rate>
+        <CostPerDay>300</CostPerDay>
+        <link Location="San Francisco, CA">
+            <distance>382</distance>
+        </link>
+        <link Location="Phoenix, AZ">
+            <distance>372</distance>
+        </link>
+    </Facility>
+    <Facility Location="Phoenix, AZ">
+        <Rate>8</Rate>
+        <CostPerDay>300</CostPerDay>
+        <link Location="Los Angeles, CA">
+            <distance>372</distance>
+        </link>
+        <link Location="Santa Fe, NM">
+            <distance>480</distance>
+        </link>
+    </Facility>
+    <Facility Location="Denver, CO">
+        <Rate>10</Rate>
+        <CostPerDay>300</CostPerDay>
+        <link Location="San Francisco, CA">
+            <distance>1249</distance>
+        </link>
+        <link Location="Santa Fe, NM">
+            <distance>392</distance>
+        </link>
+        <link Location="Fargo, ND">
+            <distance>889</distance>
+        </link>
+        <link Location="St. Louis, MO">
+            <distance>851</distance>
+        </link>
+    </Facility>
+    <Facility Location="Santa Fe, NM">
+        <Rate>8</Rate>
+        <CostPerDay>300</CostPerDay>
+        <link Location="Phoenix, AZ">
+            <distance>480</distance>
+        </link>
+        <link Location="Denver, CO">
+            <distance>392</distance>
+        </link>
+        <link Location="St. Louis, MO">
+            <distance>1032</distance>
+        </link>
+        <link Location="Austin, TX">
+            <distance>688</distance>
+        </link>
+    </Facility>
+    <Facility Location="Fargo, ND">
+        <Rate>8</Rate>
+        <CostPerDay>300</CostPerDay>
+        <link Location="Seattle, WA">
+            <distance>1426</distance>
+        </link>
+        <link Location="Denver, CO">
+            <distance>889</distance>
+        </link>
+        <link Location="Chicago, IL">
+            <distance>643</distance>
+        </link>
+    </Facility>
+    <Facility Location="Austin, TX">
+        <Rate>10</Rate>
+        <CostPerDay>300</CostPerDay>
+        <link Location="Santa Fe, NM">
+            <distance>688</distance>
+        </link>
+        <link Location="St. Louis, MO">
+            <distance>825</distance>
+        </link>
+        <link Location="New Orleans, LA">
+            <distance>512</distance>
+        </link>
+    </Facility>
+    <Facility Location="St. Louis, MO">
+        <Rate>12</Rate>
+        <CostPerDay>300</CostPerDay>
+        <link Location="Chicago, IL">
+            <distance>297</distance>
+        </link>
+        <link Location="Nashville, TN">
+            <distance>309</distance>
+        </link>
+        <link Location="Austin, TX">
+            <distance>825</distance>
+        </link>
+        <link Location="Santa Fe, NM">
+            <distance>1032</distance>
+        </link>
+        <link Location="Denver, CO">
+            <distance>851</distance>
+        </link>
+    </Facility>
+    <Facility Location="Chicago, IL">
+        <Rate>10</Rate>
+        <CostPerDay>300</CostPerDay>
+        <link Location="Fargo, ND">
+            <distance>643</distance>
+        </link>
+        <link Location="St. Louis, MO">
+            <distance>297</distance>
+        </link>
+        <link Location="New York City, NY">
+            <distance>790</distance>
+        </link>
+        <link Location="Detroit, MI">
+            <distance>282</distance>
+        </link>
+    </Facility>
+    <Facility Location="New Orleans, LA">
+        <Rate>10</Rate>
+        <CostPerDay>300</CostPerDay>
+        <link Location="Austin, TX">
+            <distance>1426</distance>
+        </link>
+        <link Location="Nashville, TN">
+            <distance>532</distance>
+        </link>
+        <link Location="Atlanta, GA">
+            <distance>469</distance>
+        </link>
+        <link Location="Miami, FL">
+            <distance>864</distance>
+        </link>
+    </Facility>
+    <Facility Location="Nashville, TN">
+        <Rate>8</Rate>
+        <CostPerDay>300</CostPerDay>
+        <link Location="St. Louis, MO">
+            <distance>309</distance>
+        </link>
+        <link Location="New Orleans, LA">
+            <distance>532</distance>
+        </link>
+        <link Location="Boston, MA">
+            <distance>719</distance>
+        </link>
+    </Facility>
+    <Facility Location="Detroit, MI">
+        <Rate>10</Rate>
+        <CostPerDay>300</CostPerDay>
+        <link Location="Chicago, IL">
+            <distance>282</distance>
+        </link>
+        <link Location="New York City, NY">
+            <distance>614</distance>
+        </link>
+        <link Location="Boston, MA">
+            <distance>719</distance>
+        </link>
+    </Facility>
+    <Facility Location="Boston, MA">
+        <Rate>10</Rate>
+        <CostPerDay>300</CostPerDay>
+        <link Location="Detroit, MI">
+            <distance>719</distance>
+        </link>
+        <link Location="New York City, NY">
+            <distance>215</distance>
+        </link>
+    </Facility>
+    <Facility Location="New York City, NY">
+        <Rate>14</Rate>
+        <CostPerDay>300</CostPerDay>
+        <link Location="Boston, MA">
+            <distance>215</distance>
+        </link>
+        <link Location="Detroit, MI">
+            <distance>614</distance>
+        </link>
+        <link Location="Chicago, IL">
+            <distance>790</distance>
+        </link>
+        <link Location="Norfolk, VA">
+            <distance>363</distance>
+        </link>
+    </Facility>
+    <Facility Location="Norfolk, VA">
+        <Rate>10</Rate>
+        <CostPerDay>300</CostPerDay>
+        <link Location="New York City">
+            <distance>363</distance>
+        </link>
+        <link Location="Nashville, TN">
+            <distance>706</distance>
+        </link>
+        <link Location="Atlanta, GA">
+            <distance>566</distance>
+        </link>
+    </Facility>
+    <Facility Location="Atlanta, GA">
+        <Rate>10</Rate>
+        <CostPerDay>300</CostPerDay>
+        <link Location="Norfolk, VA">
+            <distance>566</distance>
+        </link>
+        <link Location="New Orleans, LA">
+            <distance>469</distance>
+        </link>
+        <link Location="Miami, Fl">
+            <distance>663</distance>
+        </link>
+    </Facility>
+    <Facility Location="Miami, FL">
+        <Rate>12</Rate>
+        <CostPerDay>300</CostPerDay>
+        <link Location="Atlanta, GA">
+            <distance>663</distance>
+        </link>
+        <link Location="New Orleans">
+            <distance>864</distance>
+        </link>
+    </Facility>
+</FacilityNetwork>
