@@ -21,7 +21,6 @@ public class ReadItemCatalogXML {
 
     public static void main(String[] args) {
 
-        System.out.println("Test");
 
         try {
             // Open file path to xml
@@ -43,14 +42,16 @@ public class ReadItemCatalogXML {
 
             for (int i = 0; i < nodeList.getLength(); i++) {
                 Node node = nodeList.item(i);
-                System.out.println("\nCurrent Element :" + node.getNodeName());
+                System.out.println("\nCurrent Element : " + node.getNodeName());
 
                 if (node.getNodeType() == Node.ELEMENT_NODE) {
 
                     Element element = (Element) node;
 
-                    System.out.println("" + element.getAttribute("id"));
-                    System.out.println("" + element.getAttribute("id"));
+                    System.out.println("Item ID : " + element.getAttribute("Id"));
+                    System.out.println("Price : " + element.getElementsByTagName("price").item(0).getTextContent());
+
+
 
                 }
             }
