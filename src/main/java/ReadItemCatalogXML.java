@@ -3,6 +3,10 @@ package src.main.java;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.text.NumberFormat;
+import java.text.ParseException;
+import java.util.HashMap;
+import java.util.Locale;
 
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.DocumentBuilder;
@@ -19,13 +23,14 @@ import org.xml.sax.SAXException;
  */
 public class ReadItemCatalogXML {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws NumberFormatException, ParseException {
 
+        HashMap<String, Long> catalogOutput = new HashMap<>();
 
         try {
             // Open file path to xml
             File xmlFile = new File("src/main/resources/ItemCatalog.xml"); // File Path C:\Logistics-Program\LogisticsApplication\src\main\resources\ItemCatalog.xml
-            System.out.println("File found");
+            System.out.println("File found...");
 
             // Build parser and parse
             DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
@@ -51,9 +56,21 @@ public class ReadItemCatalogXML {
                     System.out.println("Item ID : " + element.getAttribute("Id"));
                     System.out.println("Price : " + element.getElementsByTagName("price").item(0).getTextContent());
 
+                    // Putting Id and Price into hashmap
+                    String id = element.getAttribute("Id");
+                    String priceString = element.getElementsByTagName("price").item(0).getTextContent();
+                    Long price = (long) NumberFormat.getNumberInstance(Locale.US).parse(priceString);
 
+                    catalogOutput.put(id, price);
 
                 }
+            }
+
+            System.out.println("");
+            System.out.println("Catalog Output: ");
+            // print hashmap
+            for (HashMap.Entry entry : catalogOutput.entrySet()) {
+                System.out.println(entry.getKey() + ", " + entry.getValue());
             }
 
         } catch (FileNotFoundException e) {
