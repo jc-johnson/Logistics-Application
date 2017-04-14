@@ -1,4 +1,4 @@
-package src.main.java;
+package src.main.java.Interfaces;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -6,12 +6,12 @@ import java.util.HashMap;
 /**
  * Created by Jordan on 4/14/2017.
  */
-interface Facility {
+public interface Facility {
 
 
 
 
-    void printSchedule();
+    void printOutput();
 
 
 

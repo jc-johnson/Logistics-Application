@@ -1,5 +1,7 @@
 package src.main.java;
 
+import src.main.java.Interfaces.Facility;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -16,7 +18,7 @@ public class TestFacility implements Facility {
     HashMap<Integer, Integer> schedule = new HashMap<>(); // <Day, Available>
 
     @Override
-    public void printSchedule() {
+    public void printOutput() {
 
     }
 }
