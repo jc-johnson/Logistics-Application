@@ -45,6 +45,7 @@ public class ReadItemCatalogXML {
 
             NodeList nodeList = document.getElementsByTagName("Item");
 
+            // Print elements and add to hashmap
             for (int i = 0; i < nodeList.getLength(); i++) {
                 Node node = nodeList.item(i);
                 System.out.println("\nCurrent Element : " + node.getNodeName());
