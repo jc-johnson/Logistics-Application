@@ -46,6 +46,7 @@ public class LoadFacilityNetworkXML implements XmlReader {
             for (int i = 0; i < nodeList.getLength(); i++) {
                 Node node = nodeList.item(i);
                 System.out.println("\nCurrent Element : " + node.getNodeName());
+                System.out.println("");
 
                 if (node.getNodeType() == Node.ELEMENT_NODE) {
 
@@ -55,9 +56,18 @@ public class LoadFacilityNetworkXML implements XmlReader {
                     System.out.println("Facility Rate : " + element.getElementsByTagName("Rate").item(0).getTextContent());
                     System.out.println("Facility Cost Per Day : " + element.getElementsByTagName("CostPerDay").item(0).getTextContent());
 
-                    // get all links
-                    // System.out.println("Facility Rate : " + element.getElementsByTagName("Rate"));
+                    // get all links from a facility
+                    NodeList facilityLinks = element.getElementsByTagName("link");
 
+                    for (int j = 0; j < facilityLinks.getLength(); j++) {
+
+                        Element linkElement = (Element) facilityLinks.item(j);
+
+                        System.out.println("Link Location : " + linkElement.getAttribute("Location"));
+                        System.out.println("Distance : " + linkElement.getElementsByTagName("distance").item(0).getTextContent());
+                       // String linkData = linkElement.getFirstChild().getNodeValue();
+                        // System.out.println("Link : " + linkData);
+                    }
                 }
             }
         } catch (FileNotFoundException e) {
