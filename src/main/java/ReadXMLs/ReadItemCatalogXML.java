@@ -1,4 +1,4 @@
-package src.main.java;
+package src.main.java.ReadXMLs;
 
 import java.io.File;
 import java.io.FileNotFoundException;
