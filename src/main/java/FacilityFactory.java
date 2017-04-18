@@ -6,11 +6,11 @@ import src.main.java.Interfaces.Facility;
 /**
  * Created by Jordan on 4/14/2017.
  */
-class FacilityFactory {
+public class FacilityFactory {
 
     private FacilityFactory(){} // static methods, no reason to "new"
 
-    static Facility createFacility(String type) {
+    public static Facility createFacility(String type) {
 
         switch (type) {
             case "Seattle, WA":

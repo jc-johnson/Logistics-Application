@@ -7,6 +7,11 @@ import src.main.java.Interfaces.Facility;
  */
 public class SeattleFacility implements Facility {
 
+    private String location = "Seattle, WA";
+    private long ratePerDay = 8;
+    private long costPerDay = 300;
+
+
 
     @Override
     public void printOutput() {

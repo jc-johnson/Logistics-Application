@@ -12,8 +12,8 @@ import java.util.Map;
 public class AtlantaFacility implements Facility {
 
     private String location = "Atlanta, GA";
-    private long ratePerDay = 0;
-    private long costPerDay = 0;
+    private long ratePerDay = 10;
+    private long costPerDay = 300;
 
     private Map<String, Long> directLinks = new HashMap<>();
     private HashMap<String, Long> activeInventory = new HashMap<>(); // <Item ID, Quantity>

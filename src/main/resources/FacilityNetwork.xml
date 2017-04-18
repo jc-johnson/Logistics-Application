@@ -1,5 +1,5 @@
 <FacilityNetwork>
-    <Facility Location="Seattle, Wa">
+    <Facility Location="Seattle, WA">
         <Rate>8</Rate>
         <CostPerDay>300</CostPerDay>
         <link Location="Fargo, ND">
@@ -225,7 +225,7 @@
         <link Location="New Orleans, LA">
             <distance>469</distance>
         </link>
-        <link Location="Miami, Fl">
+        <link Location="Miami, FL">
             <distance>663</distance>
         </link>
     </Facility>
@@ -235,7 +235,7 @@
         <link Location="Atlanta, GA">
             <distance>663</distance>
         </link>
-        <link Location="New Orleans">
+        <link Location="New Orleans, LA">
             <distance>864</distance>
         </link>
     </Facility>
