@@ -8,8 +8,19 @@ import java.util.HashMap;
  */
 public interface Facility {
 
+    String getLocation();
 
+    String setLocation(String location);
 
+    Long getRatePerDay();
+
+    Long setRatePerDay(String ratePerDay);
+
+    Long getCostPerDay();
+
+    Long setCostPerDay(String ratePerday);
+
+    void addNeighbor(String neighborLocation, String distance);
 
     void printOutput();
 

@@ -78,7 +78,9 @@ public class LoadFacilityNetworkXML implements XmlReader {
 
                         System.out.println("Link Location : " + linkLocation);
                         System.out.println("Distance : " + linkDistance);
-                        // System.out.println("");
+
+                        Facility temp = facilities.get(j);
+                    //    temp.addNeighbor(linkLocation, linkDistance); // TODO: code these methods in each facility
                     }
                     System.out.println("");
                 }
