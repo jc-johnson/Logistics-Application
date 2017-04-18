@@ -42,7 +42,6 @@ public class LoadFacilityNetworkXML implements XmlReader {
             // Optional but recommended
             document.getDocumentElement().normalize();
 
-
             System.out.println("Root element : " + document.getDocumentElement().getNodeName());
 
             NodeList nodeList = document.getElementsByTagName("Facility");
@@ -67,7 +66,6 @@ public class LoadFacilityNetworkXML implements XmlReader {
                     // Create facility based on location and load into list
                     facilities.add(FacilityFactory.createFacility(facilityLocation));
 
-
                     // get all links from a facility
                     NodeList facilityLinks = element.getElementsByTagName("link");
 
@@ -75,10 +73,14 @@ public class LoadFacilityNetworkXML implements XmlReader {
 
                         Element linkElement = (Element) facilityLinks.item(j);
 
-                        System.out.println("Link Location : " + linkElement.getAttribute("Location"));
-                        System.out.println("Distance : " + linkElement.getElementsByTagName("distance").item(0).getTextContent());
-                        System.out.println("");
+                        String linkLocation = linkElement.getAttribute("Location");
+                        String linkDistance = linkElement.getElementsByTagName("distance").item(0).getTextContent();
+
+                        System.out.println("Link Location : " + linkLocation);
+                        System.out.println("Distance : " + linkDistance);
+                        // System.out.println("");
                     }
+                    System.out.println("");
                 }
             }
         } catch (FileNotFoundException e) {
