@@ -84,11 +84,11 @@ public class Dijkstra {
     */
 
         // set the edges and weight
-        A.adjacencies = new Edge[] {new Edge(B, 8)};
-        B.adjacencies = new Edge[] {new Edge(D, 5)};
-        B.adjacencies = new Edge[] {new Edge(C, 1)};
-        C.adjacencies = new Edge[] {new Edge(E, 3)};
-        D.adjacencies = new Edge[] {new Edge(E, 7)};
+        A.adjacencies.add(new Edge(B, 8));
+        B.adjacencies.add(new Edge(D, 1));
+        B.adjacencies.add(new Edge(C, 5));
+        C.adjacencies.add(new Edge(E, 3));
+        D.adjacencies.add(new Edge(E, 7));
 
 
         /*
