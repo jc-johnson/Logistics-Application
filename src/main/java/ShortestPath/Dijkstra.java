@@ -23,7 +23,7 @@ public class Dijkstra {
         // headVertex will constantly be getting updated
         while (!vertexQueue.isEmpty()) {
             Vertex headVertex = vertexQueue.poll(); // returns the head of the queue or null if the queue is empty
-                                                    // does this update to the latest vertex added to the Queue??
+                                                    // updates to the latest vertex added to the Queue??
             System.out.println("Head Vertex: " + headVertex.name);
 
                 if (headVertex.adjacencies == null) {
