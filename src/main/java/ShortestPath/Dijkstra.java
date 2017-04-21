@@ -7,11 +7,6 @@ import java.util.*;
  */
 public class Dijkstra {
 
-    public Dijkstra(Vertex source, Vertex target){
-        computePaths(source);
-        getShortestPathTo(target);
-    }
-
     // Builds graph. Only need to do this once
     public static void computePaths(Vertex source) {
 
@@ -63,6 +58,15 @@ public class Dijkstra {
         return path;
     }
 
+    public static List<Vertex> shortestPath(Vertex source, Vertex target) {
+        computePaths(source); // run Dijkstra
+        System.out.println("Distance to " + target + target.minDistance);
+        List<Vertex> path = getShortestPathTo(target);
+        System.out.println("Path: " + path);
+
+        return path;
+    }
+
     public static void main(String[] args) {
 
         // mark all the vertices
@@ -101,10 +105,13 @@ public class Dijkstra {
         Z.adjacencies = new Edge[] {new Edge(M, 18)};
         */
 
+        /*
         computePaths(A); // run Dijkstra
         System.out.println("Distance to " + E + E.minDistance);
         List<Vertex> path = getShortestPathTo(E);
-        System.out.println("Path: " + path);
+        System.out.println("Path: " + path); */
+
+        shortestPath(A, E);
 
     }
 }
