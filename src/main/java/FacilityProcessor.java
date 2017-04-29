@@ -8,9 +8,9 @@ import src.main.java.Interfaces.Processor;
  */
 public class FacilityProcessor implements Processor {
 
+
     @Override
-    public void process(String type) {
-        Facility chicagoFacility = FacilityFactory.createFacility("Chicago, IL");
+    public void compute(String type) {
 
     }
 }

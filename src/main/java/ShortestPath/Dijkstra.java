@@ -22,7 +22,7 @@ public class Dijkstra {
             System.out.println("Head Vertex: " + headVertex.name);
 
                 if (headVertex.adjacencies == null) {
-                    return;
+                    return; // TODO: Throw exception here
                 }
 
                 // Visit each edge exiting the headVertex

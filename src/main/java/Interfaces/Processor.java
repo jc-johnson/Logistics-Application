@@ -5,5 +5,5 @@ package src.main.java.Interfaces;
  */
 public interface Processor {
 
-    public void process(String type);
+    public void compute(String type);
 }

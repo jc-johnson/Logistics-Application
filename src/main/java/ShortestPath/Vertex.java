@@ -1,5 +1,7 @@
 package src.main.java.ShortestPath;
 
+import src.main.java.Interfaces.Facility;
+
 import java.util.ArrayList;
 import java.util.Comparator;
 
@@ -13,9 +15,14 @@ public class Vertex implements Comparable<Vertex>{
     public ArrayList<Edge> adjacencies = new ArrayList<>();
     public double minDistance = Double.POSITIVE_INFINITY;
     public Vertex previous = null;
+    private Facility facility;
 
     public Vertex (String name) {
         this.name =  name;
+    }
+
+    public Vertex (Facility facility) {
+        this.name = facility.getLocation();
     }
 
     public String toString() {
