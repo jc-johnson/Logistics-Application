@@ -13,7 +13,7 @@ public class ChicagoFacility implements Facility {
 
     @Override
     public String getLocation() {
-        return null;
+        return location;
     }
 
     @Override
@@ -23,7 +23,7 @@ public class ChicagoFacility implements Facility {
 
     @Override
     public Long getRatePerDay() {
-        return null;
+        return ratePerDay;
     }
 
     @Override
@@ -33,7 +33,7 @@ public class ChicagoFacility implements Facility {
 
     @Override
     public Long getCostPerDay() {
-        return null;
+        return costPerDay;
     }
 
     @Override

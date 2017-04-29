@@ -18,6 +18,22 @@ public class FacilityStatusOutputImpl implements FacilityOutput{
     @Override
     public void printOutput() {
         System.out.println("----------------------------------------------------------");
+        System.out.println(facility.getLocation()); // TODO: Tweak to just output the city without the state
+        System.out.println("Rate per day: " + facility.getRatePerDay());
+        System.out.println("Cost per day: " + facility.getCostPerDay());
+        System.out.println("");
+        System.out.println("Direct Links: ");
+        // System.out.println(facility.printDirectLinks); // TODO: implement
+        System.out.println("");
+        System.out.println("Active Inventory: ");
+        // System.out.println(facility.printInventory); // TODO: implement
+        System.out.println("");
+        System.out.println("Depleted (Used-up) Inventory: ");
+        // System.out.println(facility.printDepletedInventory); // TODO: implement
+        System.out.println("");
+        System.out.println("Schedule: ");
+        System.out.println("Day: \t");
+        System.out.println("Available: \t");
     }
 
     /**
