@@ -9,7 +9,7 @@ import src.main.java.Interfaces.FacilityOutput;
  */
 public class FacilityStatusOutputImpl implements FacilityOutput{
 
-    Facility facility = null;
+    Facility facility = null; // TODO: maybe needs to be a null impl
 
     FacilityStatusOutputImpl(Facility facility) {
         this.facility = facility;

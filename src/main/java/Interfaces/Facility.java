@@ -10,17 +10,19 @@ public interface Facility {
 
     String getLocation();
 
-    String setLocation(String location);
+    void setLocation(String location);
 
     Long getRatePerDay();
 
-    Long setRatePerDay(String ratePerDay);
+    void setRatePerDay(Integer ratePerDay);
 
     Long getCostPerDay();
 
-    Long setCostPerDay(String ratePerday);
+    void setCostPerDay(Integer ratePerday);
 
-    void addNeighbor(String neighborLocation, String distance);
+    void printActiveInventory();
+
+    void printDepletedInventory();
 
     void printOutput();
 

@@ -8,7 +8,6 @@ import org.xml.sax.SAXException;
 import src.main.java.FacilityFactory;
 import src.main.java.Interfaces.Facility;
 import src.main.java.Interfaces.XmlReader;
-import src.main.java.ShortestPathAlgorithm;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;

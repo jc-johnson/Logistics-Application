@@ -1,6 +1,12 @@
 package src.main.java.Facilities;
 
 import src.main.java.Interfaces.Facility;
+import src.main.java.Interfaces.XmlReader;
+import src.main.java.ShortestPath.Edge;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
 /**
  * Created by Jordan on 4/14/2017.
@@ -11,14 +17,19 @@ public class ChicagoFacility implements Facility {
     private long ratePerDay = 10;
     private long costPerDay = 300;
 
+    private HashMap<String, Integer> activeInventory = new HashMap<>();
+    private HashMap<String, Integer> depletedInventory = new HashMap<>();
+    private HashMap<Integer, Integer> daysAvailable = new HashMap<>();
+
+
     @Override
     public String getLocation() {
         return location;
     }
 
     @Override
-    public String setLocation(String location) {
-        return null;
+    public void setLocation(String location) {
+        this.location = location;
     }
 
     @Override
@@ -27,8 +38,8 @@ public class ChicagoFacility implements Facility {
     }
 
     @Override
-    public Long setRatePerDay(String ratePerDay) {
-        return null;
+    public void setRatePerDay(Integer ratePerDay) {
+        this.ratePerDay = ratePerDay;
     }
 
     @Override
@@ -36,13 +47,23 @@ public class ChicagoFacility implements Facility {
         return costPerDay;
     }
 
-    @Override
+    /*@Override
     public Long setCostPerDay(String ratePerday) {
         return null;
+    }*/
+
+    @Override
+    public void setCostPerDay(Integer costPerDay) {
+        this.costPerDay = costPerDay;
     }
 
     @Override
-    public void addNeighbor(String neighborLocation, String distance) {
+    public void printActiveInventory() {
+
+    }
+
+    @Override
+    public void printDepletedInventory() {
 
     }
 

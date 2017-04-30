@@ -11,7 +11,7 @@ public class Dijkstra {
     public static void computePaths(Vertex source) {
 
         // Set up priority queue to hold our final path
-        source.minDistance = 0.;    // you will update this variable as the program keeps track of the shortest path
+        source.setMinDistance(0);    // you will update this variable as the program keeps track of the shortest path
         PriorityQueue<Vertex> vertexQueue = new PriorityQueue<Vertex>();
         vertexQueue.add(source); // Source vertex will be the beginning of the queue
 
@@ -19,28 +19,28 @@ public class Dijkstra {
         while (!vertexQueue.isEmpty()) {
             Vertex headVertex = vertexQueue.poll(); // returns the head of the queue or null if the queue is empty
                                                     // updates to the latest vertex added to the Queue??
-            System.out.println("Head Vertex: " + headVertex.name);
+            System.out.println("Head Vertex: " + headVertex.getName());
 
-                if (headVertex.adjacencies == null) {
+                if (headVertex.getAdjacenciesList() == null) {
                     return; // TODO: Throw exception here
                 }
 
                 // Visit each edge exiting the headVertex
-                for (Edge edge : headVertex.adjacencies) {
+                for (Edge edge : headVertex.getAdjacenciesList()) {
                     Vertex edgeVertex = edge.target;
                     double edgeWeight = edge.weight;    // Note: temp variable to hold weight. Not changing vertex.weight;
-                    double distanceFromHeadVertex = headVertex.minDistance + edgeWeight;  // will constantly be updating the head vertex weight as we travel along the graph
+                    double distanceFromHeadVertex = headVertex.getMinDistance() + edgeWeight;  // will constantly be updating the head vertex weight as we travel along the graph
                     System.out.println("Distance from head vertex: " + distanceFromHeadVertex);
-                    System.out.println("Source Edge Vertex: " + edgeVertex.name);
+                    System.out.println("Source Edge Vertex: " + edgeVertex.getName());
                     System.out.println("Source Edge Weight: " + edgeWeight);
 
                     // keeping the latest path if it's shorter than what we already have stored (Infinity is initially stored for minDistance)
-                    if (distanceFromHeadVertex < edgeVertex.minDistance) {
+                    if (distanceFromHeadVertex < edgeVertex.getMinDistance()) {
                         vertexQueue.remove(edgeVertex); // might not need - might be redundant. Might just be clean up
 
-                        edgeVertex.minDistance = distanceFromHeadVertex; // we care about the last vertex in the priority queue's minDistance for our final shortest path distance
-                        System.out.println("Edge Vertex min distance: " + edgeVertex.minDistance);
-                        edgeVertex.previous = headVertex;
+                        edgeVertex.setMinDistance(distanceFromHeadVertex); // we care about the last vertex in the priority queue's minDistance for our final shortest path distance
+                        System.out.println("Edge Vertex min distance: " + edgeVertex.getMinDistance());
+                        edgeVertex.setPrevious(headVertex);
                         vertexQueue.add(edgeVertex); // then iterates to next edge in the headverte
 
                     }
@@ -51,7 +51,7 @@ public class Dijkstra {
 
     public static List<Vertex> getShortestPathTo(Vertex target) {
         List<Vertex> path = new ArrayList<Vertex>();
-        for (Vertex vertex = target; vertex != null ; vertex = vertex.previous) {
+        for (Vertex vertex = target; vertex != null ; vertex = vertex.getPrevious()) {
             path.add(vertex);
         }
         Collections.reverse(path);
@@ -60,7 +60,7 @@ public class Dijkstra {
 
     public static List<Vertex> shortestPath(Vertex source, Vertex target) {
         computePaths(source); // run Dijkstra
-        System.out.println("Distance to " + target + target.minDistance);
+        System.out.println("Distance to " + target + target.getMinDistance());
         List<Vertex> path = getShortestPathTo(target);
         System.out.println("Path: " + path);
 
@@ -88,11 +88,11 @@ public class Dijkstra {
     */
 
         // set the edges and weight
-        A.adjacencies.add(new Edge(B, 8));
-        B.adjacencies.add(new Edge(D, 1));
-        B.adjacencies.add(new Edge(C, 5));
-        C.adjacencies.add(new Edge(E, 3));
-        D.adjacencies.add(new Edge(E, 7));
+        A.addAdjacency(new Edge(B, 8));
+        B.addAdjacency(new Edge(D, 1));
+        B.addAdjacency(new Edge(C, 5));
+        C.addAdjacency(new Edge(E, 3));
+        D.addAdjacency(new Edge(E, 7));
 
 
         /*

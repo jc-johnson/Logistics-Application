@@ -1,14 +1,24 @@
 package src.main.java.ShortestPath;
 
+import src.main.java.FacilityFactory;
+
 /**
  * Created by Jordan on 4/20/2017.
  */
 public class Edge {
 
-    public final Vertex target;
-    public final double weight;
+    public Vertex target;
+    public double weight = 0;
+
     public Edge(Vertex targetVertex, double edgeWeight) {
         target = targetVertex;
-        weight = edgeWeight;
+        this.weight = edgeWeight;
     }
+
+    public Edge(String location, Integer distance) {
+        target.setFacility(location);
+        weight = distance;
+    }
+
+
 }
