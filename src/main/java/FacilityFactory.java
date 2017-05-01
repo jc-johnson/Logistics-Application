@@ -32,7 +32,7 @@ public class FacilityFactory {
             case "St. Louis, MO":
                 return new StLouisFacility();
             case "Chicago, IL":
-                return new ChicagoFacility();
+                return ChicagoFacility.getInstance();
             case "New Orleans, LA":
                 return new NewOrleansFacility();
             case "Nashville, TN":

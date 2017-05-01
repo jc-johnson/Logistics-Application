@@ -11,7 +11,9 @@ import java.util.List;
 /**
  * Created by Jordan on 4/14/2017.
  */
-public class ChicagoFacility implements Facility {
+public final class ChicagoFacility implements Facility {
+
+    private static ChicagoFacility instance;
 
     private String location = "Chicago, IL";
     private long ratePerDay = 10;
@@ -20,6 +22,18 @@ public class ChicagoFacility implements Facility {
     private HashMap<String, Integer> activeInventory = new HashMap<>();
     private HashMap<String, Integer> depletedInventory = new HashMap<>();
     private HashMap<Integer, Integer> daysAvailable = new HashMap<>();
+
+    private ChicagoFacility() {}
+
+    public static ChicagoFacility getInstance() {
+
+        if (instance == null) {
+            instance = new ChicagoFacility();
+        }
+
+        return instance;
+    }
+
 
 
     @Override

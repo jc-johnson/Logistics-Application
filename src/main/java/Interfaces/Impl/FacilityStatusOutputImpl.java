@@ -40,7 +40,7 @@ public class FacilityStatusOutputImpl implements FacilityOutput{
      * TODO: Remove Test
      */
     public static void main(String[] args) {
-        Facility facility = new ChicagoFacility();
+        Facility facility = ChicagoFacility.getInstance();
         FacilityStatusOutputImpl facilityStatusOutput = new FacilityStatusOutputImpl(facility);
         facilityStatusOutput.printOutput();
     }

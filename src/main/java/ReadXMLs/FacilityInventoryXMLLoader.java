@@ -20,14 +20,15 @@ import java.text.ParseException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 
 /**
  * Created by Jordan on 4/13/2017.
  */
 public class FacilityInventoryXMLLoader implements XmlReader{
 
-    private List<Facility> facilities;
-    private HashMap<String, List<Item>> facilityInventory;
+    private HashMap<String, HashMap<String, Long>> facilityInventory = new HashMap<>();
+    private HashMap<String, Long> inventoryQuantity = new HashMap<>();
 
     @Override
     public void parse() {
@@ -43,6 +44,8 @@ public class FacilityInventoryXMLLoader implements XmlReader{
 
             // Optional but recommended
             document.getDocumentElement().normalize();
+
+            System.out.println("Root element : " + document.getDocumentElement().getNodeName());
 
             // Parse xml
             NodeList nodeList = document.getElementsByTagName("Facility");
@@ -73,8 +76,11 @@ public class FacilityInventoryXMLLoader implements XmlReader{
                         System.out.println("Item Id : " + itemId);
                         System.out.println("Quantity : " + itemQuantity);
 
-                        // Facility temp = facilities.get(j);
+                       inventoryQuantity.put(itemId, itemQuantity);
                     }
+
+                    facilityInventory.put(facilityLocation, inventoryQuantity);
+                    inventoryQuantity = new HashMap<>();
                     System.out.println("");
                 }
             }
@@ -95,8 +101,26 @@ public class FacilityInventoryXMLLoader implements XmlReader{
 
     }
 
+    public void printFacilityInventory() {
+        System.out.println("Inventory Data Structure: ");
+
+        for (Map.Entry<String, HashMap<String, Long>> facilityEntry : facilityInventory.entrySet()) {
+            String facility = facilityEntry.getKey();
+            System.out.println("Facility: " + facility);
+            for (Map.Entry<String, Long> inventoryEntry : facilityEntry.getValue().entrySet()) {
+                String inventoryId = inventoryEntry.getKey();
+                Long inventoryQuantity = inventoryEntry.getValue();
+
+                System.out.println("Inventory id: " + inventoryId);
+                System.out.println("Inventory Quantity " + inventoryQuantity);
+            }
+            System.out.println("");
+        }
+    }
+
     public static void main(String[] args) {
         FacilityInventoryXMLLoader facilityInventoryXMLLoader = new FacilityInventoryXMLLoader();
         facilityInventoryXMLLoader.parse();
+        facilityInventoryXMLLoader.printFacilityInventory();
     }
 }

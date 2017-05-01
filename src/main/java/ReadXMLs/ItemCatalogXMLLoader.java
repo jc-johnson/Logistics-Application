@@ -22,7 +22,7 @@ import src.main.java.Interfaces.XmlReader;
 /**
  * Created by Jordan on 4/13/2017.
  */
-public class ReadItemCatalogXMLLoader implements XmlReader{
+public class ItemCatalogXMLLoader implements XmlReader{
 
     @Override
     public void parse() {
@@ -55,8 +55,11 @@ public class ReadItemCatalogXMLLoader implements XmlReader{
 
                     Element element = (Element) node;
 
-                    System.out.println("Item ID : " + element.getAttribute("Id"));
-                    System.out.println("Price : " + element.getElementsByTagName("price").item(0).getTextContent());
+                    String itemId = element.getAttribute("Id");
+                    String itemPrice = element.getAttribute("price");
+
+                    System.out.println("Item ID : " + itemId);
+                    System.out.println("Price : " + itemPrice);
 
                     // Putting Id and Price into hashmap
                     String id = element.getAttribute("Id");
