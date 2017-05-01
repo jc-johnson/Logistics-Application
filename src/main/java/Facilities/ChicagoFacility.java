@@ -57,6 +57,10 @@ public class ChicagoFacility implements Facility {
         this.costPerDay = costPerDay;
     }
 
+    public void addInventory(String itemId, Integer quantity) {
+        activeInventory.put(itemId, quantity);
+    }
+
     @Override
     public void printActiveInventory() {
 

@@ -17,9 +17,10 @@ public class AustinFacility implements Facility {
     }
 
     @Override
-    public String setLocation(String location) {
-        return null;
+    public void setLocation(String location) {
+
     }
+
 
     @Override
     public Long getRatePerDay() {
@@ -27,8 +28,8 @@ public class AustinFacility implements Facility {
     }
 
     @Override
-    public Long setRatePerDay(String ratePerDay) {
-        return null;
+    public void setRatePerDay(Integer ratePerDay) {
+
     }
 
     @Override
@@ -37,12 +38,17 @@ public class AustinFacility implements Facility {
     }
 
     @Override
-    public Long setCostPerDay(String ratePerday) {
-        return null;
+    public void setCostPerDay(Integer ratePerday) {
+
     }
 
     @Override
-    public void addNeighbor(String neighborLocation, String distance) {
+    public void printActiveInventory() {
+
+    }
+
+    @Override
+    public void printDepletedInventory() {
 
     }
 

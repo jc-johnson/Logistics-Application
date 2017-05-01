@@ -21,7 +21,7 @@ import java.util.List;
 /**
  * Created by Jordan on 4/16/2017.
  */
-public class LoadFacilityNetworkXML implements XmlReader {
+public class FacilityNetworkXMLLoader implements XmlReader {
 
     private List<Facility> facilities = new ArrayList<>();
 
@@ -79,7 +79,7 @@ public class LoadFacilityNetworkXML implements XmlReader {
                         System.out.println("Distance : " + linkDistance);
 
                         Facility temp = facilities.get(j);
-                    //    temp.addNeighbor(linkLocation, linkDistance); // TODO: code these methods in each facility
+
                     }
                     System.out.println("");
                 }
@@ -105,7 +105,7 @@ public class LoadFacilityNetworkXML implements XmlReader {
     }
 
     public static void main(String[] args) throws ParserConfigurationException, IOException, SAXException {
-        LoadFacilityNetworkXML facilityNetwork = new LoadFacilityNetworkXML();
+        FacilityNetworkXMLLoader facilityNetwork = new FacilityNetworkXMLLoader();
         facilityNetwork.parse();
         facilityNetwork.printFacilitiesList();
 

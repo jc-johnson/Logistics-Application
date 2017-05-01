@@ -17,14 +17,15 @@ import org.w3c.dom.NodeList;
 import org.w3c.dom.Node;
 import org.w3c.dom.Element;
 import org.xml.sax.SAXException;
+import src.main.java.Interfaces.XmlReader;
 
 /**
  * Created by Jordan on 4/13/2017.
  */
-public class ReadItemCatalogXML {
+public class ReadItemCatalogXMLLoader implements XmlReader{
 
-    public static void main(String[] args) throws NumberFormatException, ParseException {
-
+    @Override
+    public void parse() {
         HashMap<String, Long> catalogOutput = new HashMap<>();
 
         try {
@@ -82,6 +83,13 @@ public class ReadItemCatalogXML {
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
+        } catch (ParseException e) {
+            e.printStackTrace();
         }
+    }
+
+    public static void main(String[] args) throws NumberFormatException, ParseException {
+
+
     }
 }
