@@ -5,6 +5,7 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
+import src.main.java.Exceptions.NullFacilityException;
 import src.main.java.FacilityFactory;
 import src.main.java.Interfaces.Facility;
 import src.main.java.Interfaces.XmlReader;
@@ -30,10 +31,14 @@ public class FacilityNetworkXMLLoader implements XmlReader {
     private HashMap<Facility, Long> neighborFacilities = new HashMap<>();
 
     @Override
-    public void parse() {
+    public void parse() throws FileNotFoundException, NullFacilityException {
         try {
             // Open file path to xml
             File xmlFile = new File("src/main/resources/FacilityNetwork.xml"); // File Path C:\Logistics-Program\LogisticsApplication\src\main\resources\ItemCatalog.xml
+
+            if (xmlFile == null) {
+                throw new FileNotFoundException();
+            }
             System.out.println("File found...");
 
             // Build parser and parse
@@ -48,7 +53,7 @@ public class FacilityNetworkXMLLoader implements XmlReader {
 
             NodeList nodeList = document.getElementsByTagName("Facility");
 
-            //
+            // Parse xml and build data structure from it
             for (int i = 0; i < nodeList.getLength(); i++) {
                 Node node = nodeList.item(i);
                 System.out.println("\nCurrent Element : " + node.getNodeName());
@@ -68,6 +73,9 @@ public class FacilityNetworkXMLLoader implements XmlReader {
 
                     // Create facility based on location and load into list
                     Facility currentFacility = FacilityFactory.createFacility(facilityLocation);
+                    if (currentFacility == null) {
+                        throw new NullFacilityException();
+                    }
                     facilities.add(currentFacility);
 
                     // get all links from a facility
@@ -85,6 +93,9 @@ public class FacilityNetworkXMLLoader implements XmlReader {
                         System.out.println("Distance : " + linkDistanceString);
 
                         Facility linkFacility = FacilityFactory.createFacility(linkLocation);
+                        if (linkFacility == null) {
+                            throw new NullFacilityException();
+                        }
                         // Add linking facilities to inner hashmap
                         neighborFacilities.put(linkFacility, linkDistance);
 
@@ -104,6 +115,10 @@ public class FacilityNetworkXMLLoader implements XmlReader {
             e.printStackTrace();
         } catch (ParseException e) {
             e.printStackTrace();
+        } catch (NullFacilityException e) {
+            e.printStackTrace();
+        } finally {
+
         }
     }
 
@@ -132,7 +147,7 @@ public class FacilityNetworkXMLLoader implements XmlReader {
         }
     }
 
-    public static void main(String[] args) throws ParserConfigurationException, IOException, SAXException {
+    public static void main(String[] args) throws ParserConfigurationException, IOException, SAXException, NullFacilityException {
         FacilityNetworkXMLLoader facilityNetwork = new FacilityNetworkXMLLoader();
         facilityNetwork.parse();
         facilityNetwork.printFacilitiesList();
