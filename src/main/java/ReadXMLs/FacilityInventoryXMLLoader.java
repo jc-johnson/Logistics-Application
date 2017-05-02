@@ -97,10 +97,9 @@ public class FacilityInventoryXMLLoader implements XmlReader{
         }
     }
 
-    public void load() {
-
-    }
-
+    /**
+     * Print data structure that holds inventory for each facility
+     */
     public void printFacilityInventory() {
         System.out.println("Inventory Data Structure: ");
 

@@ -16,6 +16,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -25,6 +26,7 @@ public class FacilityNetworkXMLLoader implements XmlReader {
 
     private List<Facility> facilities = new ArrayList<>();
 
+    private HashMap<Facility, List<Facility>> facilityNetwork = new HashMap<>();
 
     @Override
     public void parse() {
@@ -45,6 +47,7 @@ public class FacilityNetworkXMLLoader implements XmlReader {
 
             NodeList nodeList = document.getElementsByTagName("Facility");
 
+            //
             for (int i = 0; i < nodeList.getLength(); i++) {
                 Node node = nodeList.item(i);
                 System.out.println("\nCurrent Element : " + node.getNodeName());
@@ -78,8 +81,6 @@ public class FacilityNetworkXMLLoader implements XmlReader {
                         System.out.println("Link Location : " + linkLocation);
                         System.out.println("Distance : " + linkDistance);
 
-                        Facility temp = facilities.get(j);
-
                     }
                     System.out.println("");
                 }
@@ -100,7 +101,7 @@ public class FacilityNetworkXMLLoader implements XmlReader {
         System.out.println("List of Facilities: ");
 
         for (Facility facility : facilities) {
-            System.out.println(facility.toString());
+            System.out.println(facility.getLocation());
         }
     }
 

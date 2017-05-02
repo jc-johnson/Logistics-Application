@@ -1,5 +1,6 @@
 package src.main.java;
 
+import src.main.java.ReadXMLs.FacilityInventoryXMLLoader;
 import src.main.java.ReadXMLs.FacilityNetworkXMLLoader;
 
 /**
@@ -14,7 +15,10 @@ public class Run {
         FacilityNetworkXMLLoader facilityNetworkXMLLoader = new FacilityNetworkXMLLoader();
         facilityNetworkXMLLoader.parse();
 
-        // Load in
+        // Parse and load inventory for each Facility
+        FacilityInventoryXMLLoader facilityInventoryXMLLoader = new FacilityInventoryXMLLoader();
+        facilityInventoryXMLLoader.parse();
+        facilityInventoryXMLLoader.printFacilityInventory();
 
         // TODO:
         // Call Output 1
