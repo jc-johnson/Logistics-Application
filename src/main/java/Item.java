@@ -8,6 +8,10 @@ public class Item {
     private String id;
     private Integer price;
 
+    public Item(String id) {
+        this.id = id;
+    }
+
     public String getId() {
         return id;
     }

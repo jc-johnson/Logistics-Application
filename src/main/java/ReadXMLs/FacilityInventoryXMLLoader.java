@@ -132,12 +132,32 @@ public class FacilityInventoryXMLLoader implements XmlReader{
 
     // update facilities after parsing
     public void updateFacilities(){
+        for (Map.Entry<Facility, HashMap<String, Long>> facilityEntry : facilityInventory.entrySet()) {
+            Facility facility = facilityEntry.getKey();
+            System.out.println("Facility: " + facility.getLocation());
+            for (Map.Entry<String, Long> inventoryEntry : facilityEntry.getValue().entrySet()) {
+                String inventoryId = inventoryEntry.getKey();
+                Long inventoryQuantity = inventoryEntry.getValue();
 
+                System.out.println("Inventory id: " + inventoryId);
+                System.out.println("Inventory Quantity " + inventoryQuantity);
+
+                // Update facility with item and quantity
+                Item item = new Item(inventoryId);
+                item.setId(inventoryId);
+                facility.addInventory(item, inventoryQuantity);
+                // facility.printActiveInventory();
+            }
+            System.out.println("");
+            System.out.println("Active Inventory: ");
+            facility.printActiveInventory();
+        }
     }
 
     public static void main(String[] args) throws FileNotFoundException, NullFacilityException {
         FacilityInventoryXMLLoader facilityInventoryXMLLoader = new FacilityInventoryXMLLoader();
         facilityInventoryXMLLoader.parse();
+        facilityInventoryXMLLoader.updateFacilities();
         facilityInventoryXMLLoader.printFacilityInventory();
     }
 }

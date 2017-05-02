@@ -1,11 +1,11 @@
 package src.main.java.Facilities;
 
+import src.main.java.Interfaces.ActiveInventoryPrinter;
 import src.main.java.Interfaces.Facility;
+import src.main.java.Interfaces.Impl.ActiveInventoryPrinterImpl;
+import src.main.java.Item;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Created by Jordan on 4/14/2017.
@@ -21,9 +21,11 @@ public class AtlantaFacility implements Facility {
     private HashMap<Facility, Long> neighbors;
 
     private Map<String, Long> directLinks = new HashMap<>();
-    private HashMap<String, Long> activeInventory = new HashMap<>(); // <Item ID, Quantity>
+    private HashMap<Item, Long> activeInventory = new HashMap<>(); // <Item ID, Quantity>
     private ArrayList<String> depletedInventory = new ArrayList<>();
     private HashMap<Integer, Integer> schedule = new HashMap<>(); // <Day, Available>
+
+    private ActiveInventoryPrinter activeInventoryPrinter= new ActiveInventoryPrinterImpl();
 
     private AtlantaFacility() {}
 
@@ -35,7 +37,6 @@ public class AtlantaFacility implements Facility {
         return instance;
     }
 
-
     @Override
     public String getLocation() {
         return location;
@@ -43,33 +44,37 @@ public class AtlantaFacility implements Facility {
 
     @Override
     public void setLocation(String location) {
-
+        this.location = location;
     }
 
     @Override
     public Long getRatePerDay() {
-        return null;
+        return ratePerDay;
     }
 
     @Override
     public void setRatePerDay(Integer ratePerDay) {
-
+        this.ratePerDay = ratePerDay;
     }
-
 
     @Override
     public Long getCostPerDay() {
-        return null;
+        return ratePerDay;
     }
 
     @Override
-    public void setCostPerDay(Integer ratePerday) {
+    public void setCostPerDay(Integer costPerday) {
+        this.costPerDay = costPerday;
+    }
 
+    @Override
+    public void addInventory(Item item, Long quantity) {
+        activeInventory.put(item, quantity);
     }
 
     @Override
     public void printActiveInventory() {
-
+        activeInventoryPrinter.print(activeInventory);
     }
 
     @Override
@@ -98,10 +103,11 @@ public class AtlantaFacility implements Facility {
 
         // print active inventory
         System.out.println("Active Inventory: ");
-        System.out.println("\tItem ID \tQuantity");
-        for (Map.Entry<String, Long> entry: activeInventory.entrySet()) {
+        /*System.out.println("\tItem ID \tQuantity");
+        for (Map.Entry<Item, Long> entry: activeInventory.entrySet()) {
             System.out.println("\t" + entry.getKey() + "\t" + entry.getValue());
-        }
+        }*/
+        printActiveInventory();
 
         // print depleted inventory
         if (depletedInventory.isEmpty()) {

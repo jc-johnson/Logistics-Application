@@ -23,9 +23,9 @@ public class Vertex implements Comparable<Vertex>{
         this.name =  name;
     }
 
-    /*public Vertex (String facilityLocation) {
-        this.facility = FacilityFactory.createFacility(facilityLocation);
-    }*/
+    public Vertex (Facility facility) {
+        this.facility = facility;
+    }
 
 
     public void setFacility (String facilityLocation) {
@@ -80,4 +80,10 @@ public class Vertex implements Comparable<Vertex>{
     public int compareTo(Vertex otherVertex) {
         return Double.compare(minDistance, otherVertex.minDistance);
     }
+
+    /*public void getEdgesFromFacility(Facility facility) {
+        for (Facility facility : facility.getNeighbors.length) {
+
+        }
+    }*/
 }

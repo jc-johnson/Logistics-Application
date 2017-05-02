@@ -1,6 +1,7 @@
 package src.main.java;
 
 import src.main.java.Exceptions.NullFacilityException;
+import src.main.java.Interfaces.Facility;
 import src.main.java.ReadXMLs.FacilityInventoryXMLLoader;
 import src.main.java.ReadXMLs.FacilityNetworkXMLLoader;
 import src.main.java.ReadXMLs.ItemCatalogXMLLoader;
@@ -24,16 +25,33 @@ public class Run {
         facilityInventoryXMLLoader.parse();
         facilityInventoryXMLLoader.printFacilityInventory();
 
+
+
+
+        // Output 1
+        // Make list of all 18 facilities ( get from Facility Manager)
+            // print output
+
+        // Output 2 : Item catalog
         // Parse and Load Item Catalog
         ItemCatalogXMLLoader itemCatalogXMLLoader = new ItemCatalogXMLLoader();
         itemCatalogXMLLoader.parse();
 
+        // Output 3 : Shortest path
+        System.out.println("Shortest Path Tests: ");
+        System.out.println("");
 
-        // TODO:
-        // Call Output 1
-        // Call Output 2
-        // Call Output 3
+        FacilityDijkstra facilityDijkstra = new FacilityDijkstra();
+        facilityDijkstra.computeShortestPath("Santa Fe, NM", "Chicago, IL");
+        facilityDijkstra.computeShortestPath("Atlanta, GA", "St. Louis, MO");
+        facilityDijkstra.computeShortestPath("Seattle, WA", "Nashville, TN");
+        facilityDijkstra.computeShortestPath("New York City, NY", "Phoenix, AZ");
+        facilityDijkstra.computeShortestPath("Fargo, ND", "Austin, TX");
+        facilityDijkstra.computeShortestPath("Denver, CO", "Miami, FL");
+        facilityDijkstra.computeShortestPath("Austin, TX", "Norfolk, VA");
+        facilityDijkstra.computeShortestPath("Miami, FL", "Seattle, WA");
+        facilityDijkstra.computeShortestPath("Los Angeles, CA", "Chicago, IL");
+        facilityDijkstra.computeShortestPath("Detroit, MI", "Nashville, TN");
 
-        // Atlanta Facility Test
     }
 }

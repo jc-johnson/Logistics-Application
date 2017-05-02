@@ -1,12 +1,13 @@
 package src.main.java.Facilities;
 
+import src.main.java.Interfaces.ActiveInventoryPrinter;
 import src.main.java.Interfaces.Facility;
+import src.main.java.Interfaces.Impl.ActiveInventoryPrinterImpl;
 import src.main.java.Interfaces.XmlReader;
+import src.main.java.Item;
 import src.main.java.ShortestPath.Edge;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
 
 /**
  * Created by Jordan on 4/14/2017.
@@ -21,9 +22,13 @@ public final class ChicagoFacility implements Facility {
 
     private HashMap<Facility, Long> neighbors;
 
-    private HashMap<String, Integer> activeInventory = new HashMap<>();
+    private HashMap<Item, Long> activeInventory = new HashMap<>();
     private HashMap<String, Integer> depletedInventory = new HashMap<>();
     private HashMap<Integer, Integer> daysAvailable = new HashMap<>();
+
+    private ActiveInventoryPrinter activeInventoryPrinter= new ActiveInventoryPrinterImpl();
+
+
 
     private ChicagoFacility() {}
 
@@ -73,13 +78,15 @@ public final class ChicagoFacility implements Facility {
         this.costPerDay = costPerDay;
     }
 
-    public void addInventory(String itemId, Integer quantity) {
-        activeInventory.put(itemId, quantity);
+
+    @Override
+    public void addInventory(Item item, Long quantity) {
+        activeInventory.put(item, quantity);
     }
 
     @Override
     public void printActiveInventory() {
-
+        activeInventoryPrinter.print(activeInventory);
     }
 
     @Override
@@ -91,4 +98,5 @@ public final class ChicagoFacility implements Facility {
     public void printOutput() {
 
     }
+
 }

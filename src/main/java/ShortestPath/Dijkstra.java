@@ -1,5 +1,7 @@
 package src.main.java.ShortestPath;
 
+import src.main.java.Exceptions.NullVertexException;
+
 import java.util.*;
 
 /**
@@ -8,7 +10,7 @@ import java.util.*;
 public class Dijkstra {
 
     // Builds graph. Only need to do this once
-    public static void computePaths(Vertex source) {
+    public static void computePaths(Vertex source) throws NullVertexException {
 
         // Set up priority queue to hold our final path
         source.setMinDistance(0);    // you will update this variable as the program keeps track of the shortest path
@@ -22,7 +24,7 @@ public class Dijkstra {
             System.out.println("Head Vertex: " + headVertex.getName());
 
                 if (headVertex.getAdjacenciesList() == null) {
-                    return; // TODO: Throw exception here
+                    throw new NullVertexException();
                 }
 
                 // Visit each edge exiting the headVertex
@@ -58,7 +60,7 @@ public class Dijkstra {
         return path;
     }
 
-    public static List<Vertex> shortestPath(Vertex source, Vertex target) {
+    public static List<Vertex> shortestPath(Vertex source, Vertex target) throws NullVertexException {
         computePaths(source); // run Dijkstra
         System.out.println("Distance to " + target + target.getMinDistance());
         List<Vertex> path = getShortestPathTo(target);
@@ -67,7 +69,7 @@ public class Dijkstra {
         return path;
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws NullVertexException {
 
         // mark all the vertices
         Vertex A = new Vertex("A");

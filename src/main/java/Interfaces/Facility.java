@@ -1,5 +1,7 @@
 package src.main.java.Interfaces;
 
+import src.main.java.Item;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -25,6 +27,8 @@ public interface Facility {
     void printDepletedInventory();
 
     void printOutput();
+
+    void addInventory(Item item, Long quantity);
 
 
 

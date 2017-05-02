@@ -7,6 +7,7 @@ import src.main.java.ReadXMLs.ItemCatalogXMLLoader;
 
 import java.io.FileNotFoundException;
 import java.util.HashMap;
+import java.util.List;
 
 /**
  * Created by Jordan on 4/19/2017.
@@ -16,6 +17,7 @@ public final class FacilityManager {
     FacilityDTO facilityDTO = null;
 
     private HashMap<String, Long> itemCatalog = null;   // holds item catalog from xml
+    private List<Facility> allFacilities;
 
     private static FacilityManager instance;
 
