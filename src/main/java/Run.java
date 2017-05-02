@@ -3,6 +3,7 @@ package src.main.java;
 import src.main.java.Exceptions.NullFacilityException;
 import src.main.java.ReadXMLs.FacilityInventoryXMLLoader;
 import src.main.java.ReadXMLs.FacilityNetworkXMLLoader;
+import src.main.java.ReadXMLs.ItemCatalogXMLLoader;
 
 import java.io.FileNotFoundException;
 
@@ -22,6 +23,11 @@ public class Run {
         FacilityInventoryXMLLoader facilityInventoryXMLLoader = new FacilityInventoryXMLLoader();
         facilityInventoryXMLLoader.parse();
         facilityInventoryXMLLoader.printFacilityInventory();
+
+        // Parse and Load Item Catalog
+        ItemCatalogXMLLoader itemCatalogXMLLoader = new ItemCatalogXMLLoader();
+        itemCatalogXMLLoader.parse();
+
 
         // TODO:
         // Call Output 1

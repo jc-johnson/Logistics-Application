@@ -31,6 +31,9 @@ public class ItemCatalogXMLLoader implements XmlReader{
         try {
             // Open file path to xml
             File xmlFile = new File("src/main/resources/ItemCatalog.xml"); // File Path C:\Logistics-Program\LogisticsApplication\src\main\resources\ItemCatalog.xml
+            if (xmlFile == null) {
+                throw new FileNotFoundException();
+            }
             System.out.println("File found...");
 
             // Build parser and parse
@@ -40,7 +43,6 @@ public class ItemCatalogXMLLoader implements XmlReader{
 
             // Optional but recommended
             document.getDocumentElement().normalize();
-
 
             System.out.println("Root element : " + document.getDocumentElement().getNodeName());
 
@@ -56,17 +58,13 @@ public class ItemCatalogXMLLoader implements XmlReader{
                     Element element = (Element) node;
 
                     String itemId = element.getAttribute("Id");
-                    String itemPrice = element.getAttribute("price");
+                    String itemPrice = element.getElementsByTagName("price").item(0).getTextContent();
+                    Long price = (long) NumberFormat.getNumberInstance(Locale.US).parse(itemPrice);
 
                     System.out.println("Item ID : " + itemId);
                     System.out.println("Price : " + itemPrice);
 
-                    // Putting Id and Price into hashmap
-                    String id = element.getAttribute("Id");
-                    String priceString = element.getElementsByTagName("price").item(0).getTextContent();
-                    Long price = (long) NumberFormat.getNumberInstance(Locale.US).parse(priceString);
-
-                    catalogOutput.put(id, price);
+                    catalogOutput.put(itemId, price);
 
                 }
             }
@@ -93,6 +91,7 @@ public class ItemCatalogXMLLoader implements XmlReader{
 
     public static void main(String[] args) throws NumberFormatException, ParseException {
 
-
+        ItemCatalogXMLLoader itemCatalogXMLLoader = new ItemCatalogXMLLoader();
+        itemCatalogXMLLoader.parse();
     }
 }

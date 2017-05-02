@@ -1,9 +1,11 @@
 package src.main.java;
 
+import src.main.java.Exceptions.NullFacilityException;
 import src.main.java.Interfaces.Facility;
 import src.main.java.ReadXMLs.FacilityNetworkXMLLoader;
 import src.main.java.ReadXMLs.ItemCatalogXMLLoader;
 
+import java.io.FileNotFoundException;
 import java.util.HashMap;
 
 /**
@@ -26,7 +28,7 @@ public final class FacilityManager {
 
     private FacilityManager() {}
 
-    public void buildFacilityMap() {
+    public void buildFacilityMap() throws FileNotFoundException, NullFacilityException {
         FacilityNetworkXMLLoader facilityNetworkXMLLoader = new FacilityNetworkXMLLoader();
         facilityNetworkXMLLoader.parse();
         // use factories to create factories and add neighbors
