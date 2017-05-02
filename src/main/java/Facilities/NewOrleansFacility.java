@@ -11,9 +11,21 @@ public class NewOrleansFacility implements Facility {
     private long ratePerDay = 10;
     private long costPerDay = 300;
 
+    private static NewOrleansFacility instance;
+
+    private NewOrleansFacility() {}
+
+    public static NewOrleansFacility getInstance() {
+        if (instance == null) {
+            return new NewOrleansFacility();
+        }
+
+        return instance;
+    }
+
     @Override
     public String getLocation() {
-        return null;
+        return location;
     }
 
     @Override

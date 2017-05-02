@@ -13,7 +13,7 @@ public class NorfolkFacility implements Facility {
 
     @Override
     public String getLocation() {
-        return null;
+        return location;
     }
 
     @Override

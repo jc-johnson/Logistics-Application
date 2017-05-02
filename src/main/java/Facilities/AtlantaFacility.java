@@ -11,6 +11,8 @@ import java.util.Map;
  */
 public class AtlantaFacility implements Facility {
 
+    private static AtlantaFacility instance;
+
     private String location = "Atlanta, GA";
     private long ratePerDay = 10;
     private long costPerDay = 300;
@@ -20,9 +22,20 @@ public class AtlantaFacility implements Facility {
     private ArrayList<String> depletedInventory = new ArrayList<>();
     private HashMap<Integer, Integer> schedule = new HashMap<>(); // <Day, Available>
 
+    private AtlantaFacility() {}
+
+    public static AtlantaFacility getInstance() {
+        if (instance == null) {
+            instance = new AtlantaFacility();
+        }
+
+        return instance;
+    }
+
+
     @Override
     public String getLocation() {
-        return null;
+        return location;
     }
 
     @Override

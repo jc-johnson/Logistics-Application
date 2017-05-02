@@ -15,9 +15,9 @@ import javax.xml.parsers.ParserConfigurationException;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
+import java.text.NumberFormat;
+import java.text.ParseException;
+import java.util.*;
 
 /**
  * Created by Jordan on 4/16/2017.
@@ -26,7 +26,8 @@ public class FacilityNetworkXMLLoader implements XmlReader {
 
     private List<Facility> facilities = new ArrayList<>();
 
-    private HashMap<Facility, List<Facility>> facilityNetwork = new HashMap<>();
+    private HashMap<Facility, HashMap<Facility, Long>> facilityNetwork = new HashMap<>();
+    private HashMap<Facility, Long> neighborFacilities = new HashMap<>();
 
     @Override
     public void parse() {
@@ -66,7 +67,8 @@ public class FacilityNetworkXMLLoader implements XmlReader {
                     System.out.println("Facility Cost Per Day : " + facilityCostPerDay);
 
                     // Create facility based on location and load into list
-                    facilities.add(FacilityFactory.createFacility(facilityLocation));
+                    Facility currentFacility = FacilityFactory.createFacility(facilityLocation);
+                    facilities.add(currentFacility);
 
                     // get all links from a facility
                     NodeList facilityLinks = element.getElementsByTagName("link");
@@ -76,12 +78,19 @@ public class FacilityNetworkXMLLoader implements XmlReader {
                         Element linkElement = (Element) facilityLinks.item(j);
 
                         String linkLocation = linkElement.getAttribute("Location");
-                        String linkDistance = linkElement.getElementsByTagName("distance").item(0).getTextContent();
+                        String linkDistanceString = linkElement.getElementsByTagName("distance").item(0).getTextContent();
+                        Long linkDistance = (long) NumberFormat.getNumberInstance(Locale.US).parse(linkDistanceString);
 
                         System.out.println("Link Location : " + linkLocation);
-                        System.out.println("Distance : " + linkDistance);
+                        System.out.println("Distance : " + linkDistanceString);
+
+                        Facility linkFacility = FacilityFactory.createFacility(linkLocation);
+                        // Add linking facilities to inner hashmap
+                        neighborFacilities.put(linkFacility, linkDistance);
 
                     }
+                    facilityNetwork.put(currentFacility, neighborFacilities);
+                    neighborFacilities = new HashMap<>();
                     System.out.println("");
                 }
             }
@@ -93,6 +102,8 @@ public class FacilityNetworkXMLLoader implements XmlReader {
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
+        } catch (ParseException e) {
+            e.printStackTrace();
         }
     }
 
@@ -102,6 +113,22 @@ public class FacilityNetworkXMLLoader implements XmlReader {
 
         for (Facility facility : facilities) {
             System.out.println(facility.getLocation());
+        }
+
+        System.out.println("");
+        System.out.println("Facilities Network Data Structure: ");
+        System.out.println("");
+
+        for (Map.Entry<Facility, HashMap<Facility, Long>> facilityEntry : facilityNetwork.entrySet()) {
+            Facility facility = facilityEntry.getKey();
+            System.out.println("Facility: " + facility.getLocation());
+            for (Map.Entry<Facility, Long> adjacentFacility : facilityEntry.getValue().entrySet()) {
+                Facility neighborFacility = adjacentFacility.getKey();
+                Long distance = adjacentFacility.getValue();
+
+                System.out.println("Neighbor Facility: " + neighborFacility.getLocation() + ". Distance: " + distance);
+            }
+            System.out.println("");
         }
     }
 

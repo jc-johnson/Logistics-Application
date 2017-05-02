@@ -14,7 +14,7 @@ public class SeattleFacility implements Facility {
 
     @Override
     public String getLocation() {
-        return null;
+        return location;
     }
 
     @Override

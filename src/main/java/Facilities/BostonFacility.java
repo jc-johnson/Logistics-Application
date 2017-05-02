@@ -7,13 +7,25 @@ import src.main.java.Interfaces.Facility;
  */
 public class BostonFacility implements Facility {
 
+    private static BostonFacility instance;
+
     private String location = "Boston, MA";
     private long ratePerDay = 10;
     private long costPerDay = 300;
 
+    private BostonFacility() {}
+
+    public static BostonFacility getInstance() {
+        if (instance == null) {
+            return new BostonFacility();
+        }
+
+        return instance;
+    }
+
     @Override
     public String getLocation() {
-        return null;
+        return location;
     }
 
     @Override

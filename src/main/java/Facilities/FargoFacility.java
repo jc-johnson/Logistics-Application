@@ -11,10 +11,21 @@ public class FargoFacility implements Facility {
     private long ratePerDay = 8;
     private long costPerDay = 300;
 
+    private static FargoFacility instance;
+
+    private FargoFacility() {}
+
+    public static FargoFacility getInstance() {
+        if (instance == null) {
+            return new FargoFacility();
+        }
+
+        return instance;
+    }
 
     @Override
     public String getLocation() {
-        return null;
+        return location;
     }
 
     @Override

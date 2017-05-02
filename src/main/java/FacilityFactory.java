@@ -18,37 +18,37 @@ public class FacilityFactory {
             case "San Francisco, CA":
                 return new SanFranciscoFacility();
             case "Los Angeles, CA":
-                return new LosAngelesFacility();
+                return LosAngelesFacility.getInstance();
             case "Phoenix, AZ":
                 return new PhoenixFacility();
             case "Denver, CO":
-                return new DenverFacility();
+                return DenverFacility.getInstance();
             case "Santa Fe, NM":
                 return new SantaFeFacility();
             case "Fargo, ND":
-                return new FargoFacility();
+                return FargoFacility.getInstance();
             case "Austin, TX":
-                return new AustinFacility();
+                return AustinFacility.getInstance();
             case "St. Louis, MO":
                 return new StLouisFacility();
             case "Chicago, IL":
                 return ChicagoFacility.getInstance();
             case "New Orleans, LA":
-                return new NewOrleansFacility();
+                return NewOrleansFacility.getInstance();
             case "Nashville, TN":
-                return new NashvilleFacility();
+                return NashvilleFacility.getInstance();
             case "Detroit, MI":
-                return new DetroitFacility();
+                return DetroitFacility.getInstance();
             case "Boston, MA":
-                return new BostonFacility();
+                return BostonFacility.getInstance();
             case "New York City, NY":
                 return new NewYorkCityFacility();
             case "Norfolk, VA":
                 return new NorfolkFacility();
             case "Atlanta, GA":
-                return new AtlantaFacility();
+                return AtlantaFacility.getInstance();
             case "Miami, FL":
-                return new MiamiFacility();
+                return MiamiFacility.getInstance();
             default:
                 return null;
         }

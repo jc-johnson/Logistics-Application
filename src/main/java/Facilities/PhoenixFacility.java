@@ -14,7 +14,7 @@ public class PhoenixFacility implements Facility {
 
     @Override
     public String getLocation() {
-        return null;
+        return location;
     }
 
     @Override

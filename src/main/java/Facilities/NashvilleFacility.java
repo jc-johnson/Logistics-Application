@@ -11,9 +11,21 @@ public class NashvilleFacility implements Facility {
     private long ratePerDay = 8;
     private long costPerDay = 300;
 
+    private static NashvilleFacility instance;
+
+    private NashvilleFacility() {}
+
+    public static NashvilleFacility getInstance() {
+        if (instance == null) {
+            return new NashvilleFacility();
+        }
+
+        return instance;
+    }
+
     @Override
     public String getLocation() {
-        return null;
+        return location;
     }
 
     @Override

@@ -11,9 +11,21 @@ public class DenverFacility implements Facility {
     private long ratePerDay = 10;
     private long costPerDay = 300;
 
+    private static DenverFacility instance;
+
+    private DenverFacility() {}
+
+    public static DenverFacility getInstance() {
+        if (instance == null) {
+            return new DenverFacility();
+        }
+
+        return instance;
+    }
+
     @Override
     public String getLocation() {
-        return null;
+        return location;
     }
 
     @Override

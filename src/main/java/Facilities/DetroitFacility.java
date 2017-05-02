@@ -11,9 +11,21 @@ public class DetroitFacility implements Facility {
     private long ratePerDay = 10;
     private long costPerDay = 300;
 
+    private static DetroitFacility instance;
+
+    private DetroitFacility() {}
+
+    public static DetroitFacility getInstance() {
+        if (instance == null) {
+            return new DetroitFacility();
+        }
+
+        return instance;
+    }
+
     @Override
     public String getLocation() {
-        return null;
+        return location;
     }
 
     @Override

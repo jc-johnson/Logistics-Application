@@ -7,13 +7,25 @@ import src.main.java.Interfaces.Facility;
  */
 public class AustinFacility implements Facility {
 
+    private static AustinFacility instance;
+
     private String location = "Austin, TX";
     private long ratePerDay = 10;
     private long costPerDay = 300;
 
+    private AustinFacility() {}
+
+    public static AustinFacility getInstance() {
+        if (instance == null) {
+            instance = new AustinFacility();
+        }
+
+        return instance;
+    }
+
     @Override
     public String getLocation() {
-        return null;
+        return location;
     }
 
     @Override

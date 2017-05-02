@@ -11,9 +11,21 @@ public class MiamiFacility implements Facility {
     private long ratePerDay = 12;
     private long costPerDay = 300;
 
+    private static MiamiFacility instance;
+
+    private MiamiFacility() {}
+
+    public static MiamiFacility getInstance() {
+        if (instance == null) {
+            return new MiamiFacility();
+        }
+
+        return instance;
+    }
+
     @Override
     public String getLocation() {
-        return null;
+        return location;
     }
 
     @Override

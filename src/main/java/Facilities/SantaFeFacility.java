@@ -14,7 +14,7 @@ public class SantaFeFacility implements Facility {
 
     @Override
     public String getLocation() {
-        return null;
+        return location;
     }
 
     @Override

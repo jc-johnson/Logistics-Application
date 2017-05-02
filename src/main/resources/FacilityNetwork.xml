@@ -5,7 +5,7 @@
         <link Location="Fargo, ND">
             <distance>1426</distance>
         </link>
-        <link Location="San Francisco">
+        <link Location="San Francisco, CA">
             <distance>808</distance>
         </link>
     </Facility>
@@ -206,7 +206,7 @@
     <Facility Location="Norfolk, VA">
         <Rate>10</Rate>
         <CostPerDay>300</CostPerDay>
-        <link Location="New York City">
+        <link Location="New York City, NY">
             <distance>363</distance>
         </link>
         <link Location="Nashville, TN">

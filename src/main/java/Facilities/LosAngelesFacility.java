@@ -11,10 +11,21 @@ public class LosAngelesFacility implements Facility {
     private long ratePerDay = 10;
     private long costPerDay = 300;
 
+    private static LosAngelesFacility instance;
+
+    private LosAngelesFacility() {}
+
+    public static LosAngelesFacility getInstance() {
+        if (instance == null) {
+            return new LosAngelesFacility();
+        }
+
+        return instance;
+    }
 
     @Override
     public String getLocation() {
-        return null;
+        return location;
     }
 
     @Override
