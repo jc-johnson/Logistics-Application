@@ -4,6 +4,7 @@ import src.main.java.Interfaces.Facility;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -16,6 +17,8 @@ public class AtlantaFacility implements Facility {
     private String location = "Atlanta, GA";
     private long ratePerDay = 10;
     private long costPerDay = 300;
+
+    private HashMap<Facility, Long> neighbors;
 
     private Map<String, Long> directLinks = new HashMap<>();
     private HashMap<String, Long> activeInventory = new HashMap<>(); // <Item ID, Quantity>

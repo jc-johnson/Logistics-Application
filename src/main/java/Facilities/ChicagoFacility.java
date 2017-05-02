@@ -19,6 +19,8 @@ public final class ChicagoFacility implements Facility {
     private long ratePerDay = 10;
     private long costPerDay = 300;
 
+    private HashMap<Facility, Long> neighbors;
+
     private HashMap<String, Integer> activeInventory = new HashMap<>();
     private HashMap<String, Integer> depletedInventory = new HashMap<>();
     private HashMap<Integer, Integer> daysAvailable = new HashMap<>();

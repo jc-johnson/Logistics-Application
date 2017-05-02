@@ -2,6 +2,8 @@ package src.main.java.Facilities;
 
 import src.main.java.Interfaces.Facility;
 
+import java.util.HashMap;
+
 /**
  * Created by Jordan on 4/14/2017.
  */
@@ -10,6 +12,8 @@ public class NashvilleFacility implements Facility {
     private String location = "Nashville, TN";
     private long ratePerDay = 8;
     private long costPerDay = 300;
+
+    private HashMap<Facility, Long> neighbors;
 
     private static NashvilleFacility instance;
 
