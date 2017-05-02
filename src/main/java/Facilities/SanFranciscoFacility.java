@@ -13,6 +13,17 @@ public class SanFranciscoFacility implements Facility {
     private long ratePerDay = 12;
     private long costPerDay = 300;
 
+    private static SanFranciscoFacility instance;
+
+    private SanFranciscoFacility() {}
+
+    public static SanFranciscoFacility getInstance(){
+        if (instance == null) {
+            return new SanFranciscoFacility();
+        }
+        return instance;
+    }
+
     private HashMap<Facility, Long> neighbors;
 
 

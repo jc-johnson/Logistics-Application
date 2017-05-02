@@ -15,6 +15,17 @@ public class StLouisFacility implements Facility {
 
     private HashMap<Facility, Long> neighbors;
 
+    private static StLouisFacility instance;
+
+    private StLouisFacility() {}
+
+    public static StLouisFacility getInstance() {
+        if (instance == null) {
+            return new StLouisFacility();
+        }
+        return instance;
+    }
+
 
     @Override
     public String getLocation() {

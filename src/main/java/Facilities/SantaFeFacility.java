@@ -15,6 +15,17 @@ public class SantaFeFacility implements Facility {
 
     private HashMap<Facility, Long> neighbors;
 
+    private static SantaFeFacility instance;
+
+    private SantaFeFacility() {}
+
+    public static SantaFeFacility getInstance() {
+        if (instance == null) {
+            instance = new SantaFeFacility();
+        }
+        return instance;
+    }
+
 
     @Override
     public String getLocation() {

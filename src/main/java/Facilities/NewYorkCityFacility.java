@@ -15,6 +15,17 @@ public class NewYorkCityFacility implements Facility {
 
     private HashMap<Facility, Long> neighbors;
 
+    private static NewYorkCityFacility instance;
+
+    private NewYorkCityFacility() {}
+
+    public static NewYorkCityFacility getInstance(){
+        if (instance == null) {
+            return new NewYorkCityFacility();
+        }
+        return instance;
+    }
+
     @Override
     public String getLocation() {
         return location;

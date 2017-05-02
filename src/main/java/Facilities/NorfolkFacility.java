@@ -13,6 +13,17 @@ public class NorfolkFacility implements Facility {
     private long ratePerDay = 10;
     private long costPerDay = 300;
 
+    private static NorfolkFacility instance;
+
+    private NorfolkFacility() {}
+
+    public static NorfolkFacility getInstance() {
+        if (instance == null) {
+            return new NorfolkFacility();
+        }
+        return instance;
+    }
+
     private HashMap<Facility, Long> neighbors;
 
     @Override

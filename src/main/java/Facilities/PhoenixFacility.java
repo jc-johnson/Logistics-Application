@@ -1,5 +1,6 @@
 package src.main.java.Facilities;
 
+import javafx.scene.paint.PhongMaterial;
 import src.main.java.Interfaces.Facility;
 
 import java.util.HashMap;
@@ -14,6 +15,18 @@ public class PhoenixFacility implements Facility {
     private long costPerDay = 300;
 
     private HashMap<Facility, Long> neighbors;
+
+    private static PhoenixFacility instance;
+
+    private PhoenixFacility() {}
+
+    public static PhoenixFacility getInstance() {
+        if (instance == null) {
+            instance = new PhoenixFacility();
+        }
+
+        return instance;
+    }
 
 
     @Override

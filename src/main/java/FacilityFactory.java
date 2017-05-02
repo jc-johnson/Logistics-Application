@@ -14,23 +14,23 @@ public class FacilityFactory {
 
         switch (type) {
             case "Seattle, WA":
-                return new SeattleFacility();
+                return SeattleFacility.getInstance();
             case "San Francisco, CA":
-                return new SanFranciscoFacility();
+                return SanFranciscoFacility.getInstance();
             case "Los Angeles, CA":
                 return LosAngelesFacility.getInstance();
             case "Phoenix, AZ":
-                return new PhoenixFacility();
+                return PhoenixFacility.getInstance();
             case "Denver, CO":
                 return DenverFacility.getInstance();
             case "Santa Fe, NM":
-                return new SantaFeFacility();
+                return SantaFeFacility.getInstance();
             case "Fargo, ND":
                 return FargoFacility.getInstance();
             case "Austin, TX":
                 return AustinFacility.getInstance();
             case "St. Louis, MO":
-                return new StLouisFacility();
+                return StLouisFacility.getInstance();
             case "Chicago, IL":
                 return ChicagoFacility.getInstance();
             case "New Orleans, LA":
@@ -42,9 +42,9 @@ public class FacilityFactory {
             case "Boston, MA":
                 return BostonFacility.getInstance();
             case "New York City, NY":
-                return new NewYorkCityFacility();
+                return NewYorkCityFacility.getInstance();
             case "Norfolk, VA":
-                return new NorfolkFacility();
+                return NorfolkFacility.getInstance();
             case "Atlanta, GA":
                 return AtlantaFacility.getInstance();
             case "Miami, FL":

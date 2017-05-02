@@ -15,6 +15,18 @@ public class SeattleFacility implements Facility {
 
     private HashMap<Facility, Long> neighbors;
 
+    private static SeattleFacility instance;
+
+    private SeattleFacility() {}
+
+    public static SeattleFacility getInstance() {
+        if (instance == null) {
+            instance = new SeattleFacility();
+        }
+
+        return  instance;
+    }
+
 
     @Override
     public String getLocation() {
