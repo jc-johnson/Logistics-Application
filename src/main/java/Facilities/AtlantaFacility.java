@@ -1,8 +1,10 @@
 package src.main.java.Facilities;
 
-import src.main.java.Interfaces.ActiveInventoryPrinter;
-import src.main.java.Interfaces.Facility;
+import src.main.java.Interfaces.*;
 import src.main.java.Interfaces.Impl.ActiveInventoryPrinterImpl;
+import src.main.java.Interfaces.Impl.DepletedInventoryPrinterImpl;
+import src.main.java.Interfaces.Impl.NeighborPrinterImpl;
+import src.main.java.Interfaces.Impl.SchedulePrinterImpl;
 import src.main.java.Item;
 import src.main.java.ShortestPath.FacilityEdge;
 
@@ -11,22 +13,27 @@ import java.util.*;
 /**
  * Created by Jordan on 4/14/2017.
  */
-public class AtlantaFacility implements Facility {
-
-    private static AtlantaFacility instance;
+public class AtlantaFacility implements Facility, Vertex {
 
     private String location = "Atlanta, GA";
     private long ratePerDay = 10;
     private long costPerDay = 300;
+    private ArrayList<FacilityEdge> neighbors = new ArrayList<>();
 
-    private HashMap<Facility, Long> neighbors;
+    private HashMap<Item, Integer> activeInventory = new HashMap<>();
+    private HashMap<String, Integer> depletedInventory = new HashMap<>();
+    private HashMap<Integer, Integer> schedule = new HashMap<>();
 
-    private Map<String, Long> directLinks = new HashMap<>();
-    private HashMap<Item, Integer> activeInventory = new HashMap<>(); // <Item ID, Quantity>
-    private ArrayList<String> depletedInventory = new ArrayList<>();
-    private HashMap<Integer, Integer> schedule = new HashMap<>(); // <Day, Available>
+    private ActiveInventoryPrinter activeInventoryPrinter = new ActiveInventoryPrinterImpl();
+    private DepletedInventoryPrinter depletedInventoryPrinter = new DepletedInventoryPrinterImpl();
+    private SchedulePrinter schedulePrinter = new SchedulePrinterImpl();
+    private NeighborPrinter neighborPrinter = new NeighborPrinterImpl();
 
-    private ActiveInventoryPrinter activeInventoryPrinter= new ActiveInventoryPrinterImpl();
+    // Vertex fields
+    private double minDistance = Double.POSITIVE_INFINITY;
+    private Vertex previous = null;
+
+    private static AtlantaFacility instance;
 
     private AtlantaFacility() {}
 
@@ -60,12 +67,12 @@ public class AtlantaFacility implements Facility {
 
     @Override
     public Long getCostPerDay() {
-        return ratePerDay;
+        return costPerDay;
     }
 
     @Override
-    public void setCostPerDay(Integer costPerday) {
-        this.costPerDay = costPerday;
+    public void setCostPerDay(Integer costPerDay) {
+        this.costPerDay = costPerDay;
     }
 
     @Override
@@ -74,41 +81,29 @@ public class AtlantaFacility implements Facility {
     }
 
     @Override
-    public void addNeighbor(FacilityEdge facilityEdge) {
-
-    }
-
-    @Override
-    public void printNeighbors() {
-
-    }
-
-    @Override
-    public void printSchedule() {
-
-    }
-
-    @Override
-    public String getCity() {
-        return null;
-    }
-
-    @Override
     public void printActiveInventory() {
         activeInventoryPrinter.print(activeInventory);
     }
 
     @Override
-    public void printDepletedInventory() {
+    public void printDepletedInventory() { depletedInventoryPrinter.print(depletedInventory); }
 
+    @Override
+    public void printSchedule() { schedulePrinter.print(schedule); }
+
+    @Override
+    public void printNeighbors() { neighborPrinter.print(neighbors); }
+
+    @Override
+    public String getCity() {
+        return getLocation().substring(0, getLocation().length()-4);
     }
 
     @Override
     public void printOutput() {
-
         System.out.println("---------------------------------------------------------------");
         System.out.println("");
-        System.out.println(" " + location + "" ); // TODO: Trim to just get the city. Might need to change Xmls and xml readers.
+        System.out.println(" " + location + "" );
         System.out.println("");
         System.out.println("");
         System.out.println("Rate per day: " + ratePerDay);
@@ -117,43 +112,72 @@ public class AtlantaFacility implements Facility {
         System.out.println("Direct Links: ");
 
         // print direct links
-        for (Map.Entry<String, Long> entry : directLinks.entrySet()) {
-            System.out.print(entry.getKey() + " (" + entry.getValue() + "); ");
-        }
+        printNeighbors();
         System.out.println("");
 
         // print active inventory
         System.out.println("Active Inventory: ");
-        /*System.out.println("\tItem ID \tQuantity");
-        for (Map.Entry<Item, Long> entry: activeInventory.entrySet()) {
-            System.out.println("\t" + entry.getKey() + "\t" + entry.getValue());
-        }*/
         printActiveInventory();
 
         // print depleted inventory
-        if (depletedInventory.isEmpty()) {
-            System.out.println("Depleted (Used-Up) Inventory: None");
-        }
-        System.out.println("Depleted (Used-Up) Inventory: ");
-        System.out.println("\tItem ID");
-        for (String s : depletedInventory) {
-            System.out.println(s);
-        }
+        printDepletedInventory();
         System.out.println("");
 
         System.out.println("Schedule: ");
         System.out.print("Day: ");
-        for (Map.Entry<Integer, Integer> entry: schedule.entrySet()) {
-            System.out.print(entry.getKey());
-        }
+        printSchedule();
 
+    }
 
-        System.out.println("");
-        System.out.println("Available: " );
-        // printing Available
-        for (Map.Entry<Integer, Integer> entry: schedule.entrySet()) {
-            System.out.print(entry.getValue());
-        }
+    public static void printOutput(String string) {
 
+    }
+
+    // Vertex Methods
+
+    @Override
+    public String getName() { return location; }
+
+    @Override
+    public void setName(String string) {
+        location = string;
+    }
+
+    @Override
+    public double getMinDistance() {
+        return minDistance;
+    }
+
+    @Override
+    public void setMinDistance(double distance) {
+        minDistance = distance;
+    }
+
+    @Override
+    public Vertex getPrevious() {
+        return previous;
+    }
+
+    @Override
+    public void setPrevious(Vertex vertex) {
+        previous = vertex;
+    }
+
+    @Override
+    public void addNeighbor(FacilityEdge facilityEdge) {
+        neighbors.add(facilityEdge);
+    }
+
+    public void addNeighbor(Facility facility, Double distance) {
+        FacilityEdge facilityEdge = new FacilityEdge(facility, distance);
+        neighbors.add(facilityEdge);
+    }
+
+    @Override
+    public ArrayList<FacilityEdge> getCopyOfNeighborsList() {
+        // Make a copy of FacilityEdges
+        ArrayList<FacilityEdge> facilityEdgesCopy = new ArrayList<>();
+        facilityEdgesCopy = neighbors;
+        return facilityEdgesCopy;
     }
 }

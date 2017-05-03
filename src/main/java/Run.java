@@ -24,7 +24,7 @@ public class Run {
         // Parse and load inventory for each Facility
         FacilityInventoryXMLLoader facilityInventoryXMLLoader = new FacilityInventoryXMLLoader();
         facilityInventoryXMLLoader.parse();
-        facilityInventoryXMLLoader.printFacilityInventory();
+       // facilityInventoryXMLLoader.printFacilityInventory();
 
 
 

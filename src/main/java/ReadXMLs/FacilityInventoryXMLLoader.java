@@ -19,18 +19,14 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.text.NumberFormat;
 import java.text.ParseException;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Locale;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Created by Jordan on 4/13/2017.
  */
 public class FacilityInventoryXMLLoader implements XmlReader{
 
-    private HashMap<Facility, HashMap<String, Long>> facilityInventory = new HashMap<>();
-    private HashMap<String, Long> inventoryQuantity = new HashMap<>();
+    private List<Facility> facilities = new ArrayList<>();
 
     @Override
     public void parse() throws FileNotFoundException, NullFacilityException {
@@ -72,6 +68,7 @@ public class FacilityInventoryXMLLoader implements XmlReader{
                     if (currentFacility == null) {
                         throw new NullFacilityException();
                     }
+                    facilities.add(currentFacility);
 
                     // get all items ids and quantity for each facility
                     NodeList facilityItems = element.getElementsByTagName("Item");
@@ -82,19 +79,22 @@ public class FacilityInventoryXMLLoader implements XmlReader{
 
                         String itemId = itemElement.getElementsByTagName("Id").item(0).getTextContent();
                         String itemQuantityString = itemElement.getElementsByTagName("Quantity").item(0).getTextContent();
-                        Long itemQuantity = (long) NumberFormat.getNumberInstance(Locale.US).parse(itemQuantityString);
+                        Integer itemQuantity = Integer.parseInt(itemQuantityString);
 
                         System.out.println("Item Id : " + itemId);
                         System.out.println("Quantity : " + itemQuantity);
 
-                       inventoryQuantity.put(itemId, itemQuantity);
+                        Item item = new Item(itemId);
+                        currentFacility.addInventory(item, itemQuantity);
                     }
-
-                    facilityInventory.put(currentFacility, inventoryQuantity);
-                    inventoryQuantity = new HashMap<>();
-                    System.out.println("");
                 }
             }
+
+            for (Facility facility : facilities) {
+                System.out.println("Facility: " + facility.getLocation());
+                facility.printActiveInventory();
+            }
+            System.out.println("");
 
 
         } catch (SAXException e) {
@@ -103,61 +103,13 @@ public class FacilityInventoryXMLLoader implements XmlReader{
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
-        } catch (ParseException e) {
-            e.printStackTrace();
         } catch (NullFacilityException e) {
             e.printStackTrace();
-        }
-    }
-
-    /**
-     * Print data structure that holds inventory for each facility
-     */
-    public void printFacilityInventory() {
-        System.out.println("Inventory Data Structure: ");
-
-        for (Map.Entry<Facility, HashMap<String, Long>> facilityEntry : facilityInventory.entrySet()) {
-            Facility facility = facilityEntry.getKey();
-            System.out.println("Facility: " + facility.getLocation());
-            for (Map.Entry<String, Long> inventoryEntry : facilityEntry.getValue().entrySet()) {
-                String inventoryId = inventoryEntry.getKey();
-                Long inventoryQuantity = inventoryEntry.getValue();
-
-                System.out.println("Inventory id: " + inventoryId);
-                System.out.println("Inventory Quantity " + inventoryQuantity);
-            }
-            System.out.println("");
-        }
-    }
-
-    // update facilities after parsing
-    public void updateFacilities(){
-        for (Map.Entry<Facility, HashMap<String, Long>> facilityEntry : facilityInventory.entrySet()) {
-            Facility facility = facilityEntry.getKey();
-            System.out.println("Facility: " + facility.getLocation());
-            for (Map.Entry<String, Long> inventoryEntry : facilityEntry.getValue().entrySet()) {
-                String inventoryId = inventoryEntry.getKey();
-                Integer inventoryQuantity = Math.toIntExact(inventoryEntry.getValue());
-
-                System.out.println("Inventory id: " + inventoryId);
-                System.out.println("Inventory Quantity " + inventoryQuantity);
-
-                // Update facility with item and quantity
-                Item item = new Item(inventoryId);
-                item.setId(inventoryId);
-                facility.addInventory(item, (int) inventoryQuantity);
-                // facility.printActiveInventory();
-            }
-            System.out.println("");
-            System.out.println("Active Inventory: ");
-            facility.printActiveInventory();
         }
     }
 
     public static void main(String[] args) throws FileNotFoundException, NullFacilityException {
         FacilityInventoryXMLLoader facilityInventoryXMLLoader = new FacilityInventoryXMLLoader();
         facilityInventoryXMLLoader.parse();
-        facilityInventoryXMLLoader.updateFacilities();
-        facilityInventoryXMLLoader.printFacilityInventory();
     }
 }

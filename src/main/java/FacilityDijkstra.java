@@ -95,4 +95,8 @@ public class FacilityDijkstra {
     public void printShortestPath() {
 
     }
+
+    public static void main(String[] args) {
+
+    }
 }

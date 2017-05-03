@@ -106,7 +106,7 @@ public final class ChicagoFacility implements Facility, Vertex {
     public void printOutput() {
         System.out.println("---------------------------------------------------------------");
         System.out.println("");
-        System.out.println(" " + location + "" ); // TODO: Trim to just get the city. Might need to change Xmls and xml readers.
+        System.out.println(" " + location + "" );
         System.out.println("");
         System.out.println("");
         System.out.println("Rate per day: " + ratePerDay);
