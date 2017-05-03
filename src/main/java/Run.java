@@ -43,6 +43,7 @@ public class Run {
         System.out.println("");
 
         FacilityDijkstra facilityDijkstra = new FacilityDijkstra();
+        // FacilityDijkstra.shortestPath();
         /*try {
             *//*facilityDijkstra.computeShortestPath("Santa Fe, NM", "Chicago, IL");
             facilityDijkstra.computeShortestPath("Atlanta, GA", "St. Louis, MO");

@@ -16,7 +16,7 @@ import java.util.Map;
 /**
  * Created by Jordan on 4/14/2017.
  */
-public class MiamiFacility implements Facility, Vertex {
+public class MiamiFacility implements Facility, Comparable<Facility> {
 
     private String location = "Miami, FL";
     private long ratePerDay = 12;
@@ -34,7 +34,7 @@ public class MiamiFacility implements Facility, Vertex {
 
     // Vertex fields
     private double minDistance = Double.POSITIVE_INFINITY;
-    private Vertex previous = null;
+    private Facility previous = null;
 
     private static MiamiFacility instance;
 
@@ -136,16 +136,6 @@ public class MiamiFacility implements Facility, Vertex {
 
     }
 
-    // Vertex Methods
-
-    @Override
-    public String getName() { return location; }
-
-    @Override
-    public void setName(String string) {
-        location = string;
-    }
-
     @Override
     public double getMinDistance() {
         return minDistance;
@@ -157,16 +147,21 @@ public class MiamiFacility implements Facility, Vertex {
     }
 
     @Override
-    public Vertex getPrevious() {
+    public Facility getPrevious() {
         return previous;
     }
 
     @Override
-    public void setPrevious(Vertex vertex) {
-        previous = vertex;
+    public void setPrevious(Facility facility) {
+        previous = facility;
     }
 
-
+    @Override
+    public ArrayList<FacilityEdge> getNeighborList() {
+        ArrayList<FacilityEdge> neighborList = new ArrayList<>();
+        neighborList = neighbors;
+        return neighborList;
+    }
 
     @Override
     public void addNeighbor(FacilityEdge facilityEdge) {
@@ -178,11 +173,9 @@ public class MiamiFacility implements Facility, Vertex {
         neighbors.add(facilityEdge);
     }
 
+
     @Override
-    public ArrayList<FacilityEdge> getCopyOfNeighborsList() {
-        // Make a copy of FacilityEdges
-        ArrayList<FacilityEdge> facilityEdgesCopy = new ArrayList<>();
-        facilityEdgesCopy = neighbors;
-        return facilityEdgesCopy;
+    public int compareTo(Facility otherFacility) {
+        return Double.compare(this.getMinDistance(), otherFacility.getMinDistance());
     }
 }

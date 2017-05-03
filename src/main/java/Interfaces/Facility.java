@@ -23,20 +23,31 @@ public interface Facility {
 
     void setCostPerDay(Integer ratePerday);
 
+    public double getMinDistance();
+
+    public void setMinDistance(double distance);
+
+    public void setPrevious(Facility facility);
+
+    public Facility getPrevious();
+
+    public ArrayList<FacilityEdge> getNeighborList();
+
+    String getCity();
+
+    void addInventory(Item item, Integer quantity);
+
+    void addNeighbor(FacilityEdge facilityEdge);
+
+
     void printActiveInventory();
 
     void printDepletedInventory();
 
     void printOutput();
 
-    void addInventory(Item item, Integer quantity);
-
-    void addNeighbor(FacilityEdge facilityEdge);
-
     void printNeighbors();
 
     void printSchedule();
-
-    String getCity();
 
 }
