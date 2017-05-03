@@ -12,12 +12,10 @@ import java.util.Map;
  */
 public class ActiveInventoryPrinterImpl implements ActiveInventoryPrinter {
     @Override
-    public void print(HashMap<Item, Long> activeInventory) {
-        Iterator iterator = activeInventory.entrySet().iterator();
-        while (iterator.hasNext()) {
-            Map.Entry pair = (Map.Entry)iterator.next();
-            System.out.println(pair.getKey().toString() + " = " + pair.getValue().toString());
-            iterator.remove(); // avoids a ConcurrentModificationException
+    public void print(HashMap<Item, Integer> activeInventory) {
+        for (Map.Entry<Item, Integer> entry : activeInventory.entrySet()) {
+            System.out.println(entry.getKey().getId() + " : " + entry.getValue().toString());
         }
+        System.out.println("");
     }
 }

@@ -1,5 +1,6 @@
 package src.main.java.ShortestPath;
 
+import src.main.java.FacilityFactory;
 import src.main.java.Interfaces.Facility;
 
 /**
@@ -12,7 +13,15 @@ public class FacilityEdge {
 
     public FacilityEdge(Facility targetFacility, double edgeWeight) {
         target = targetFacility;
-        this.weight = edgeWeight;
+        weight = edgeWeight;
+    }
+
+    public FacilityEdge(String facilityLocation, Integer distance) {
+        Facility facility = FacilityFactory.createFacility(facilityLocation);
+        double weight = (double) distance;
+
+        target = facility;
+        this.weight = weight;
     }
 
     public Facility getTarget(){
@@ -21,5 +30,9 @@ public class FacilityEdge {
 
     public double getWeight(){
         return weight;
+    }
+
+    public String toString() {
+        return this.target.getLocation() + " (" + this.weight + "d); ";
     }
 }

@@ -22,7 +22,7 @@ public class AtlantaFacility implements Facility {
     private HashMap<Facility, Long> neighbors;
 
     private Map<String, Long> directLinks = new HashMap<>();
-    private HashMap<Item, Long> activeInventory = new HashMap<>(); // <Item ID, Quantity>
+    private HashMap<Item, Integer> activeInventory = new HashMap<>(); // <Item ID, Quantity>
     private ArrayList<String> depletedInventory = new ArrayList<>();
     private HashMap<Integer, Integer> schedule = new HashMap<>(); // <Day, Available>
 
@@ -69,7 +69,7 @@ public class AtlantaFacility implements Facility {
     }
 
     @Override
-    public void addInventory(Item item, Long quantity) {
+    public void addInventory(Item item, Integer quantity) {
         activeInventory.put(item, quantity);
     }
 
@@ -81,6 +81,16 @@ public class AtlantaFacility implements Facility {
     @Override
     public void printNeighbors() {
 
+    }
+
+    @Override
+    public void printSchedule() {
+
+    }
+
+    @Override
+    public String getCity() {
+        return null;
     }
 
     @Override

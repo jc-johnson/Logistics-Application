@@ -1,10 +1,10 @@
 package src.main.java.Facilities;
 
-import src.main.java.Interfaces.ActiveInventoryPrinter;
-import src.main.java.Interfaces.Facility;
+import src.main.java.Interfaces.*;
 import src.main.java.Interfaces.Impl.ActiveInventoryPrinterImpl;
-import src.main.java.Interfaces.Vertex;
-import src.main.java.Interfaces.XmlReader;
+import src.main.java.Interfaces.Impl.DepletedInventoryPrinterImpl;
+import src.main.java.Interfaces.Impl.NeighborPrinterImpl;
+import src.main.java.Interfaces.Impl.SchedulePrinterImpl;
 import src.main.java.Item;
 import src.main.java.ShortestPath.Edge;
 import src.main.java.ShortestPath.FacilityEdge;
@@ -17,26 +17,25 @@ import java.util.*;
  */
 public final class ChicagoFacility implements Facility, Vertex {
 
-    private static ChicagoFacility instance;
+    private String location = "Chicago, IL";
+    private long ratePerDay = 10;
+    private long costPerDay = 300;
+    private ArrayList<FacilityEdge> neighbors = new ArrayList<>();
+
+    private HashMap<Item, Integer> activeInventory = new HashMap<>();
+    private HashMap<String, Integer> depletedInventory = new HashMap<>();
+    private HashMap<Integer, Integer> schedule = new HashMap<>();
+
+    private ActiveInventoryPrinter activeInventoryPrinter = new ActiveInventoryPrinterImpl();
+    private DepletedInventoryPrinter depletedInventoryPrinter = new DepletedInventoryPrinterImpl();
+    private SchedulePrinter schedulePrinter = new SchedulePrinterImpl();
+    private NeighborPrinter neighborPrinter = new NeighborPrinterImpl();
 
     // Vertex fields
     private double minDistance = Double.POSITIVE_INFINITY;
     private Vertex previous = null;
 
-    private String location = "Chicago, IL";
-    private long ratePerDay = 10;
-    private long costPerDay = 300;
-
-    // private HashMap<Facility, Long> neighbors;
-    private ArrayList<FacilityEdge> neighbors = new ArrayList<>();
-
-    private HashMap<Item, Long> activeInventory = new HashMap<>();
-    private HashMap<String, Integer> depletedInventory = new HashMap<>();
-    private HashMap<Integer, Integer> daysAvailable = new HashMap<>();
-
-    private ActiveInventoryPrinter activeInventoryPrinter = new ActiveInventoryPrinterImpl();
-
-
+    private static ChicagoFacility instance;
 
     private ChicagoFacility() {}
 
@@ -48,8 +47,6 @@ public final class ChicagoFacility implements Facility, Vertex {
 
         return instance;
     }
-
-
 
     @Override
     public String getLocation() {
@@ -81,9 +78,8 @@ public final class ChicagoFacility implements Facility, Vertex {
         this.costPerDay = costPerDay;
     }
 
-
     @Override
-    public void addInventory(Item item, Long quantity) {
+    public void addInventory(Item item, Integer quantity) {
         activeInventory.put(item, quantity);
     }
 
@@ -93,14 +89,60 @@ public final class ChicagoFacility implements Facility, Vertex {
     }
 
     @Override
-    public void printDepletedInventory() {
+    public void printDepletedInventory() { depletedInventoryPrinter.print(depletedInventory); }
 
+    @Override
+    public void printSchedule() { schedulePrinter.print(schedule); }
+
+    @Override
+    public void printNeighbors() { neighborPrinter.print(neighbors); }
+
+    @Override
+    public String getCity() {
+        return getLocation().substring(0, getLocation().length()-4);
     }
 
     @Override
     public void printOutput() {
+        System.out.println("---------------------------------------------------------------");
+        System.out.println("");
+        System.out.println(" " + location + "" ); // TODO: Trim to just get the city. Might need to change Xmls and xml readers.
+        System.out.println("");
+        System.out.println("");
+        System.out.println("Rate per day: " + ratePerDay);
+        System.out.println("Cost per day: $" + costPerDay);
+        System.out.println("");
+        System.out.println("Direct Links: ");
+
+        // print direct links
+        printNeighbors();
+        System.out.println("");
+
+        // print active inventory
+        System.out.println("Active Inventory: ");
+        printActiveInventory();
+
+        // print depleted inventory
+        if (depletedInventory.isEmpty()) {
+            System.out.println("Depleted (Used-Up) Inventory: None");
+        } else {
+            System.out.println("Depleted (Used-Up) Inventory: ");
+            System.out.println("\tItem ID");
+            printDepletedInventory();
+        }
+        System.out.println("");
+
+        System.out.println("Schedule: ");
+        System.out.print("Day: ");
+        printSchedule();
 
     }
+
+    public static void printOutput(String string) {
+
+    }
+
+    // Vertex Methods
 
     @Override
     public String getName() { return location; }
@@ -130,14 +172,11 @@ public final class ChicagoFacility implements Facility, Vertex {
         previous = vertex;
     }
 
+
+
     @Override
     public void addNeighbor(FacilityEdge facilityEdge) {
         neighbors.add(facilityEdge);
-    }
-
-    @Override
-    public void printNeighbors() {
-
     }
 
     public void addNeighbor(Facility facility, Double distance) {
@@ -151,5 +190,27 @@ public final class ChicagoFacility implements Facility, Vertex {
         ArrayList<FacilityEdge> facilityEdgesCopy = new ArrayList<>();
         facilityEdgesCopy = neighbors;
         return facilityEdgesCopy;
+    }
+
+    public static void main(String[] args) {
+        ChicagoFacility chicagoFacility = new ChicagoFacility();
+
+        // Print neighbors test
+        FacilityEdge edge1 = new FacilityEdge("Boston, MA", 105);
+        FacilityEdge edge2 = new FacilityEdge("Santa Fe, NM", 201);
+
+        chicagoFacility.addNeighbor(edge1);
+        chicagoFacility.addNeighbor(edge2);
+
+        chicagoFacility.printNeighbors();
+
+        // Print active inventory test
+        Item item1 = new Item("ABC123", 550);
+        Item item2 = new Item("JBL3100", 180);
+        chicagoFacility.addInventory(item1, 15);
+        chicagoFacility.addInventory(item2, 22);
+        chicagoFacility.printActiveInventory();
+
+
     }
 }

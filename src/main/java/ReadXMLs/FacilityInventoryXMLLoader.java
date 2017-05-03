@@ -137,7 +137,7 @@ public class FacilityInventoryXMLLoader implements XmlReader{
             System.out.println("Facility: " + facility.getLocation());
             for (Map.Entry<String, Long> inventoryEntry : facilityEntry.getValue().entrySet()) {
                 String inventoryId = inventoryEntry.getKey();
-                Long inventoryQuantity = inventoryEntry.getValue();
+                Integer inventoryQuantity = Math.toIntExact(inventoryEntry.getValue());
 
                 System.out.println("Inventory id: " + inventoryId);
                 System.out.println("Inventory Quantity " + inventoryQuantity);
@@ -145,7 +145,7 @@ public class FacilityInventoryXMLLoader implements XmlReader{
                 // Update facility with item and quantity
                 Item item = new Item(inventoryId);
                 item.setId(inventoryId);
-                facility.addInventory(item, inventoryQuantity);
+                facility.addInventory(item, (int) inventoryQuantity);
                 // facility.printActiveInventory();
             }
             System.out.println("");

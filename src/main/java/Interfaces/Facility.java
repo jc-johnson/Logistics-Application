@@ -29,16 +29,14 @@ public interface Facility {
 
     void printOutput();
 
-    void addInventory(Item item, Long quantity);
+    void addInventory(Item item, Integer quantity);
 
     void addNeighbor(FacilityEdge facilityEdge);
 
     void printNeighbors();
 
+    void printSchedule();
 
-
-
-
-
+    String getCity();
 
 }
