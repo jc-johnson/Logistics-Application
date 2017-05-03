@@ -133,9 +133,11 @@ public class FacilityNetworkXMLLoader implements XmlReader {
         for (Facility facility : facilities) {
             System.out.println(facility.getLocation());
             facility.printNeighbors();
+            System.out.println("");
         }
-
         System.out.println("");
+
+        /*System.out.println("");
         System.out.println("Facilities Network Data Structure: ");
         System.out.println("");
 
@@ -149,7 +151,7 @@ public class FacilityNetworkXMLLoader implements XmlReader {
                 System.out.println("Neighbor Facility: " + neighborFacility.getLocation() + ". Distance: " + distance);
             }
             System.out.println("");
-        }
+        }*/
     }
 
     public static void main(String[] args) throws ParserConfigurationException, IOException, SAXException, NullFacilityException {

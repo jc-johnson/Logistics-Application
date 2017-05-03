@@ -73,7 +73,7 @@ public class ItemCatalogXMLLoader implements XmlReader{
             System.out.println("Catalog Output: ");
             // print hashmap
             for (HashMap.Entry entry : catalogOutput.entrySet()) {
-                System.out.println(entry.getKey() + ", " + entry.getValue());
+                System.out.println(entry.getKey() + "\t:\t$ " + entry.getValue());
             }
 
         } catch (FileNotFoundException e) {
