@@ -1,8 +1,6 @@
 package src.main.java;
 
-import src.main.java.Exceptions.NullFacilityException;
-import src.main.java.Exceptions.NullNeighborListException;
-import src.main.java.Exceptions.NullVertexException;
+import src.main.java.Exceptions.*;
 import src.main.java.Facilities.ChicagoFacility;
 import src.main.java.Interfaces.Facility;
 import src.main.java.ShortestPath.Edge;
@@ -19,7 +17,7 @@ import java.util.PriorityQueue;
  */
 public class FacilityDijkstra {
 
-    public static void computePaths(Facility source) throws NullFacilityException, NullNeighborListException {
+    public static void computePaths(Facility source) throws NullFacilityException, NullNeighborListException, NullPriorityQueueException, EmptyNeighborListException {
         source.setMinDistance(0);
         PriorityQueue<Facility> facilityQueue = new PriorityQueue<>();
         facilityQueue.add(source);
@@ -31,6 +29,10 @@ public class FacilityDijkstra {
             if (headFacility.getNeighborList() == null) {
                 throw new NullNeighborListException();
             }
+
+            /*if (headFacility.getNeighborList().size() == 0) {
+                throw new EmptyNeighborListException();
+            }*/
 
             // Visit each edge exiting the headFacility
             for (FacilityEdge facilityEdge : headFacility.getNeighborList()) {
@@ -62,13 +64,22 @@ public class FacilityDijkstra {
         return path;
     }
 
-    public static List<Facility> shortestPath(Facility source, Facility target) throws NullFacilityException, NullNeighborListException {
+    public static List<Facility> shortestPath(Facility source, Facility target) throws NullFacilityException, NullNeighborListException, NullPriorityQueueException, EmptyNeighborListException {
         computePaths(source);
-        System.out.println("Distance to " + target.getLocation() + target.getMinDistance());
+        System.out.println("Distance to " + target.getLocation() + ". Shortest distance: " + target.getMinDistance());
         List<Facility> path = getShortestPathTo(target);
-        System.out.println("Path: " + path);
+        System.out.println("Path: ");
+        printFacilityPath(path);
 
         return path;
+    }
+
+    public static void printFacilityPath(List<Facility> facilityPath) {
+        for (Facility facility : facilityPath) {
+            System.out.print(facility.getLocation() + " -> ");
+        }
+
+
     }
 
     /*// Builds graph
@@ -130,13 +141,21 @@ public class FacilityDijkstra {
         return path;
     }*/
 
-    public static void main(String[] args) throws NullFacilityException, NullNeighborListException {
-        Facility facilityOne = FacilityFactory.createFacility("Santa Fe, NM");
-        Facility facilityTwo = FacilityFactory.createFacility("Chicago, IL");
+    public static void main(String[] args) throws NullFacilityException, NullNeighborListException, NullPriorityQueueException, EmptyNeighborListException {
+        Facility santaFeFacility = FacilityFactory.createFacility("Santa Fe, NM");
+        Facility chicagoFacility = FacilityFactory.createFacility("Chicago, IL");
+        Facility newYorkFacility = FacilityFactory.createFacility("New York City, NY");
+        Facility stLouisFacility = FacilityFactory.createFacility("St. Louis, MO");
+        Facility fargoFacility = FacilityFactory.createFacility("Fargo, ND");
 
-        shortestPath(facilityOne, facilityTwo);
+        chicagoFacility.addNeighbor(new FacilityEdge(newYorkFacility, 8));
+        newYorkFacility.addNeighbor(new FacilityEdge(stLouisFacility, 10));
+        stLouisFacility.addNeighbor(new FacilityEdge(santaFeFacility, 9));
+        chicagoFacility.addNeighbor(new FacilityEdge(fargoFacility, 2));
+        fargoFacility.addNeighbor(new FacilityEdge(santaFeFacility, 1));
 
-
+        computePaths(chicagoFacility);
+        shortestPath(chicagoFacility, santaFeFacility);
 
     }
 }
