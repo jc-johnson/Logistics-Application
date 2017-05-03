@@ -12,9 +12,11 @@ public class NeighborPrinterImpl implements NeighborPrinter {
 
     @Override
     public void print(ArrayList<FacilityEdge> neighbors) {
+        System.out.println("Direct Links:");
         for (FacilityEdge facilityEdge : neighbors) {
             System.out.print(facilityEdge.toString());
         }
         System.out.println("");
+
     }
 }

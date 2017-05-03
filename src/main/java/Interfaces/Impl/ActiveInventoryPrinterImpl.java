@@ -13,8 +13,9 @@ import java.util.Map;
 public class ActiveInventoryPrinterImpl implements ActiveInventoryPrinter {
     @Override
     public void print(HashMap<Item, Integer> activeInventory) {
+        System.out.println("Item ID" + "\t\t" + "Quantity");
         for (Map.Entry<Item, Integer> entry : activeInventory.entrySet()) {
-            System.out.println(entry.getKey().getId() + " : " + entry.getValue().toString());
+            System.out.println(entry.getKey().getId() + "\t\t" + entry.getValue().toString());
         }
         System.out.println("");
     }

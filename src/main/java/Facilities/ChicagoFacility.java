@@ -123,13 +123,7 @@ public final class ChicagoFacility implements Facility, Vertex {
         printActiveInventory();
 
         // print depleted inventory
-        if (depletedInventory.isEmpty()) {
-            System.out.println("Depleted (Used-Up) Inventory: None");
-        } else {
-            System.out.println("Depleted (Used-Up) Inventory: ");
-            System.out.println("\tItem ID");
-            printDepletedInventory();
-        }
+        printDepletedInventory();
         System.out.println("");
 
         System.out.println("Schedule: ");
@@ -210,6 +204,16 @@ public final class ChicagoFacility implements Facility, Vertex {
         chicagoFacility.addInventory(item1, 15);
         chicagoFacility.addInventory(item2, 22);
         chicagoFacility.printActiveInventory();
+
+        // Print depleted user inventory
+        chicagoFacility.printDepletedInventory();
+
+        // Print schedule
+        chicagoFacility.printSchedule();
+        System.out.println("");
+
+        // Print city
+        System.out.println(chicagoFacility.getCity());
 
 
     }
