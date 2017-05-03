@@ -39,7 +39,6 @@ public interface Facility {
 
     void addNeighbor(FacilityEdge facilityEdge);
 
-
     void printActiveInventory();
 
     void printDepletedInventory();

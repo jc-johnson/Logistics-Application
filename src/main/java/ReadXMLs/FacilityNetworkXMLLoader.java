@@ -32,6 +32,9 @@ public class FacilityNetworkXMLLoader implements XmlReader {
     private HashMap<Facility, Long> neighborFacilities = new HashMap<>();
 
     @Override
+    /**
+     * Parse xml and load each facilities' neighbors
+     */
     public void parse() throws FileNotFoundException, NullFacilityException {
         try {
             // Open file path to xml
@@ -101,11 +104,11 @@ public class FacilityNetworkXMLLoader implements XmlReader {
                         currentFacility.addNeighbor(facilityEdge);
 
                         // Add linking facilities to inner hashmap for overall ds
-                        neighborFacilities.put(linkFacility, linkDistance);
+                        // neighborFacilities.put(linkFacility, linkDistance);
 
                     }
-                    facilityNetwork.put(currentFacility, neighborFacilities);
-                    neighborFacilities = new HashMap<>();
+                    // facilityNetwork.put(currentFacility, neighborFacilities);
+                    // neighborFacilities = new HashMap<>();
                     System.out.println("");
                 }
             }
@@ -136,22 +139,6 @@ public class FacilityNetworkXMLLoader implements XmlReader {
             System.out.println("");
         }
         System.out.println("");
-
-        /*System.out.println("");
-        System.out.println("Facilities Network Data Structure: ");
-        System.out.println("");
-
-        for (Map.Entry<Facility, HashMap<Facility, Long>> facilityEntry : facilityNetwork.entrySet()) {
-            Facility facility = facilityEntry.getKey();
-            System.out.println("Facility: " + facility.getLocation());
-            for (Map.Entry<Facility, Long> adjacentFacility : facilityEntry.getValue().entrySet()) {
-                Facility neighborFacility = adjacentFacility.getKey();
-                Long distance = adjacentFacility.getValue();
-
-                System.out.println("Neighbor Facility: " + neighborFacility.getLocation() + ". Distance: " + distance);
-            }
-            System.out.println("");
-        }*/
     }
 
     public static void main(String[] args) throws ParserConfigurationException, IOException, SAXException, NullFacilityException {

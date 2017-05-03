@@ -9,7 +9,7 @@ import src.main.java.Interfaces.Facility;
 public class FacilityEdge {
 
     public Facility target;
-    public double weight = 0;
+    public double weight = 0; // in miles
 
     public FacilityEdge(Facility targetFacility, double edgeWeight) {
         target = targetFacility;
@@ -32,7 +32,12 @@ public class FacilityEdge {
         return weight;
     }
 
+    public double getDistanceInDays() {
+        double rate = 8 * 50;
+        return weight / rate;
+    }
+
     public String toString() {
-        return this.target.getLocation() + " (" + this.weight + "d); ";
+        return this.target.getLocation() + " (" + this.getDistanceInDays() + "d); ";
     }
 }
