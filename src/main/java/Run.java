@@ -1,6 +1,7 @@
 package src.main.java;
 
 import src.main.java.Exceptions.NullFacilityException;
+import src.main.java.Exceptions.NullVertexException;
 import src.main.java.Interfaces.Facility;
 import src.main.java.ReadXMLs.FacilityInventoryXMLLoader;
 import src.main.java.ReadXMLs.FacilityNetworkXMLLoader;
@@ -42,16 +43,21 @@ public class Run {
         System.out.println("");
 
         FacilityDijkstra facilityDijkstra = new FacilityDijkstra();
-        facilityDijkstra.computeShortestPath("Santa Fe, NM", "Chicago, IL");
-        facilityDijkstra.computeShortestPath("Atlanta, GA", "St. Louis, MO");
-        facilityDijkstra.computeShortestPath("Seattle, WA", "Nashville, TN");
-        facilityDijkstra.computeShortestPath("New York City, NY", "Phoenix, AZ");
-        facilityDijkstra.computeShortestPath("Fargo, ND", "Austin, TX");
-        facilityDijkstra.computeShortestPath("Denver, CO", "Miami, FL");
-        facilityDijkstra.computeShortestPath("Austin, TX", "Norfolk, VA");
-        facilityDijkstra.computeShortestPath("Miami, FL", "Seattle, WA");
-        facilityDijkstra.computeShortestPath("Los Angeles, CA", "Chicago, IL");
-        facilityDijkstra.computeShortestPath("Detroit, MI", "Nashville, TN");
+        /*try {
+            *//*facilityDijkstra.computeShortestPath("Santa Fe, NM", "Chicago, IL");
+            facilityDijkstra.computeShortestPath("Atlanta, GA", "St. Louis, MO");
+            facilityDijkstra.computeShortestPath("Seattle, WA", "Nashville, TN");
+            facilityDijkstra.computeShortestPath("New York City, NY", "Phoenix, AZ");
+            facilityDijkstra.computeShortestPath("Fargo, ND", "Austin, TX");
+            facilityDijkstra.computeShortestPath("Denver, CO", "Miami, FL");
+            facilityDijkstra.computeShortestPath("Austin, TX", "Norfolk, VA");
+            facilityDijkstra.computeShortestPath("Miami, FL", "Seattle, WA");
+            facilityDijkstra.computeShortestPath("Los Angeles, CA", "Chicago, IL");
+            facilityDijkstra.computeShortestPath("Detroit, MI", "Nashville, TN");*//*
+        } catch (NullVertexException e) {
+            e.printStackTrace();
+        }*/
+
 
     }
 }

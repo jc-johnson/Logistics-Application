@@ -5,6 +5,7 @@ import src.main.java.Interfaces.ActiveInventoryPrinter;
 import src.main.java.Interfaces.Facility;
 import src.main.java.Interfaces.Impl.ActiveInventoryPrinterImpl;
 import src.main.java.Item;
+import src.main.java.ShortestPath.FacilityEdge;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -91,5 +92,15 @@ public class PhoenixFacility implements Facility {
     @Override
     public void addInventory(Item item, Long quantity) {
         activeInventory.put(item, quantity);
+    }
+
+    @Override
+    public void addNeighbor(FacilityEdge facilityEdge) {
+
+    }
+
+    @Override
+    public void printNeighbors() {
+
     }
 }

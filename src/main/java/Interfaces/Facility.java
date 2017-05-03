@@ -1,6 +1,7 @@
 package src.main.java.Interfaces;
 
 import src.main.java.Item;
+import src.main.java.ShortestPath.FacilityEdge;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -29,6 +30,12 @@ public interface Facility {
     void printOutput();
 
     void addInventory(Item item, Long quantity);
+
+    void addNeighbor(FacilityEdge facilityEdge);
+
+    void printNeighbors();
+
+
 
 
 

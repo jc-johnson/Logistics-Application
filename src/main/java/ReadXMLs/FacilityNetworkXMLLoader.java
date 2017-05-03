@@ -9,6 +9,7 @@ import src.main.java.Exceptions.NullFacilityException;
 import src.main.java.FacilityFactory;
 import src.main.java.Interfaces.Facility;
 import src.main.java.Interfaces.XmlReader;
+import src.main.java.ShortestPath.FacilityEdge;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -35,7 +36,6 @@ public class FacilityNetworkXMLLoader implements XmlReader {
         try {
             // Open file path to xml
             File xmlFile = new File("src/main/resources/FacilityNetwork.xml"); // File Path C:\Logistics-Program\LogisticsApplication\src\main\resources\ItemCatalog.xml
-
             if (xmlFile == null) {
                 throw new FileNotFoundException();
             }
@@ -50,7 +50,6 @@ public class FacilityNetworkXMLLoader implements XmlReader {
             document.getDocumentElement().normalize();
 
             System.out.println("Root element : " + document.getDocumentElement().getNodeName());
-
             NodeList nodeList = document.getElementsByTagName("Facility");
 
             // Parse xml and build data structure from it
@@ -96,7 +95,12 @@ public class FacilityNetworkXMLLoader implements XmlReader {
                         if (linkFacility == null) {
                             throw new NullFacilityException();
                         }
-                        // Add linking facilities to inner hashmap
+
+                        // Add neighbors to Facility
+                        FacilityEdge facilityEdge = new FacilityEdge(linkFacility, linkDistance);
+                        currentFacility.addNeighbor(facilityEdge);
+
+                        // Add linking facilities to inner hashmap for overall ds
                         neighborFacilities.put(linkFacility, linkDistance);
 
                     }
@@ -128,6 +132,7 @@ public class FacilityNetworkXMLLoader implements XmlReader {
 
         for (Facility facility : facilities) {
             System.out.println(facility.getLocation());
+            facility.printNeighbors();
         }
 
         System.out.println("");

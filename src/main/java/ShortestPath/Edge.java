@@ -14,11 +14,4 @@ public class Edge {
         target = targetVertex;
         this.weight = edgeWeight;
     }
-
-    public Edge(String location, Integer distance) {
-        target.setFacility(location);
-        weight = distance;
-    }
-
-
 }

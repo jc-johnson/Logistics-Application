@@ -16,24 +16,12 @@ public class Vertex implements Comparable<Vertex>{
     private String name;   // may need to change to location for FacilityVertex
     private double minDistance = Double.POSITIVE_INFINITY;
     private Vertex previous = null;
+
     private Facility facility;
     private ArrayList<Edge> adjacencies = new ArrayList<>();
 
     public Vertex (String name) {
         this.name =  name;
-    }
-
-    public Vertex (Facility facility) {
-        this.facility = facility;
-    }
-
-
-    public void setFacility (String facilityLocation) {
-        this.facility = FacilityFactory.createFacility(facilityLocation);
-    }
-
-    public void setFacility (Facility facility) {
-        this.facility = facility;
     }
 
     public String toString() {
@@ -81,9 +69,4 @@ public class Vertex implements Comparable<Vertex>{
         return Double.compare(minDistance, otherVertex.minDistance);
     }
 
-    /*public void getEdgesFromFacility(Facility facility) {
-        for (Facility facility : facility.getNeighbors.length) {
-
-        }
-    }*/
 }
