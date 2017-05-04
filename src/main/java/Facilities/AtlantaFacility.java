@@ -1,10 +1,7 @@
 package src.main.java.Facilities;
 
 import src.main.java.Interfaces.*;
-import src.main.java.Interfaces.Impl.ActiveInventoryPrinterImpl;
-import src.main.java.Interfaces.Impl.DepletedInventoryPrinterImpl;
-import src.main.java.Interfaces.Impl.NeighborPrinterImpl;
-import src.main.java.Interfaces.Impl.SchedulePrinterImpl;
+import src.main.java.Interfaces.Impl.*;
 import src.main.java.Item;
 import src.main.java.ShortestPath.FacilityEdge;
 
@@ -28,6 +25,7 @@ public final class AtlantaFacility implements Facility, Comparable<Facility>{
     private DepletedInventoryPrinter depletedInventoryPrinter = new DepletedInventoryPrinterImpl();
     private SchedulePrinter schedulePrinter = new SchedulePrinterImpl();
     private NeighborPrinter neighborPrinter = new NeighborPrinterImpl();
+    private ScheduleSetter scheduleSetter = new ScheduleSetterImpl();
 
     // Vertex fields
     private double minDistance = Double.POSITIVE_INFINITY;
@@ -95,6 +93,11 @@ public final class AtlantaFacility implements Facility, Comparable<Facility>{
 
     @Override
     public void printSchedule() { schedulePrinter.print(schedule); }
+
+    @Override
+    public void addScheduleDay(Integer day, Integer value) {
+        scheduleSetter.addDay(day, value, schedule);
+    }
 
     @Override
     public void printNeighbors() { neighborPrinter.print(neighbors); }

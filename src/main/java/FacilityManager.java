@@ -33,5 +33,14 @@ public final class FacilityManager {
         }
     }
 
+    // Initalized schedule to 20 days
+    public static void initializeSchedules(List<Facility> facilities) {
+        for (Facility facility : facilities) {
+            for (int i = 0; i < 21 ; i++) {
+                facility.addScheduleDay(i, 10);
+            }
+        }
+    }
+
 
 }

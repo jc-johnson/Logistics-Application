@@ -51,4 +51,6 @@ public interface Facility {
 
     void printSchedule();
 
+    void addScheduleDay(Integer day, Integer value);
+
 }

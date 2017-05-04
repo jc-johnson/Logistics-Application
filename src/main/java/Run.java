@@ -26,6 +26,10 @@ public class Run {
         FacilityInventoryXMLLoader facilityInventoryXMLLoader = new FacilityInventoryXMLLoader();
         facilityInventoryXMLLoader.parse(facilitiesList);
 
+        for (Facility facility : facilitiesList) {
+            FacilityManager.initializeSchedules(facilitiesList);
+        }
+
         // Output 1
         for (Facility facility : facilitiesList) {
             facility.printOutput();
