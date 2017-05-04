@@ -16,9 +16,6 @@ public final class FacilityManager {
 
     FacilityDTO facilityDTO = null;
 
-    private HashMap<String, Long> itemCatalog = null;   // holds item catalog from xml
-    private List<Facility> allFacilities;
-
     private static FacilityManager instance;
 
     public static FacilityManager getInstance() {
@@ -30,33 +27,11 @@ public final class FacilityManager {
 
     private FacilityManager() {}
 
-    public List<Facility> buildFaclitiesList() {
-
-
-
-        List<Facility> newFacilitiesList = allFacilities;
-        return newFacilitiesList;
-    }
-
-    public void buildFacilityMap() throws FileNotFoundException, NullFacilityException {
-        FacilityNetworkXMLLoader facilityNetworkXMLLoader = new FacilityNetworkXMLLoader();
-        // facilityNetworkXMLLoader.parse();
-        // use factories to create factories and add neighbors
-    }
-
-    public void loadFacilityInventory() {
-
-    }
-
-    public void loadItemCatalog() {
-        ItemCatalogXMLLoader itemCatalogXMLLoader = new ItemCatalogXMLLoader();
-        // itemCatalog = itemCatalogXMLLoader.parse();
+    public static void resetFacilities(List<Facility> facilities) {
+        for (Facility facility : facilities) {
+            facility.setMinDistance(Double.POSITIVE_INFINITY);
+        }
     }
 
 
-
-    // additional methods
-    public void computeShortestDistance(Facility start, Facility end) {
-
-    }
 }

@@ -14,6 +14,7 @@ import java.util.*;
  */
 public class FacilityDijkstra {
 
+
     public static void run(String startFacility, String endFacility) throws EmptyNeighborListException, NullNeighborListException, NullPriorityQueueException, NullFacilityException {
         Facility source = FacilityFactory.createFacility(startFacility);
         Facility target = FacilityFactory.createFacility(endFacility);
@@ -121,7 +122,7 @@ public class FacilityDijkstra {
     }
 
     public static void main(String[] args) throws NullFacilityException, NullNeighborListException, NullPriorityQueueException, EmptyNeighborListException {
-        Facility santaFeFacility = FacilityFactory.createFacility("Santa Fe, NM");
+        /*Facility santaFeFacility = FacilityFactory.createFacility("Santa Fe, NM");
         Facility chicagoFacility = FacilityFactory.createFacility("Chicago, IL");
         Facility newYorkFacility = FacilityFactory.createFacility("New York City, NY");
         Facility stLouisFacility = FacilityFactory.createFacility("St. Louis, MO");
@@ -131,12 +132,12 @@ public class FacilityDijkstra {
         newYorkFacility.addNeighbor(new FacilityEdge(stLouisFacility, 10));
         stLouisFacility.addNeighbor(new FacilityEdge(santaFeFacility, 9));
         chicagoFacility.addNeighbor(new FacilityEdge(fargoFacility, 2));
-        fargoFacility.addNeighbor(new FacilityEdge(santaFeFacility, 1));
+        fargoFacility.addNeighbor(new FacilityEdge(santaFeFacility, 1));*/
 
-        FacilityDijkstra facilityDijkstra = new FacilityDijkstra();
+        //FacilityDijkstra facilityDijkstra = new FacilityDijkstra();
 
-        facilityDijkstra.computePaths(chicagoFacility);
-        facilityDijkstra.shortestPath(chicagoFacility, santaFeFacility);
+        //facilityDijkstra.computePaths(chicagoFacility);
+        //facilityDijkstra.shortestPath(chicagoFacility, santaFeFacility);
 
     }
 }
