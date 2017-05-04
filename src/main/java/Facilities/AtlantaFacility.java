@@ -28,7 +28,7 @@ public final class AtlantaFacility implements Facility, Comparable<Facility>{
     private ScheduleSetter scheduleSetter = new ScheduleSetterImpl();
 
     // Vertex fields
-    private double minDistance = Double.POSITIVE_INFINITY;
+    private double minDistance = 435;
     private Facility previous = null;
 
     private static AtlantaFacility instance;

@@ -88,15 +88,17 @@ public class FacilityDijkstra {
             System.out.print(facility.getLocation() + " -> ");
         }*/
 
-        for (int i = 0; i < facilityPath.size(); i++) {
+        System.out.print(facilityPath.get(0).getLocation());
+
+        for (int i = 1; i < facilityPath.size(); i++) {
             Facility facility = facilityPath.get(i);
-            System.out.print(facility.getLocation() + " -> ");
+            System.out.print(" -> " + facility.getLocation());
         }
 
         Double totalMiles = getTotalMiles(facilityPath);
         Double totalDays = getTotalDays(totalMiles);
 
-        System.out.println(totalMiles + " mi");
+        System.out.println(" = " + totalMiles + " mi");
         System.out.println(totalMiles + " mi / (8 hours per day * 50 mph) = " + totalDays + " days");
     }
 

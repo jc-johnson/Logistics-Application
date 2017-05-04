@@ -27,7 +27,13 @@ public final class FacilityManager {
 
     private FacilityManager() {}
 
-    public static void resetFacilities(List<Facility> facilities) {
+    public static void printEachFacilityOutput(List<Facility> facilities) {
+        for (Facility facility : facilities) {
+            facility.printOutput();
+        }
+    }
+
+    public static void resetFacilitiesMinDistance(List<Facility> facilities) {
         for (Facility facility : facilities) {
             facility.setMinDistance(Double.POSITIVE_INFINITY);
         }

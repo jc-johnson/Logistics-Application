@@ -31,9 +31,7 @@ public class Run {
         }
 
         // Output 1
-        for (Facility facility : facilitiesList) {
-            facility.printOutput();
-        }
+        FacilityManager.printEachFacilityOutput(facilitiesList);
 
         // Output 2 : Item catalog
         // Parse and Print Item Catalog
@@ -45,24 +43,24 @@ public class Run {
         System.out.println("");
 
         // FacilityDijkstra.run("Santa Fe, NM", "Chicago, IL");
-        // FacilityManager.resetFacilities(facilitiesList);
+        // FacilityManager.resetFacilitiesMinDistance(facilitiesList);
         FacilityDijkstra.run("Atlanta, GA", "St. Louis, MO");
-        //FacilityManager.resetFacilities(facilitiesList);
-        // FacilityDijkstra.run("Seattle, WA", "Nashville, TN");
-        //FacilityManager.resetFacilities(facilitiesList);
-        // FacilityDijkstra.run("New York City, NY", "Phoenix, AZ");
-        //FacilityManager.resetFacilities(facilitiesList);
-        // FacilityDijkstra.run("Fargo, ND", "Austin, TX");
-        //FacilityManager.resetFacilities(facilitiesList);
-        // FacilityDijkstra.run("Denver, CO", "Miami, FL");
-        //FacilityManager.resetFacilities(facilitiesList);
-        // FacilityDijkstra.run("Austin, TX", "Norfolk, VA");
-        //FacilityManager.resetFacilities(facilitiesList);
-        // FacilityDijkstra.run("Miami, FL", "Seattle, WA");
-        //FacilityManager.resetFacilities(facilitiesList);
-        // FacilityDijkstra.run("Los Angeles, CA", "Chicago, IL");
-        //FacilityManager.resetFacilities(facilitiesList);
-        // FacilityDijkstra.run("Detroit, MI", "Nashville, TN");
+        /*FacilityManager.resetFacilitiesMinDistance(facilitiesList);
+        FacilityDijkstra.run("Seattle, WA", "Nashville, TN");
+        FacilityManager.resetFacilitiesMinDistance(facilitiesList);
+        FacilityDijkstra.run("New York City, NY", "Phoenix, AZ");
+        FacilityManager.resetFacilitiesMinDistance(facilitiesList);
+        FacilityDijkstra.run("Fargo, ND", "Austin, TX");
+        FacilityManager.resetFacilitiesMinDistance(facilitiesList);
+        FacilityDijkstra.run("Denver, CO", "Miami, FL");
+        FacilityManager.resetFacilitiesMinDistance(facilitiesList);
+        FacilityDijkstra.run("Austin, TX", "Norfolk, VA");
+        FacilityManager.resetFacilitiesMinDistance(facilitiesList);
+        FacilityDijkstra.run("Miami, FL", "Seattle, WA");
+        FacilityManager.resetFacilitiesMinDistance(facilitiesList);
+        FacilityDijkstra.run("Los Angeles, CA", "Chicago, IL");
+        FacilityManager.resetFacilitiesMinDistance(facilitiesList);
+        FacilityDijkstra.run("Detroit, MI", "Nashville, TN");*/
 
     }
 }

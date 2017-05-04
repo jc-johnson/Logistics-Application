@@ -24,5 +24,6 @@ public class SchedulePrinterImpl implements SchedulePrinter {
             System.out.print(entry.getValue()+"\t");
         }
         System.out.println("");
+        System.out.println("");
     }
 }
