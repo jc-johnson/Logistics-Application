@@ -42,10 +42,10 @@ public class Run {
         System.out.println("Shortest Path Tests: ");
         System.out.println("");
 
-        // FacilityDijkstra.run("Santa Fe, NM", "Chicago, IL");
-        // FacilityManager.resetFacilitiesMinDistance(facilitiesList);
+        FacilityDijkstra.run("Santa Fe, NM", "Chicago, IL");
+        FacilityManager.resetFacilitiesMinDistance(facilitiesList);
         FacilityDijkstra.run("Atlanta, GA", "St. Louis, MO");
-        /*FacilityManager.resetFacilitiesMinDistance(facilitiesList);
+        FacilityManager.resetFacilitiesMinDistance(facilitiesList);
         FacilityDijkstra.run("Seattle, WA", "Nashville, TN");
         FacilityManager.resetFacilitiesMinDistance(facilitiesList);
         FacilityDijkstra.run("New York City, NY", "Phoenix, AZ");
@@ -60,7 +60,8 @@ public class Run {
         FacilityManager.resetFacilitiesMinDistance(facilitiesList);
         FacilityDijkstra.run("Los Angeles, CA", "Chicago, IL");
         FacilityManager.resetFacilitiesMinDistance(facilitiesList);
-        FacilityDijkstra.run("Detroit, MI", "Nashville, TN");*/
+        FacilityDijkstra.run("Detroit, MI", "Nashville, TN");
+        FacilityManager.resetFacilitiesMinDistance(facilitiesList);
 
     }
 }

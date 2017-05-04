@@ -100,6 +100,7 @@ public class FacilityDijkstra {
 
         System.out.println(" = " + totalMiles + " mi");
         System.out.println(totalMiles + " mi / (8 hours per day * 50 mph) = " + totalDays + " days");
+        System.out.println("");
     }
 
     public static double getTotalMiles(List<Facility> facilityPath) {
