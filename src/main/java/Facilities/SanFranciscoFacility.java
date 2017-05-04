@@ -108,11 +108,11 @@ public class SanFranciscoFacility implements Facility, Comparable<Facility> {
         System.out.println("");
         System.out.println(" " + location + "" );
         System.out.println("");
+        System.out.println("--------------------------");
         System.out.println("");
         System.out.println("Rate per day: " + ratePerDay);
         System.out.println("Cost per day: $" + costPerDay);
         System.out.println("");
-        System.out.println("Direct Links: ");
 
         // print direct links
         printNeighbors();
@@ -126,8 +126,6 @@ public class SanFranciscoFacility implements Facility, Comparable<Facility> {
         printDepletedInventory();
         System.out.println("");
 
-        System.out.println("Schedule: ");
-        System.out.print("Day: ");
         printSchedule();
 
     }

@@ -2,46 +2,38 @@ package src.main.java.Interfaces.Impl;
 
 import src.main.java.Facilities.ChicagoFacility;
 import src.main.java.Interfaces.Facility;
-import src.main.java.Interfaces.FacilityOutput;
+import src.main.java.Interfaces.OutputPrinter;
 
 /**
  * Created by Jordan on 4/29/2017.
  */
-public class FacilityStatusOutputImpl implements FacilityOutput{
+public class FacilityOutputImpl implements OutputPrinter {
 
-    Facility facility = null; // TODO: maybe needs to be a null impl
+    Facility facility = null;
 
-    FacilityStatusOutputImpl(Facility facility) {
+    FacilityOutputImpl(Facility facility) {
         this.facility = facility;
     }
 
     @Override
     public void printOutput() {
         System.out.println("----------------------------------------------------------");
-        System.out.println(facility.getLocation()); // TODO: Tweak to just output the city without the state
+        facility.getCity();
         System.out.println("Rate per day: " + facility.getRatePerDay());
         System.out.println("Cost per day: " + facility.getCostPerDay());
         System.out.println("");
         System.out.println("Direct Links: ");
-        // System.out.println(facility.printDirectLinks); // TODO: implement
+        facility.printNeighbors();
         System.out.println("");
         System.out.println("Active Inventory: ");
-        // System.out.println(facility.printInventory); // TODO: implement
+        facility.printActiveInventory();
         System.out.println("");
         System.out.println("Depleted (Used-up) Inventory: ");
-        // System.out.println(facility.printDepletedInventory); // TODO: implement
+        facility.printDepletedInventory();
         System.out.println("");
         System.out.println("Schedule: ");
         System.out.println("Day: \t");
         System.out.println("Available: \t");
     }
 
-    /**
-     * TODO: Remove Test
-     */
-    public static void main(String[] args) {
-        Facility facility = ChicagoFacility.getInstance();
-        FacilityStatusOutputImpl facilityStatusOutput = new FacilityStatusOutputImpl(facility);
-        facilityStatusOutput.printOutput();
-    }
 }

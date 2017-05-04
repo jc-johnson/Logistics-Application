@@ -8,6 +8,8 @@ import src.main.java.ReadXMLs.FacilityNetworkXMLLoader;
 import src.main.java.ReadXMLs.ItemCatalogXMLLoader;
 
 import java.io.FileNotFoundException;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Jordan on 4/14/2017.
@@ -15,35 +17,36 @@ import java.io.FileNotFoundException;
 public class Run {
 
     public static void main(String[] args) throws FileNotFoundException, NullFacilityException {
+        List<Facility> facilitiesList = new ArrayList<>();
 
-
-        // Load in Facilities Network from XML
+        // Load in Facilities Network from XML - gives you all 18 facilities
         FacilityNetworkXMLLoader facilityNetworkXMLLoader = new FacilityNetworkXMLLoader();
-        facilityNetworkXMLLoader.parse();
+        facilityNetworkXMLLoader.parse(facilitiesList);
 
-        // Parse and load inventory for each Facility
+        /*for (Facility facility : facilitiesList) {
+            facility.printOutput();
+        }*/
+
+        // Load each facilities' inventory
         FacilityInventoryXMLLoader facilityInventoryXMLLoader = new FacilityInventoryXMLLoader();
-        facilityInventoryXMLLoader.parse();
-       // facilityInventoryXMLLoader.printFacilityInventory();
-
-
-
+        facilityInventoryXMLLoader.parse(facilitiesList);
 
         // Output 1
-        // Make list of all 18 facilities ( get from Facility Manager)
-            // print output
+        for (Facility facility : facilitiesList) {
+            facility.printOutput();
+        }
 
         // Output 2 : Item catalog
-        // Parse and Load Item Catalog
-        ItemCatalogXMLLoader itemCatalogXMLLoader = new ItemCatalogXMLLoader();
-        itemCatalogXMLLoader.parse();
+        // Parse and Print Item Catalog
+        // ItemCatalogXMLLoader itemCatalogXMLLoader = new ItemCatalogXMLLoader();
+        // itemCatalogXMLLoader.parse();
 
         // Output 3 : Shortest path
-        System.out.println("Shortest Path Tests: ");
-        System.out.println("");
+        // FacilityDijkstra facilityDijkstra = new FacilityDijkstra();
+        // facilitiesList.get()
 
-        FacilityDijkstra facilityDijkstra = new FacilityDijkstra();
-        // FacilityDijkstra.shortestPath();
+        // facilityDijkstra.computePaths(chicagoFacility);
+        // facilityDijkstra.shortestPath(chicagoFacility, santaFeFacility);
         /*try {
             *//*facilityDijkstra.computeShortestPath("Santa Fe, NM", "Chicago, IL");
             facilityDijkstra.computeShortestPath("Atlanta, GA", "St. Louis, MO");
@@ -58,7 +61,5 @@ public class Run {
         } catch (NullVertexException e) {
             e.printStackTrace();
         }*/
-
-
     }
 }

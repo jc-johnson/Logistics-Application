@@ -24,12 +24,9 @@ import java.util.*;
 /**
  * Created by Jordan on 4/13/2017.
  */
-public class FacilityInventoryXMLLoader implements XmlReader{
+public class FacilityInventoryXMLLoader {
 
-    private List<Facility> facilities = new ArrayList<>();
-
-    @Override
-    public void parse() throws FileNotFoundException, NullFacilityException {
+    public void parse(List<Facility> facilities) throws FileNotFoundException, NullFacilityException {
         try {
             // Open file path to xml
             File xmlFile = new File("src/main/resources/FacilityInventory.xml"); // File Path C:\Logistics-Program\LogisticsApplication\src\main\resources\FacilityInventory.xml
@@ -46,29 +43,29 @@ public class FacilityInventoryXMLLoader implements XmlReader{
             // Optional but recommended
             document.getDocumentElement().normalize();
 
-            System.out.println("Root element : " + document.getDocumentElement().getNodeName());
+            // System.out.println("Root element : " + document.getDocumentElement().getNodeName());
 
             // Parse xml
             NodeList nodeList = document.getElementsByTagName("Facility");
 
             for (int i = 0; i < nodeList.getLength(); i++) {
                 Node node = nodeList.item(i);
-                System.out.println("\nCurrent Element : " + node.getNodeName());
-                System.out.println("");
+                // System.out.println("\nCurrent Element : " + node.getNodeName());
+                // System.out.println("");
 
                 if (node.getNodeType() == Node.ELEMENT_NODE) {
 
                     Element element = (Element) node;
 
                     String facilityLocation = element.getAttribute("Location");
-                    System.out.println("Facility Location : " + facilityLocation);
+                    // System.out.println("Facility Location : " + facilityLocation);
 
                     // Create facility based on location and load into list
                     Facility currentFacility = FacilityFactory.createFacility(facilityLocation);
                     if (currentFacility == null) {
                         throw new NullFacilityException();
                     }
-                    facilities.add(currentFacility);
+
 
                     // get all items ids and quantity for each facility
                     NodeList facilityItems = element.getElementsByTagName("Item");
@@ -87,14 +84,16 @@ public class FacilityInventoryXMLLoader implements XmlReader{
                         Item item = new Item(itemId);
                         currentFacility.addInventory(item, itemQuantity);
                     }
+
+                    // facilities.add(currentFacility);
                 }
             }
 
-            for (Facility facility : facilities) {
+           /* for (Facility facility : facilities) {
                 System.out.println("Facility: " + facility.getLocation());
                 facility.printActiveInventory();
             }
-            System.out.println("");
+            System.out.println("");*/
 
 
         } catch (SAXException e) {
@@ -110,6 +109,6 @@ public class FacilityInventoryXMLLoader implements XmlReader{
 
     public static void main(String[] args) throws FileNotFoundException, NullFacilityException {
         FacilityInventoryXMLLoader facilityInventoryXMLLoader = new FacilityInventoryXMLLoader();
-        facilityInventoryXMLLoader.parse();
+        // facilityInventoryXMLLoader.parse();
     }
 }

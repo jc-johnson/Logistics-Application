@@ -22,9 +22,8 @@ import src.main.java.Interfaces.XmlReader;
 /**
  * Created by Jordan on 4/13/2017.
  */
-public class ItemCatalogXMLLoader implements XmlReader{
+public class ItemCatalogXMLLoader {
 
-    @Override
     public void parse() {
         HashMap<String, Long> catalogOutput = new HashMap<>();
 

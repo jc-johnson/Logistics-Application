@@ -30,9 +30,17 @@ public final class FacilityManager {
 
     private FacilityManager() {}
 
+    public List<Facility> buildFaclitiesList() {
+
+
+
+        List<Facility> newFacilitiesList = allFacilities;
+        return newFacilitiesList;
+    }
+
     public void buildFacilityMap() throws FileNotFoundException, NullFacilityException {
         FacilityNetworkXMLLoader facilityNetworkXMLLoader = new FacilityNetworkXMLLoader();
-        facilityNetworkXMLLoader.parse();
+        // facilityNetworkXMLLoader.parse();
         // use factories to create factories and add neighbors
     }
 
