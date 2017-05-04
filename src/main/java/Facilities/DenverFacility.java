@@ -16,7 +16,7 @@ import java.util.Map;
 /**
  * Created by Jordan on 4/14/2017.
  */
-public class DenverFacility implements Facility, Comparable<Facility> {
+public final class DenverFacility implements Facility, Comparable<Facility> {
 
     private String location = "Denver, CO";
     private long ratePerDay = 10;
@@ -43,7 +43,7 @@ public class DenverFacility implements Facility, Comparable<Facility> {
 
     public static DenverFacility getInstance() {
         if (instance == null) {
-            return new DenverFacility();
+            instance = new DenverFacility();
         }
 
         return instance;
@@ -164,9 +164,9 @@ public class DenverFacility implements Facility, Comparable<Facility> {
 
     @Override
     public ArrayList<FacilityEdge> getNeighborList() {
-        ArrayList<FacilityEdge> neighborList = new ArrayList<>();
-        neighborList = neighbors;
-        return neighborList;
+        // ArrayList<FacilityEdge> neighborList = new ArrayList<>();
+        // neighborList = neighbors;
+        return neighbors;
     }
 
     @Override

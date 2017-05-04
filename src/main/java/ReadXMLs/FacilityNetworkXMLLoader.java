@@ -102,7 +102,7 @@ public class FacilityNetworkXMLLoader {
 
                     }
                     facilities.add(currentFacility);
-                    System.out.println("");
+                    // System.out.println("");
                 }
             }
 

@@ -1,15 +1,16 @@
+
 package src.main.java;
 
 /**
  * Created by Jordan on 4/19/2017.
  */
-public class Dijkstra {
+/*
+import java.util.PriorityQueue;
+import java.util.List;
+import java.util.ArrayList;
+import java.util.Collections;
 
-    /*
-    import java.util.PriorityQueue;
-    import java.util.List;
-    import java.util.ArrayList;
-    import java.util.Collections;
+public class DijkstraAlg {
 
     class Vertex implements Comparable<Vertex>
     {
@@ -108,5 +109,6 @@ public class Dijkstra {
             System.out.println("Path: " + path);
         }
     }
-    */
+
 }
+*/

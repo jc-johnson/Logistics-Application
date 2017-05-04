@@ -14,42 +14,57 @@ import java.util.*;
  */
 public class FacilityDijkstra {
 
-    public void computePaths(Facility source) throws NullFacilityException, NullNeighborListException, NullPriorityQueueException, EmptyNeighborListException {
+    public static void run(String startFacility, String endFacility) throws EmptyNeighborListException, NullNeighborListException, NullPriorityQueueException, NullFacilityException {
+        Facility source = FacilityFactory.createFacility(startFacility);
+        Facility target = FacilityFactory.createFacility(endFacility);
+
+        System.out.println(source.getLocation() + " to " + target.getLocation() + ":");
+        computePaths(source);
+        shortestPath(source, target);
+
+    }
+
+    // each Facility in shortest path gets a previous
+    public static void computePaths(Facility source) throws NullFacilityException, NullNeighborListException, NullPriorityQueueException, EmptyNeighborListException {
         source.setMinDistance(0);
         PriorityQueue<Facility> facilityQueue = new PriorityQueue<>();
         facilityQueue.add(source);
 
         while (!facilityQueue.isEmpty()) {
             Facility headFacility = facilityQueue.poll(); // returns the head of the queue or null if queue is empty
-            System.out.println("Head Facility " + headFacility.getLocation());
-
+            // System.out.println("Head Facility: " + headFacility.getLocation());
+            // System.out.println("");
             if (headFacility.getNeighborList() == null) {
                 throw new NullNeighborListException();
             }
-
+            if (headFacility.getNeighborList().size() == 0) {
+                throw new EmptyNeighborListException();
+            }
             // Visit each edge exiting the headFacility
             for (FacilityEdge facilityEdge : headFacility.getNeighborList()) {
                 Facility edgeFacility = facilityEdge.getTarget();
                 double edgeWeight = facilityEdge.getWeight();
                 double distanceFromHeadFacility = headFacility.getMinDistance() + edgeWeight;
-                System.out.println("Distance from head facility: " + distanceFromHeadFacility);
-                System.out.println("Source Edge Vertex: " + edgeFacility.getLocation());
-                System.out.println("Source Edge Weight: " + edgeWeight);
-
+                // System.out.println("Distance from head facility: " + distanceFromHeadFacility);
+                // System.out.println("Edge Vertex: " + edgeFacility.getLocation());
+                // System.out.println("Edge Weight: " + edgeWeight);
+                // System.out.println("Edge Facility Min Distance: " + edgeFacility.getMinDistance());
+                // System.out.println("");
+                // all connecting facilities get added to queue to parse all thier neighbors next
                 if (distanceFromHeadFacility < edgeFacility.getMinDistance()) {
 
                     facilityQueue.remove(edgeFacility);
                     edgeFacility.setMinDistance(distanceFromHeadFacility);
-                    System.out.println("Edge facility min distance: " + edgeFacility.getMinDistance());
+                    // System.out.println("New edge facility min distance: " + edgeFacility.getMinDistance());
+                    // System.out.println("Newly added edge facility: " + edgeFacility.getLocation());
                     edgeFacility.setPrevious(headFacility);
                     facilityQueue.add(edgeFacility);
                 }
-
             }
         }
     }
 
-    public List<Facility> getShortestPathTo(Facility target) {
+    public static List<Facility> getShortestPathTo(Facility target) {
         List<Facility> path = new ArrayList<>();
         for (Facility facility = target; facility != null; facility = facility.getPrevious()) {
             path.add(facility);
@@ -58,39 +73,51 @@ public class FacilityDijkstra {
         return path;
     }
 
-    public List<Facility> shortestPath(Facility source, Facility target) throws NullFacilityException, NullNeighborListException, NullPriorityQueueException, EmptyNeighborListException {
+    public static List<Facility> shortestPath(Facility source, Facility target) throws NullFacilityException, NullNeighborListException, NullPriorityQueueException, EmptyNeighborListException {
         computePaths(source);
-        System.out.println("Distance to " + target.getLocation() + ". Shortest distance: " + target.getMinDistance());
         List<Facility> path = getShortestPathTo(target);
-        System.out.println("Path: ");
+        // System.out.println("Path: ");
         printFacilityPath(path);
 
         return path;
     }
 
-    public void printFacilityPath(List<Facility> facilityPath) {
-        for (Facility facility : facilityPath) {
+    public static void printFacilityPath(List<Facility> facilityPath) {
+        /*for (Facility facility : facilityPath) {
             System.out.print(facility.getLocation() + " -> ");
-        }
-        getTotalMiles(facilityPath);
-    }
-
-    public void getTotalMiles(List<Facility> facilityPath) {
-        double totalDistance = 0;
+        }*/
 
         for (int i = 0; i < facilityPath.size(); i++) {
             Facility facility = facilityPath.get(i);
-            System.out.println("Facility: " + facility.getLocation());
+            System.out.print(facility.getLocation() + " -> ");
+        }
+
+        Double totalMiles = getTotalMiles(facilityPath);
+        Double totalDays = getTotalDays(totalMiles);
+
+        System.out.println(totalMiles + " mi");
+        System.out.println(totalMiles + " mi / (8 hours per day * 50 mph) = " + totalDays + " days");
+    }
+
+    public static double getTotalMiles(List<Facility> facilityPath) {
+        double totalDistance = 0;
+
+        for (int i = 0; i < facilityPath.size()-1; i++) {
+            Facility facility = facilityPath.get(i);
+            // System.out.println("Facility: " + facility.getLocation());
             for (FacilityEdge facilityEdge : facility.getNeighborList()) {
-                System.out.println("Facility Edge Target: " + facilityEdge.getTarget().getLocation());
+                // System.out.println("Facility Edge Target: " + facilityEdge.getTarget().getLocation());
                 if (facilityEdge.getTarget().getLocation() == facilityPath.get(i+1).getLocation()) {
                     totalDistance += facilityEdge.getWeight();
                 }
             }
-
         }
 
-        System.out.println("Total distance: " + totalDistance);
+        return totalDistance;
+    }
+
+    public static double getTotalDays(double totalMiles) {
+        return totalMiles / 400;
     }
 
     public static void main(String[] args) throws NullFacilityException, NullNeighborListException, NullPriorityQueueException, EmptyNeighborListException {

@@ -1,7 +1,6 @@
 package src.main.java;
 
-import src.main.java.Exceptions.NullFacilityException;
-import src.main.java.Exceptions.NullVertexException;
+import src.main.java.Exceptions.*;
 import src.main.java.Interfaces.Facility;
 import src.main.java.ReadXMLs.FacilityInventoryXMLLoader;
 import src.main.java.ReadXMLs.FacilityNetworkXMLLoader;
@@ -23,17 +22,13 @@ public class Run {
         FacilityNetworkXMLLoader facilityNetworkXMLLoader = new FacilityNetworkXMLLoader();
         facilityNetworkXMLLoader.parse(facilitiesList);
 
-        /*for (Facility facility : facilitiesList) {
-            facility.printOutput();
-        }*/
-
         // Load each facilities' inventory
         FacilityInventoryXMLLoader facilityInventoryXMLLoader = new FacilityInventoryXMLLoader();
         facilityInventoryXMLLoader.parse(facilitiesList);
 
         // Output 1
         for (Facility facility : facilitiesList) {
-            facility.printOutput();
+           facility.printOutput();
         }
 
         // Output 2 : Item catalog
@@ -42,11 +37,30 @@ public class Run {
         itemCatalogXMLLoader.parse();
 
         // Output 3 : Shortest path
-        FacilityDijkstra facilityDijkstra = new FacilityDijkstra();
-        // facilitiesList.get()
+        System.out.println("Shortest Path Tests: ");
+        System.out.println("");
 
-        // facilityDijkstra.computePaths(chicagoFacility);
-        // facilityDijkstra.shortestPath(chicagoFacility, santaFeFacility);
+        try {
+            // FacilityDijkstra.run("Santa Fe, NM", "Chicago, IL");
+            // FacilityDijkstra.run("Atlanta, GA", "St. Louis, MO");
+            // FacilityDijkstra.run("Seattle, WA", "Nashville, TN");
+            // FacilityDijkstra.run("New York City, NY", "Phoenix, AZ");
+            FacilityDijkstra.run("Atlanta, GA", "St. Louis, MO");
+            /*FacilityDijkstra.run("Atlanta, GA", "St. Louis, MO");
+            FacilityDijkstra.run("Atlanta, GA", "St. Louis, MO");
+            FacilityDijkstra.run("Atlanta, GA", "St. Louis, MO");
+            FacilityDijkstra.run("Atlanta, GA", "St. Louis, MO");
+            FacilityDijkstra.run("Atlanta, GA", "St. Louis, MO");
+            FacilityDijkstra.run("Atlanta, GA", "St. Louis, MO");
+            FacilityDijkstra.run("Atlanta, GA", "St. Louis, MO");*/
+        } catch (EmptyNeighborListException e) {
+            e.printStackTrace();
+        } catch (NullNeighborListException e) {
+            e.printStackTrace();
+        } catch (NullPriorityQueueException e) {
+            e.printStackTrace();
+        }
+
         /*try {
             *//*facilityDijkstra.computeShortestPath("Santa Fe, NM", "Chicago, IL");
             facilityDijkstra.computeShortestPath("Atlanta, GA", "St. Louis, MO");

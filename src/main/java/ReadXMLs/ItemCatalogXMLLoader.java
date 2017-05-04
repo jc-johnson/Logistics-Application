@@ -74,6 +74,7 @@ public class ItemCatalogXMLLoader {
             for (HashMap.Entry entry : catalogOutput.entrySet()) {
                 System.out.println(entry.getKey() + "\t:\t$ " + entry.getValue());
             }
+            System.out.println("");
 
         } catch (FileNotFoundException e) {
             e.printStackTrace();
