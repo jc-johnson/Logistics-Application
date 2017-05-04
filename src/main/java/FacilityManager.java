@@ -1,12 +1,10 @@
 package src.main.java;
 
-import src.main.java.Exceptions.NullFacilityException;
 import src.main.java.Interfaces.Facility;
-import src.main.java.ReadXMLs.FacilityNetworkXMLLoader;
-import src.main.java.ReadXMLs.ItemCatalogXMLLoader;
+import src.main.java.ShortestPath.Edge;
+import src.main.java.ShortestPath.FacilityEdge;
 
-import java.io.FileNotFoundException;
-import java.util.HashMap;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -36,6 +34,12 @@ public final class FacilityManager {
     public static void resetFacilitiesMinDistance(List<Facility> facilities) {
         for (Facility facility : facilities) {
             facility.setMinDistance(Double.POSITIVE_INFINITY);
+        }
+    }
+
+    public static void resetPrevious(List<Facility> facilities) {
+        for (Facility facility : facilities) {
+            facility.setPrevious(null);
         }
     }
 

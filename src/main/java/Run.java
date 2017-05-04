@@ -44,24 +44,43 @@ public class Run {
 
         FacilityDijkstra.run("Santa Fe, NM", "Chicago, IL");
         FacilityManager.resetFacilitiesMinDistance(facilitiesList);
+        FacilityManager.resetPrevious(facilitiesList);
+
         FacilityDijkstra.run("Atlanta, GA", "St. Louis, MO");
         FacilityManager.resetFacilitiesMinDistance(facilitiesList);
+        FacilityManager.resetPrevious(facilitiesList);
+
         FacilityDijkstra.run("Seattle, WA", "Nashville, TN");
         FacilityManager.resetFacilitiesMinDistance(facilitiesList);
+        FacilityManager.resetPrevious(facilitiesList);
+
         FacilityDijkstra.run("New York City, NY", "Phoenix, AZ");
         FacilityManager.resetFacilitiesMinDistance(facilitiesList);
+        FacilityManager.resetPrevious(facilitiesList);
+
         FacilityDijkstra.run("Fargo, ND", "Austin, TX");
         FacilityManager.resetFacilitiesMinDistance(facilitiesList);
+        FacilityManager.resetPrevious(facilitiesList);
+
         FacilityDijkstra.run("Denver, CO", "Miami, FL");
         FacilityManager.resetFacilitiesMinDistance(facilitiesList);
+        FacilityManager.resetPrevious(facilitiesList);
+
         FacilityDijkstra.run("Austin, TX", "Norfolk, VA");
         FacilityManager.resetFacilitiesMinDistance(facilitiesList);
+        FacilityManager.resetPrevious(facilitiesList);
+
         FacilityDijkstra.run("Miami, FL", "Seattle, WA");
         FacilityManager.resetFacilitiesMinDistance(facilitiesList);
+        FacilityManager.resetPrevious(facilitiesList);
+
         FacilityDijkstra.run("Los Angeles, CA", "Chicago, IL");
         FacilityManager.resetFacilitiesMinDistance(facilitiesList);
+        FacilityManager.resetPrevious(facilitiesList);
+
         FacilityDijkstra.run("Detroit, MI", "Nashville, TN");
         FacilityManager.resetFacilitiesMinDistance(facilitiesList);
+        FacilityManager.resetPrevious(facilitiesList);
 
     }
 }

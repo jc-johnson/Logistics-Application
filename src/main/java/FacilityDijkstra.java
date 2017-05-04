@@ -1,11 +1,8 @@
 package src.main.java;
 
 import src.main.java.Exceptions.*;
-import src.main.java.Facilities.ChicagoFacility;
 import src.main.java.Interfaces.Facility;
-import src.main.java.ShortestPath.Edge;
 import src.main.java.ShortestPath.FacilityEdge;
-import src.main.java.ShortestPath.Vertex;
 
 import java.util.*;
 
