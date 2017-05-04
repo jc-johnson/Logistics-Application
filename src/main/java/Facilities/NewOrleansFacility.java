@@ -84,6 +84,11 @@ public class NewOrleansFacility implements Facility, Comparable<Facility> {
     }
 
     @Override
+    public void addInventory(HashMap<Item, Integer> inventoryList) {
+        activeInventory.putAll(inventoryList);
+    }
+
+    @Override
     public void printActiveInventory() {
         activeInventoryPrinter.print(activeInventory);
     }

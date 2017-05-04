@@ -38,11 +38,11 @@ public class Run {
 
         // Output 2 : Item catalog
         // Parse and Print Item Catalog
-        // ItemCatalogXMLLoader itemCatalogXMLLoader = new ItemCatalogXMLLoader();
-        // itemCatalogXMLLoader.parse();
+        ItemCatalogXMLLoader itemCatalogXMLLoader = new ItemCatalogXMLLoader();
+        itemCatalogXMLLoader.parse();
 
         // Output 3 : Shortest path
-        // FacilityDijkstra facilityDijkstra = new FacilityDijkstra();
+        FacilityDijkstra facilityDijkstra = new FacilityDijkstra();
         // facilitiesList.get()
 
         // facilityDijkstra.computePaths(chicagoFacility);

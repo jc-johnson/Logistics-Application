@@ -37,6 +37,8 @@ public interface Facility {
 
     void addInventory(Item item, Integer quantity);
 
+    void addInventory(HashMap<Item, Integer> inventoryList);
+
     void addNeighbor(FacilityEdge facilityEdge);
 
     void printActiveInventory();

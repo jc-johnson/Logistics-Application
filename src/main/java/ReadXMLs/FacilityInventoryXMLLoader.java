@@ -33,7 +33,7 @@ public class FacilityInventoryXMLLoader {
             if (xmlFile == null) {
                 throw new FileNotFoundException();
             }
-            System.out.println("File found...");
+            // System.out.println("File found...");
 
             // Build parser and parse
             DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
@@ -47,6 +47,8 @@ public class FacilityInventoryXMLLoader {
 
             // Parse xml
             NodeList nodeList = document.getElementsByTagName("Facility");
+
+            HashMap<Item, Integer> itemList = new HashMap<>();
 
             for (int i = 0; i < nodeList.getLength(); i++) {
                 Node node = nodeList.item(i);
@@ -66,7 +68,6 @@ public class FacilityInventoryXMLLoader {
                         throw new NullFacilityException();
                     }
 
-
                     // get all items ids and quantity for each facility
                     NodeList facilityItems = element.getElementsByTagName("Item");
 
@@ -78,11 +79,17 @@ public class FacilityInventoryXMLLoader {
                         String itemQuantityString = itemElement.getElementsByTagName("Quantity").item(0).getTextContent();
                         Integer itemQuantity = Integer.parseInt(itemQuantityString);
 
-                        System.out.println("Item Id : " + itemId);
-                        System.out.println("Quantity : " + itemQuantity);
+                        // System.out.println("Item Id : " + itemId);
+                        // System.out.println("Quantity : " + itemQuantity);
 
                         Item item = new Item(itemId);
-                        currentFacility.addInventory(item, itemQuantity);
+                        // currentFacility.addInventory(item, itemQuantity);
+
+                        for (Facility facility : facilities) {
+                            if (facility.getLocation() == currentFacility.getLocation()) {
+                                facility.addInventory(item, itemQuantity);
+                            }
+                        }
                     }
 
                     // facilities.add(currentFacility);

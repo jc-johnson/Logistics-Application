@@ -33,7 +33,7 @@ public class ItemCatalogXMLLoader {
             if (xmlFile == null) {
                 throw new FileNotFoundException();
             }
-            System.out.println("File found...");
+            // System.out.println("File found...");
 
             // Build parser and parse
             DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
@@ -43,14 +43,14 @@ public class ItemCatalogXMLLoader {
             // Optional but recommended
             document.getDocumentElement().normalize();
 
-            System.out.println("Root element : " + document.getDocumentElement().getNodeName());
+            // System.out.println("Root element : " + document.getDocumentElement().getNodeName());
 
             NodeList nodeList = document.getElementsByTagName("Item");
 
             // Print elements and add to hashmap
             for (int i = 0; i < nodeList.getLength(); i++) {
                 Node node = nodeList.item(i);
-                System.out.println("\nCurrent Element : " + node.getNodeName());
+                // System.out.println("\nCurrent Element : " + node.getNodeName());
 
                 if (node.getNodeType() == Node.ELEMENT_NODE) {
 
@@ -60,8 +60,8 @@ public class ItemCatalogXMLLoader {
                     String itemPrice = element.getElementsByTagName("price").item(0).getTextContent();
                     Long price = (long) NumberFormat.getNumberInstance(Locale.US).parse(itemPrice);
 
-                    System.out.println("Item ID : " + itemId);
-                    System.out.println("Price : " + itemPrice);
+                    // System.out.println("Item ID : " + itemId);
+                    // System.out.println("Price : " + itemPrice);
 
                     catalogOutput.put(itemId, price);
 
@@ -69,7 +69,7 @@ public class ItemCatalogXMLLoader {
             }
 
             System.out.println("");
-            System.out.println("Catalog Output: ");
+            System.out.println("Item Catalog: ");
             // print hashmap
             for (HashMap.Entry entry : catalogOutput.entrySet()) {
                 System.out.println(entry.getKey() + "\t:\t$ " + entry.getValue());
