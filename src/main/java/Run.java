@@ -45,14 +45,12 @@ public class Run {
             // FacilityDijkstra.run("Atlanta, GA", "St. Louis, MO");
             // FacilityDijkstra.run("Seattle, WA", "Nashville, TN");
             // FacilityDijkstra.run("New York City, NY", "Phoenix, AZ");
-            FacilityDijkstra.run("Atlanta, GA", "St. Louis, MO");
-            /*FacilityDijkstra.run("Atlanta, GA", "St. Louis, MO");
-            FacilityDijkstra.run("Atlanta, GA", "St. Louis, MO");
-            FacilityDijkstra.run("Atlanta, GA", "St. Louis, MO");
-            FacilityDijkstra.run("Atlanta, GA", "St. Louis, MO");
-            FacilityDijkstra.run("Atlanta, GA", "St. Louis, MO");
-            FacilityDijkstra.run("Atlanta, GA", "St. Louis, MO");
-            FacilityDijkstra.run("Atlanta, GA", "St. Louis, MO");*/
+            // FacilityDijkstra.run("Fargo, ND", "Austin, TX");
+            // FacilityDijkstra.run("Denver, CO", "Miami, FL");
+            // FacilityDijkstra.run("Austin, TX", "Norfolk, VA");
+            // FacilityDijkstra.run("Miami, FL", "Seattle, WA");
+            // FacilityDijkstra.run("Los Angeles, CA", "Chicago, IL");
+            FacilityDijkstra.run("Detroit, MI", "Nashville, TN");
         } catch (EmptyNeighborListException e) {
             e.printStackTrace();
         } catch (NullNeighborListException e) {
