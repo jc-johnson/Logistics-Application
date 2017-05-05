@@ -13,7 +13,7 @@ import java.util.List;
 /**
  * Created by Jordan on 4/14/2017.
  */
-public class Run {
+public class Main {
 
     public static void main(String[] args) throws FileNotFoundException, NullFacilityException, NullPriorityQueueException, EmptyNeighborListException, NullNeighborListException {
         List<Facility> facilitiesList = new ArrayList<>();

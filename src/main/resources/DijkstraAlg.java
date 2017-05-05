@@ -1,5 +1,5 @@
 
-package src.main.java;
+package src.main.resources;
 
 /**
  * Created by Jordan on 4/19/2017.
