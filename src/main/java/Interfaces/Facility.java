@@ -15,11 +15,11 @@ public interface Facility {
 
     void setLocation(String location);
 
-    Long getRatePerDay();
+    Integer getRatePerDay();
 
     void setRatePerDay(Integer ratePerDay);
 
-    Long getCostPerDay();
+    Integer getCostPerDay();
 
     void setCostPerDay(Integer ratePerday);
 

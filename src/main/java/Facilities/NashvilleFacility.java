@@ -16,8 +16,8 @@ import java.util.Map;
 public final class NashvilleFacility implements Facility, Comparable<Facility> {
 
     private String location = "Nashville, TN";
-    private long ratePerDay = 8;
-    private long costPerDay = 300;
+    private Integer ratePerDay = 8;
+    private Integer costPerDay = 300;
     private ArrayList<FacilityEdge> neighbors = new ArrayList<>();
 
     private HashMap<Item, Integer> activeInventory = new HashMap<>();
@@ -57,7 +57,7 @@ public final class NashvilleFacility implements Facility, Comparable<Facility> {
     }
 
     @Override
-    public Long getRatePerDay() {
+    public Integer getRatePerDay() {
         return ratePerDay;
     }
 
@@ -67,7 +67,7 @@ public final class NashvilleFacility implements Facility, Comparable<Facility> {
     }
 
     @Override
-    public Long getCostPerDay() {
+    public Integer getCostPerDay() {
         return costPerDay;
     }
 
