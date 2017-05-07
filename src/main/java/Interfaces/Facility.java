@@ -27,9 +27,9 @@ public interface Facility {
 
     void setMinDistance(double distance);
 
-    void setPrevious(Facility facility);
-
     Facility getPrevious();
+
+    void setPrevious(Facility facility);
 
     ArrayList<FacilityEdge> getNeighborList();
 
@@ -41,6 +41,8 @@ public interface Facility {
 
     void addNeighbor(FacilityEdge facilityEdge);
 
+    void addScheduleDay(Integer day, Integer value);
+
     void printActiveInventory();
 
     void printDepletedInventory();
@@ -50,7 +52,5 @@ public interface Facility {
     void printNeighbors();
 
     void printSchedule();
-
-    void addScheduleDay(Integer day, Integer value);
 
 }
