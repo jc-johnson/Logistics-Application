@@ -23,15 +23,15 @@ public interface Facility {
 
     void setCostPerDay(Integer ratePerday);
 
-    public double getMinDistance();
+    double getMinDistance();
 
-    public void setMinDistance(double distance);
+    void setMinDistance(double distance);
 
-    public void setPrevious(Facility facility);
+    void setPrevious(Facility facility);
 
-    public Facility getPrevious();
+    Facility getPrevious();
 
-    public ArrayList<FacilityEdge> getNeighborList();
+    ArrayList<FacilityEdge> getNeighborList();
 
     String getCity();
 
