@@ -2,6 +2,8 @@ package src.main.java;
 
 import src.main.java.Exceptions.*;
 import src.main.java.Interfaces.Facility;
+import src.main.java.Interfaces.Impl.FacilityInventoryXMLLoaderImpl;
+import src.main.java.Interfaces.Impl.FacilityNetworkXmlLoaderImpl;
 import src.main.java.ReadXMLs.FacilityInventoryXMLLoader;
 import src.main.java.ReadXMLs.FacilityNetworkXMLLoader;
 import src.main.java.ReadXMLs.ItemCatalogXMLLoader;
@@ -16,22 +18,23 @@ import java.util.List;
 public class Main {
 
     public static void main(String[] args) throws FileNotFoundException, NullFacilityException, NullPriorityQueueException, EmptyNeighborListException, NullNeighborListException {
-        List<Facility> facilitiesList = new ArrayList<>();
+        FacilityManager facilityManager = FacilityManager.getInstance();
 
         // Load in Facilities Network from XML - gives you all 18 facilities
-        FacilityNetworkXMLLoader facilityNetworkXMLLoader = new FacilityNetworkXMLLoader();
-        facilityNetworkXMLLoader.parse(facilitiesList);
+        // FacilityNetworkXMLLoader facilityNetworkXMLLoader = new FacilityNetworkXmlLoaderImpl();
+        // facilityNetworkXMLLoader.parse(facilitiesList);
+        facilityManager.loadFacilitesAndNeighborsFromXML();
 
         // Load each facilities' inventory
-        FacilityInventoryXMLLoader facilityInventoryXMLLoader = new FacilityInventoryXMLLoader();
-        facilityInventoryXMLLoader.parse(facilitiesList);
+        // FacilityInventoryXMLLoader facilityInventoryXMLLoader = new FacilityInventoryXMLLoaderImpl();
+        // facilityInventoryXMLLoader.parse(facilitiesList);
+        facilityManager.loadFacilityInventoryFromXML();
 
-        for (Facility facility : facilitiesList) {
-            FacilityManager.initializeSchedules(facilitiesList);
-        }
+        facilityManager.initializeSchedules();
+
 
         // Output 1
-        FacilityManager.printEachFacilityOutput(facilitiesList);
+        facilityManager.printEachFacilityOutput();
 
         // Output 2 : Item catalog
         // Parse and Print Item Catalog
@@ -43,44 +46,44 @@ public class Main {
         System.out.println("");
 
         FacilityDijkstra.run("Santa Fe, NM", "Chicago, IL");
-        FacilityManager.resetFacilitiesMinDistance(facilitiesList);
-        FacilityManager.resetPrevious(facilitiesList);
+        facilityManager.resetFacilitiesMinDistance();
+        facilityManager.resetPrevious();
 
         FacilityDijkstra.run("Atlanta, GA", "St. Louis, MO");
-        FacilityManager.resetFacilitiesMinDistance(facilitiesList);
-        FacilityManager.resetPrevious(facilitiesList);
+        facilityManager.resetFacilitiesMinDistance();
+        facilityManager.resetPrevious();
 
         FacilityDijkstra.run("Seattle, WA", "Nashville, TN");
-        FacilityManager.resetFacilitiesMinDistance(facilitiesList);
-        FacilityManager.resetPrevious(facilitiesList);
+        facilityManager.resetFacilitiesMinDistance();
+        facilityManager.resetPrevious();
 
         FacilityDijkstra.run("New York City, NY", "Phoenix, AZ");
-        FacilityManager.resetFacilitiesMinDistance(facilitiesList);
-        FacilityManager.resetPrevious(facilitiesList);
+        facilityManager.resetFacilitiesMinDistance();
+        facilityManager.resetPrevious();
 
         FacilityDijkstra.run("Fargo, ND", "Austin, TX");
-        FacilityManager.resetFacilitiesMinDistance(facilitiesList);
-        FacilityManager.resetPrevious(facilitiesList);
+        facilityManager.resetFacilitiesMinDistance();
+        facilityManager.resetPrevious();
 
         FacilityDijkstra.run("Denver, CO", "Miami, FL");
-        FacilityManager.resetFacilitiesMinDistance(facilitiesList);
-        FacilityManager.resetPrevious(facilitiesList);
+        facilityManager.resetFacilitiesMinDistance();
+        facilityManager.resetPrevious();
 
         FacilityDijkstra.run("Austin, TX", "Norfolk, VA");
-        FacilityManager.resetFacilitiesMinDistance(facilitiesList);
-        FacilityManager.resetPrevious(facilitiesList);
+        facilityManager.resetFacilitiesMinDistance();
+        facilityManager.resetPrevious();
 
         FacilityDijkstra.run("Miami, FL", "Seattle, WA");
-        FacilityManager.resetFacilitiesMinDistance(facilitiesList);
-        FacilityManager.resetPrevious(facilitiesList);
+        facilityManager.resetFacilitiesMinDistance();
+        facilityManager.resetPrevious();
 
         FacilityDijkstra.run("Los Angeles, CA", "Chicago, IL");
-        FacilityManager.resetFacilitiesMinDistance(facilitiesList);
-        FacilityManager.resetPrevious(facilitiesList);
+        facilityManager.resetFacilitiesMinDistance();
+        facilityManager.resetPrevious();
 
         FacilityDijkstra.run("Detroit, MI", "Nashville, TN");
-        FacilityManager.resetFacilitiesMinDistance(facilitiesList);
-        FacilityManager.resetPrevious(facilitiesList);
+        facilityManager.resetFacilitiesMinDistance();
+        facilityManager.resetPrevious();
 
     }
 }

@@ -9,6 +9,7 @@ import src.main.java.Exceptions.NullFacilityException;
 import src.main.java.FacilityFactory;
 import src.main.java.Interfaces.Facility;
 import src.main.java.Interfaces.XmlReader;
+import src.main.java.ReadXMLs.FacilityNetworkXMLLoader;
 import src.main.java.ShortestPath.FacilityEdge;
 
 import javax.xml.parsers.DocumentBuilder;
@@ -26,18 +27,19 @@ import java.util.Locale;
 /**
  * Created by Jordan on 5/3/2017.
  */
-public class FacilityNetworkXmlLoaderImpl {
+public class FacilityNetworkXmlLoaderImpl implements FacilityNetworkXMLLoader {
 
-    public List<Facility> parse() throws FileNotFoundException, NullFacilityException {
+    @Override
+    public List<Facility> parse(List<Facility> facilities) throws FileNotFoundException, NullFacilityException {
         try {
-            List<Facility> facilities = new ArrayList<>();
+            // List<Facility> facilities = new ArrayList<>();
 
             // Open file path to xml
             File xmlFile = new File("src/main/resources/FacilityNetwork.xml"); // File Path C:\Logistics-Program\LogisticsApplication\src\main\resources\ItemCatalog.xml
             if (xmlFile == null) {
                 throw new FileNotFoundException();
             }
-            System.out.println("File found...");
+            // System.out.println("File found...");
 
             // Build parser and parse
             DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
@@ -47,14 +49,14 @@ public class FacilityNetworkXmlLoaderImpl {
             // Optional but recommended
             document.getDocumentElement().normalize();
 
-            System.out.println("Root element : " + document.getDocumentElement().getNodeName());
+            // System.out.println("Root element : " + document.getDocumentElement().getNodeName());
             NodeList nodeList = document.getElementsByTagName("Facility");
 
             // Parse xml and build data structure from it
             for (int i = 0; i < nodeList.getLength(); i++) {
                 Node node = nodeList.item(i);
-                System.out.println("\nCurrent Element : " + node.getNodeName());
-                System.out.println("");
+                // System.out.println("\nCurrent Element : " + node.getNodeName());
+                // System.out.println("");
 
                 if (node.getNodeType() == Node.ELEMENT_NODE) {
 
@@ -64,18 +66,17 @@ public class FacilityNetworkXmlLoaderImpl {
                     String facilityRate = element.getElementsByTagName("Rate").item(0).getTextContent();
                     String facilityCostPerDay = element.getElementsByTagName("CostPerDay").item(0).getTextContent();
 
-                    System.out.println("Facility Location : " + facilityLocation);
-                    System.out.println("Facility Rate : " + facilityRate);
-                    System.out.println("Facility Cost Per Day : " + facilityCostPerDay);
+                    // System.out.println("Facility Location : " + facilityLocation);
+                    // System.out.println("Facility Rate : " + facilityRate);
+                    // System.out.println("Facility Cost Per Day : " + facilityCostPerDay);
 
-                    // Create facility based on location and load into list
+                    // Create facility based on location
                     Facility currentFacility = FacilityFactory.createFacility(facilityLocation);
                     if (currentFacility == null) {
                         throw new NullFacilityException();
                     }
-                    facilities.add(currentFacility);
 
-                    // get all links from a facility
+                    // get all facility neighbors
                     NodeList facilityLinks = element.getElementsByTagName("link");
 
                     for (int j = 0; j < facilityLinks.getLength(); j++) {
@@ -86,8 +87,8 @@ public class FacilityNetworkXmlLoaderImpl {
                         String linkDistanceString = linkElement.getElementsByTagName("distance").item(0).getTextContent();
                         Long linkDistance = (long) NumberFormat.getNumberInstance(Locale.US).parse(linkDistanceString);
 
-                        System.out.println("Link Location : " + linkLocation);
-                        System.out.println("Distance : " + linkDistanceString);
+                        // System.out.println("Link Location : " + linkLocation);
+                        // System.out.println("Distance : " + linkDistanceString);
 
                         Facility linkFacility = FacilityFactory.createFacility(linkLocation);
                         if (linkFacility == null) {
@@ -98,13 +99,9 @@ public class FacilityNetworkXmlLoaderImpl {
                         FacilityEdge facilityEdge = new FacilityEdge(linkFacility, linkDistance);
                         currentFacility.addNeighbor(facilityEdge);
 
-                        // Add linking facilities to inner hashmap for overall ds
-                        // neighborFacilities.put(linkFacility, linkDistance);
-
                     }
-                    // facilityNetwork.put(currentFacility, neighborFacilities);
-                    // neighborFacilities = new HashMap<>();
-                    System.out.println("");
+
+                    facilities.add(currentFacility);
                 }
             }
 
@@ -125,5 +122,18 @@ public class FacilityNetworkXmlLoaderImpl {
         }
 
         return null;
+    }
+
+    @Override
+    public void printFacilitiesList(List<Facility> facilities) {
+
+        System.out.println("List of Facilities: ");
+
+        for (Facility facility : facilities) {
+            System.out.println(facility.getLocation());
+            facility.printNeighbors();
+            System.out.println("");
+        }
+        System.out.println("");
     }
 }
