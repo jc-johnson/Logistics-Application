@@ -1,23 +1,24 @@
 package src.main.java;
 
+import org.xml.sax.SAXException;
 import src.main.java.Exceptions.*;
-import src.main.java.Interfaces.Facility;
-import src.main.java.Interfaces.Impl.FacilityInventoryXMLLoaderImpl;
-import src.main.java.Interfaces.Impl.FacilityNetworkXmlLoaderImpl;
-import src.main.java.ReadXMLs.FacilityInventoryXMLLoader;
-import src.main.java.ReadXMLs.FacilityNetworkXMLLoader;
-import src.main.java.ReadXMLs.ItemCatalogXMLLoader;
+import src.main.java.Interfaces.Impl.OrderImpl;
+import src.main.java.Interfaces.Impl.OrderOutputImpl;
+import src.main.java.Interfaces.Impl.XmlReaderImpl;
+import src.main.java.Interfaces.Order;
+import src.main.java.Interfaces.XmlReader;
 
+import javax.xml.parsers.ParserConfigurationException;
 import java.io.FileNotFoundException;
-import java.util.ArrayList;
-import java.util.List;
+import java.io.IOException;
 
 /**
  * Created by Jordan on 4/14/2017.
  */
 public class Main {
 
-    public static void main(String[] args) throws FileNotFoundException, NullFacilityException, NullPriorityQueueException, EmptyNeighborListException, NullNeighborListException {
+    public static void main(String[] args) throws IOException, NullFacilityException, NullPriorityQueueException, EmptyNeighborListException, NullNeighborListException, ParserConfigurationException, SAXException {
+        /*
         FacilityManager facilityManager = FacilityManager.getInstance();
 
         // Load in Facilities Network from XML - gives you all 18 facilities
@@ -84,6 +85,21 @@ public class Main {
         FacilityDijkstra.run("Detroit, MI", "Nashville, TN");
         facilityManager.resetFacilitiesMinDistance();
         facilityManager.resetPrevious();
+        */
+
+        // -------------------- Part 2 Code ----------------------------------
+
+        XmlReader xmlReader = new XmlReaderImpl();
+        xmlReader.parseOrdersXml("src/main/resources/FacilityInventory.xml");
+
+        Order order = new OrderImpl(123456, "Chicago, IL");
+
+        for (int i = 1; i < 7 ; i++) {
+            System.out.println("-------------------------------------------------------");
+            System.out.println("Order #" + i);
+            order.printOutput();
+        }
+
 
     }
 }
