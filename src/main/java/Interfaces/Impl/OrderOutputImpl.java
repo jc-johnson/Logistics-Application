@@ -33,5 +33,6 @@ public class OrderOutputImpl implements OrderOutput {
         order.printProcessingSolution();
 
         System.out.println("Total Cost:\t");
+        System.out.println("");
     }
 }

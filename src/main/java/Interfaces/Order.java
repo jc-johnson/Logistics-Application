@@ -9,14 +9,14 @@ import java.util.List;
  */
 public interface Order {
 
-    Integer getId();
-    void setId(Integer id);
+    String getId();
+    void setId(String id);
     String getDestination();
     void setDestination(String destination);
     List<Item> getOrderItems();
     Integer getOrderTime();
     void setOrderTime(Integer orderTime);
-    void addOrderItem(Item item);
+    void addOrderItem(Item item, Integer quantity);
     void printItemList();
     void printProcessingSolution();
     void printOutput();

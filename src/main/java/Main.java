@@ -89,16 +89,21 @@ public class Main {
 
         // -------------------- Part 2 Code ----------------------------------
 
-        XmlReader xmlReader = new XmlReaderImpl();
-        xmlReader.parseOrdersXml("src/main/resources/FacilityInventory.xml");
+        //XmlReader xmlReader = new XmlReaderImpl();
+        //xmlReader.parseOrdersXml("src/main/resources/FacilityInventory.xml");
 
-        Order order = new OrderImpl(123456, "Chicago, IL");
+        OrderProcessor orderProcessor = new OrderProcessor();
+        orderProcessor.loadOrdersXml("src/main/resources/Orders.xml");
 
-        for (int i = 1; i < 7 ; i++) {
+
+
+        // Order order = new OrderImpl(123456, "Chicago, IL", 1);
+
+        /*for (int i = 1; i < 7 ; i++) {
             System.out.println("-------------------------------------------------------");
             System.out.println("Order #" + i);
             order.printOutput();
-        }
+        }*/
 
 
     }

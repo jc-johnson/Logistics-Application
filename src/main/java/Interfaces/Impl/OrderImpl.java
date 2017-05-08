@@ -7,16 +7,19 @@ import src.main.java.Interfaces.XmlReader;
 import src.main.java.Item;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by Jordan on 5/7/2017.
  */
 public class OrderImpl implements Order{
 
-    private Integer id;
+    private String id;
     private String destinaiton;
     private List<Item> items;
+    private Map<Item, Integer> itemsList = new HashMap<>();
 
     private Integer orderTime = 0;
 
@@ -24,18 +27,19 @@ public class OrderImpl implements Order{
     private OrderOutput orderOutput = new OrderOutputImpl(this);
 
 
-    public OrderImpl(Integer id, String destinaiton) {
+    public OrderImpl(String id, String destinaiton, Integer orderTime) {
         this.id = id;
         this.destinaiton = destinaiton;
+        this.orderTime = orderTime;
     }
 
     @Override
-    public Integer getId() {
+    public String getId() {
         return id;
     }
 
     @Override
-    public void setId(Integer id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -67,13 +71,13 @@ public class OrderImpl implements Order{
     }
 
     @Override
-    public void addOrderItem(Item item) {
-        items.add(item);
+    public void addOrderItem(Item item, Integer quantity) {
+        itemsList.put(item, quantity);
     }
 
     @Override
     public void printItemList() {
-        itemPrinter.print(items);
+        itemPrinter.print(itemsList);
     }
 
     @Override

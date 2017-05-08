@@ -18,6 +18,7 @@ import javax.xml.parsers.ParserConfigurationException;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -34,11 +35,10 @@ public class XmlReaderImpl implements XmlReader {
     public List<Order> parseOrdersXml(String path) throws IOException, ParserConfigurationException, SAXException {
         // Open file path to xml
         File xmlFile = new File(path);
-        // File xmlFile = new File("src/main/resources/FacilityInventory.xml"); // File Path C:\Logistics-Program\LogisticsApplication\src\main\resources\FacilityInventory.xml
         if (xmlFile == null) {
             throw new FileNotFoundException();
         }
-        // System.out.println("File found...");
+        System.out.println("File found...");
 
         // Parser setup
         DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
@@ -48,13 +48,15 @@ public class XmlReaderImpl implements XmlReader {
         // Optional but recommended
         document.getDocumentElement().normalize();
 
-        // System.out.println("Root element : " + document.getDocumentElement().getNodeName());
+        System.out.println("Root element : " + document.getDocumentElement().getNodeName());
 
         // Parse xml
-        NodeList nodeList = document.getElementsByTagName("Facility");
+        NodeList nodeList = document.getElementsByTagName("Order");
 
+        List<Order> orderList = new ArrayList<>();
         HashMap<Item, Integer> itemList = new HashMap<>();
 
+        // For each order
         for (int i = 0; i < nodeList.getLength(); i++) {
             Node node = nodeList.item(i);
             // System.out.println("\nCurrent Element : " + node.getNodeName());
@@ -64,43 +66,46 @@ public class XmlReaderImpl implements XmlReader {
 
                 Element element = (Element) node;
 
-                String facilityLocation = element.getAttribute("Location");
-                // System.out.println("Facility Location : " + facilityLocation);
+                String orderId = element.getAttribute("Id");
+                String destination = element.getElementsByTagName("Destination").item(0).getTextContent();
+                String orderTimeString = element.getElementsByTagName("OrderTime").item(0).getTextContent();
+                Integer orderTime = Integer.parseInt(orderTimeString);
 
-                // Create facility based on location and load into list
-                Facility currentFacility = FacilityFactory.createFacility(facilityLocation);
-                if (currentFacility == null) {
-                    //throw new NullFacilityException();
-                }
+                System.out.println("Order Id: " + orderId);
+                System.out.println("Order Time: " + orderTimeString);
+                System.out.println("Destination: " + destination);
 
-                // get all items ids and quantity for each facility
-                NodeList facilityItems = element.getElementsByTagName("Item");
+                Order order = new OrderImpl(orderId, destination, orderTime);
 
-                for (int j = 0; j < facilityItems.getLength(); j++) {
+                // get all items ids and quantity for each order
+                NodeList orderItems = element.getElementsByTagName("Item");
 
-                    Element itemElement = (Element) facilityItems.item(j);
+                for (int j = 0; j < orderItems.getLength(); j++) {
 
-                    String itemId = itemElement.getElementsByTagName("Id").item(0).getTextContent();
+                    Element itemElement = (Element) orderItems.item(j);
+
+                    String itemId = itemElement.getAttribute("Id");
                     String itemQuantityString = itemElement.getElementsByTagName("Quantity").item(0).getTextContent();
                     Integer itemQuantity = Integer.parseInt(itemQuantityString);
 
-                    // System.out.println("Item Id : " + itemId);
-                    // System.out.println("Quantity : " + itemQuantity);
+                    System.out.println("Item Id : " + itemId);
+                    System.out.println("Quantity : " + itemQuantity);
 
                     Item item = new Item(itemId);
-                    // currentFacility.addInventory(item, itemQuantity);
+                    order.addOrderItem(item, itemQuantity);
 
-                    // Add inventory to the correct facility
-                    /*for (Facility facility : facilities) {
-                        if (facility.getLocation() == currentFacility.getLocation()) {
-                            facility.addInventory(item, itemQuantity);
-                        }
-                    }*/
                 }
 
-                // facilities.add(currentFacility);
+                orderList.add(order);
             }
         }
-        return null;
+
+        System.out.println("Order List: ");
+        for (Order order : orderList) {
+            order.printOutput();
+        }
+
+        return orderList;
     }
 }
+
