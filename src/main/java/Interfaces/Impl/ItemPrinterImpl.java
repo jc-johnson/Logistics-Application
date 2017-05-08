@@ -10,6 +10,7 @@ import java.util.List;
  */
 public class ItemPrinterImpl implements ItemPrinter {
 
+
     @Override
     public void print(List<Item> items) {
         for(Item item : items) {

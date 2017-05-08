@@ -20,7 +20,7 @@ public class OrderOutputImpl implements OrderOutput {
     @Override
     public void printOrder() {
         System.out.println("\tOrder Id:\t\t" + order.getId());
-        System.out.println("\tOrder Time:\t\t" + order.getOrderTime());
+        System.out.println("\tOrder Time:\t\tDay " + order.getOrderTime());
         System.out.println("\tDestination:\t" + order.getDestination());
         System.out.println("");
 

@@ -73,7 +73,7 @@ public class OrderImpl implements Order{
 
     @Override
     public void printItemList() {
-
+        itemPrinter.print(items);
     }
 
     @Override
