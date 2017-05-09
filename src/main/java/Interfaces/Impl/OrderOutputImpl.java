@@ -1,10 +1,7 @@
-package src.main.java.Interfaces.Impl;
+package src.main.java.interfaces.impl;
 
-import src.main.java.Interfaces.Order;
-import src.main.java.Interfaces.OrderOutput;
-import src.main.java.Item;
-
-import java.util.List;
+import src.main.java.interfaces.Order;
+import src.main.java.interfaces.OrderOutput;
 
 /**
  * Created by Jordan on 5/7/2017.

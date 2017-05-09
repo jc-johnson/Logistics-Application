@@ -1,4 +1,4 @@
-package src.main.java.Exceptions;
+package src.main.java.exceptions;
 
 /**
  * Created by Jordan on 5/2/2017.

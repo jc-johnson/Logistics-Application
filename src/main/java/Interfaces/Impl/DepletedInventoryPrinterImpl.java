@@ -1,6 +1,6 @@
-package src.main.java.Interfaces.Impl;
+package src.main.java.interfaces.impl;
 
-import src.main.java.Interfaces.DepletedInventoryPrinter;
+import src.main.java.interfaces.DepletedInventoryPrinter;
 
 import java.util.HashMap;
 import java.util.Iterator;

@@ -1,7 +1,6 @@
-package src.main.java.Interfaces;
+package src.main.java.interfaces;
 
-import src.main.java.ShortestPath.Edge;
-import src.main.java.ShortestPath.FacilityEdge;
+import src.main.java.shortestpath.FacilityEdge;
 
 import java.util.ArrayList;
 

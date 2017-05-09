@@ -1,6 +1,4 @@
-package src.main.java.ShortestPath;
-
-import src.main.java.FacilityFactory;
+package src.main.java.shortestpath;
 
 /**
  * Created by Jordan on 4/20/2017.

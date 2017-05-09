@@ -1,10 +1,11 @@
-package src.main.java.Interfaces;
+package src.main.java.interfaces;
 
 import src.main.java.Item;
-import src.main.java.ShortestPath.FacilityEdge;
+import src.main.java.shortestpath.FacilityEdge;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 /**
  * Created by Jordan on 4/14/2017.
@@ -40,6 +41,8 @@ public interface Facility {
     void addInventory(HashMap<Item, Integer> inventoryList);
 
     void addNeighbor(FacilityEdge facilityEdge);
+
+    void addNeighbors(List<FacilityEdge> facilityEdges);
 
     void addScheduleDay(Integer day, Integer value);
 

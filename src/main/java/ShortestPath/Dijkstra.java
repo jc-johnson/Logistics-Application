@@ -1,6 +1,6 @@
-package src.main.java.ShortestPath;
+package src.main.java.shortestpath;
 
-import src.main.java.Exceptions.NullVertexException;
+import src.main.java.exceptions.NullVertexException;
 
 import java.util.*;
 

@@ -1,7 +1,7 @@
-package src.main.java.Interfaces;
+package src.main.java.interfaces;
 
 import org.xml.sax.SAXException;
-import src.main.java.Exceptions.NullFacilityException;
+import src.main.java.exceptions.NullFacilityException;
 
 import javax.xml.parsers.ParserConfigurationException;
 import java.io.FileNotFoundException;

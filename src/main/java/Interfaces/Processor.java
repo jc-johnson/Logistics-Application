@@ -1,4 +1,4 @@
-package src.main.java.Interfaces;
+package src.main.java.interfaces;
 
 /**
  * Created by Jordan on 4/14/2017.

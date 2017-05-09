@@ -1,15 +1,14 @@
-package src.main.java.Interfaces.Impl;
+package src.main.java.interfaces.impl;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
-import src.main.java.Exceptions.NullFacilityException;
-import src.main.java.FacilityFactory;
-import src.main.java.Interfaces.Facility;
-import src.main.java.Interfaces.Order;
-import src.main.java.Interfaces.XmlReader;
+import src.main.java.exceptions.NullFacilityException;
+import src.main.java.interfaces.Facility;
+import src.main.java.interfaces.Order;
+import src.main.java.interfaces.XmlReader;
 import src.main.java.Item;
 
 import javax.xml.parsers.DocumentBuilder;

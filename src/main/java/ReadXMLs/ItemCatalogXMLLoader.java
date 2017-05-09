@@ -1,4 +1,4 @@
-package src.main.java.ReadXMLs;
+package src.main.java.readxmls;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -17,7 +17,6 @@ import org.w3c.dom.NodeList;
 import org.w3c.dom.Node;
 import org.w3c.dom.Element;
 import org.xml.sax.SAXException;
-import src.main.java.Interfaces.XmlReader;
 
 /**
  * Created by Jordan on 4/13/2017.

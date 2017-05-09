@@ -1,7 +1,7 @@
-package src.main.java.Interfaces.Impl;
+package src.main.java.interfaces.impl;
 
-import src.main.java.Interfaces.NeighborPrinter;
-import src.main.java.ShortestPath.FacilityEdge;
+import src.main.java.interfaces.NeighborPrinter;
+import src.main.java.shortestpath.FacilityEdge;
 
 import java.util.ArrayList;
 

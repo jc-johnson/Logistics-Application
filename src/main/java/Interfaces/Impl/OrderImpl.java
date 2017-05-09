@@ -1,9 +1,8 @@
-package src.main.java.Interfaces.Impl;
+package src.main.java.interfaces.impl;
 
-import src.main.java.Interfaces.ItemPrinter;
-import src.main.java.Interfaces.Order;
-import src.main.java.Interfaces.OrderOutput;
-import src.main.java.Interfaces.XmlReader;
+import src.main.java.interfaces.ItemPrinter;
+import src.main.java.interfaces.Order;
+import src.main.java.interfaces.OrderOutput;
 import src.main.java.Item;
 
 import java.util.ArrayList;

@@ -1,24 +1,9 @@
-package src.main.java.ReadXMLs;
+package src.main.java.readxmls;
 
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
-import org.xml.sax.SAXException;
-import src.main.java.Exceptions.NullFacilityException;
-import src.main.java.FacilityFactory;
-import src.main.java.Interfaces.Facility;
-import src.main.java.Interfaces.XmlReader;
-import src.main.java.Item;
+import src.main.java.exceptions.NullFacilityException;
+import src.main.java.interfaces.Facility;
 
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.ParserConfigurationException;
-import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.text.NumberFormat;
-import java.text.ParseException;
 import java.util.*;
 
 /**

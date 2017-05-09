@@ -1,13 +1,11 @@
 package src.main.java;
 
-import src.main.java.Exceptions.NullFacilityException;
-import src.main.java.Interfaces.Facility;
-import src.main.java.Interfaces.Impl.FacilityInventoryXMLLoaderImpl;
-import src.main.java.Interfaces.Impl.FacilityNetworkXmlLoaderImpl;
-import src.main.java.ReadXMLs.FacilityInventoryXMLLoader;
-import src.main.java.ReadXMLs.FacilityNetworkXMLLoader;
-import src.main.java.ShortestPath.Edge;
-import src.main.java.ShortestPath.FacilityEdge;
+import src.main.java.exceptions.NullFacilityException;
+import src.main.java.interfaces.Facility;
+import src.main.java.interfaces.impl.FacilityInventoryXMLLoaderImpl;
+import src.main.java.interfaces.impl.FacilityNetworkXmlLoaderImpl;
+import src.main.java.readxmls.FacilityInventoryXMLLoader;
+import src.main.java.readxmls.FacilityNetworkXMLLoader;
 
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
@@ -38,11 +36,11 @@ public final class FacilityManager {
     private FacilityManager() {}
 
     public void loadFacilitesAndNeighborsFromXML() throws FileNotFoundException, NullFacilityException {
-        facilityNetworkXMLLoader.parse(facilitiesList);
+        facilitiesList = facilityNetworkXMLLoader.parse();
     }
 
     public void loadFacilityInventoryFromXML() throws FileNotFoundException, NullFacilityException {
-        facilityNetworkXMLLoader.parse(facilitiesList);
+        // facilityNetworkXMLLoader.parse(facilitiesList);
     }
 
     public void printEachFacilityOutput() {

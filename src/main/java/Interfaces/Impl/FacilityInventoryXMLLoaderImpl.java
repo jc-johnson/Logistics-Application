@@ -1,15 +1,15 @@
-package src.main.java.Interfaces.Impl;
+package src.main.java.interfaces.impl;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
-import src.main.java.Exceptions.NullFacilityException;
+import src.main.java.exceptions.NullFacilityException;
 import src.main.java.FacilityFactory;
-import src.main.java.Interfaces.Facility;
+import src.main.java.interfaces.Facility;
 import src.main.java.Item;
-import src.main.java.ReadXMLs.FacilityInventoryXMLLoader;
+import src.main.java.readxmls.FacilityInventoryXMLLoader;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -62,11 +62,6 @@ public class FacilityInventoryXMLLoaderImpl implements FacilityInventoryXMLLoade
                     String facilityLocation = element.getAttribute("Location");
                     // System.out.println("Facility Location : " + facilityLocation);
 
-                    // Create facility based on location and load into list
-                    Facility currentFacility = FacilityFactory.createFacility(facilityLocation);
-                    if (currentFacility == null) {
-                        throw new NullFacilityException();
-                    }
 
                     // get all items ids and quantity for each facility
                     NodeList facilityItems = element.getElementsByTagName("Item");
@@ -86,11 +81,11 @@ public class FacilityInventoryXMLLoaderImpl implements FacilityInventoryXMLLoade
                         // currentFacility.addInventory(item, itemQuantity);
 
                         // Add inventory to the correct facility
-                        for (Facility facility : facilities) {
+                        /*for (Facility facility : facilities) {
                             if (facility.getLocation() == currentFacility.getLocation()) {
                                 facility.addInventory(item, itemQuantity);
                             }
-                        }
+                        }*/
                     }
 
                     // facilities.add(currentFacility);
@@ -109,8 +104,6 @@ public class FacilityInventoryXMLLoaderImpl implements FacilityInventoryXMLLoade
         } catch (ParserConfigurationException e) {
             e.printStackTrace();
         } catch (IOException e) {
-            e.printStackTrace();
-        } catch (NullFacilityException e) {
             e.printStackTrace();
         }
     }

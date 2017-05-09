@@ -1,8 +1,7 @@
-package src.main.java.Interfaces.Impl;
+package src.main.java.interfaces.impl;
 
-import src.main.java.Facilities.ChicagoFacility;
-import src.main.java.Interfaces.Facility;
-import src.main.java.Interfaces.OutputPrinter;
+import src.main.java.interfaces.Facility;
+import src.main.java.interfaces.OutputPrinter;
 
 /**
  * Created by Jordan on 4/29/2017.

@@ -1,6 +1,6 @@
-package src.main.java.Interfaces.Impl;
+package src.main.java.interfaces.impl;
 
-import src.main.java.Interfaces.ScheduleSetter;
+import src.main.java.interfaces.ScheduleSetter;
 
 import java.util.HashMap;
 

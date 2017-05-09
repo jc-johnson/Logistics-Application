@@ -1,4 +1,4 @@
-package src.main.java.Interfaces;
+package src.main.java.interfaces;
 
 import java.util.HashMap;
 

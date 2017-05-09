@@ -1,4 +1,4 @@
-package src.main.java.Interfaces;
+package src.main.java.interfaces;
 
 import src.main.java.Item;
 

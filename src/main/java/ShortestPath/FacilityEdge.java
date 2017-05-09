@@ -1,30 +1,23 @@
-package src.main.java.ShortestPath;
+package src.main.java.shortestpath;
 
 import src.main.java.FacilityFactory;
-import src.main.java.Interfaces.Facility;
+import src.main.java.FacilityImpl;
+import src.main.java.interfaces.Facility;
 
 /**
  * Created by Jordan on 5/2/2017.
  */
 public class FacilityEdge {
 
-    public Facility target;
-    public double weight = 0; // in miles
+    private String target;
+    private Integer weight = 0; // in miles
 
-    public FacilityEdge(Facility targetFacility, double edgeWeight) {
+    public FacilityEdge(String targetFacility, Integer edgeWeight) {
         target = targetFacility;
         weight = edgeWeight;
     }
 
-    public FacilityEdge(String facilityLocation, Integer distance) {
-        Facility facility = FacilityFactory.createFacility(facilityLocation);
-        double weight = (double) distance;
-
-        target = facility;
-        this.weight = weight;
-    }
-
-    public Facility getTarget(){
+    public String getTarget(){
         return target;
     }
 
@@ -38,6 +31,6 @@ public class FacilityEdge {
     }
 
     public String toString() {
-        return this.target.getLocation() + " (" + this.getDistanceInDays() + "d); ";
+        return this.getTarget() + " (" + this.getDistanceInDays() + "d); ";
     }
 }

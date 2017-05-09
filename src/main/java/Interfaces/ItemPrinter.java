@@ -1,9 +1,7 @@
-package src.main.java.Interfaces;
+package src.main.java.interfaces;
 
-import com.sun.org.apache.xpath.internal.operations.Or;
 import src.main.java.Item;
 
-import java.util.List;
 import java.util.Map;
 
 /**

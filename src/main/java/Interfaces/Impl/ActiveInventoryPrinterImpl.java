@@ -1,10 +1,9 @@
-package src.main.java.Interfaces.Impl;
+package src.main.java.interfaces.impl;
 
-import src.main.java.Interfaces.ActiveInventoryPrinter;
+import src.main.java.interfaces.ActiveInventoryPrinter;
 import src.main.java.Item;
 
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.Map;
 
 /**

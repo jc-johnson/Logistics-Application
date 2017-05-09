@@ -1,15 +1,9 @@
 package src.main.java;
 
 import org.xml.sax.SAXException;
-import src.main.java.Exceptions.*;
-import src.main.java.Interfaces.Impl.OrderImpl;
-import src.main.java.Interfaces.Impl.OrderOutputImpl;
-import src.main.java.Interfaces.Impl.XmlReaderImpl;
-import src.main.java.Interfaces.Order;
-import src.main.java.Interfaces.XmlReader;
+import src.main.java.exceptions.*;
 
 import javax.xml.parsers.ParserConfigurationException;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 
 /**
@@ -18,10 +12,10 @@ import java.io.IOException;
 public class Main {
 
     public static void main(String[] args) throws IOException, NullFacilityException, NullPriorityQueueException, EmptyNeighborListException, NullNeighborListException, ParserConfigurationException, SAXException {
-        /*
+
         FacilityManager facilityManager = FacilityManager.getInstance();
 
-        // Load in Facilities Network from XML - gives you all 18 facilities
+        // Load in facilities Network from XML - gives you all 18 facilities
         // FacilityNetworkXMLLoader facilityNetworkXMLLoader = new FacilityNetworkXmlLoaderImpl();
         // facilityNetworkXMLLoader.parse(facilitiesList);
         facilityManager.loadFacilitesAndNeighborsFromXML();
@@ -29,23 +23,24 @@ public class Main {
         // Load each facilities' inventory
         // FacilityInventoryXMLLoader facilityInventoryXMLLoader = new FacilityInventoryXMLLoaderImpl();
         // facilityInventoryXMLLoader.parse(facilitiesList);
-        facilityManager.loadFacilityInventoryFromXML();
+        // facilityManager.loadFacilityInventoryFromXML();
 
-        facilityManager.initializeSchedules();
+        // facilityManager.initializeSchedules();
 
 
         // Output 1
-        facilityManager.printEachFacilityOutput();
+        // facilityManager.printEachFacilityOutput();
 
         // Output 2 : Item catalog
         // Parse and Print Item Catalog
-        ItemCatalogXMLLoader itemCatalogXMLLoader = new ItemCatalogXMLLoader();
-        itemCatalogXMLLoader.parse();
+        // ItemCatalogXMLLoader itemCatalogXMLLoader = new ItemCatalogXMLLoader();
+        // itemCatalogXMLLoader.parse();
 
         // Output 3 : Shortest path
-        System.out.println("Shortest Path Tests: ");
-        System.out.println("");
+        // System.out.println("Shortest Path Tests: ");
+        // System.out.println("");
 
+        /*
         FacilityDijkstra.run("Santa Fe, NM", "Chicago, IL");
         facilityManager.resetFacilitiesMinDistance();
         facilityManager.resetPrevious();
@@ -92,8 +87,8 @@ public class Main {
         //XmlReader xmlReader = new XmlReaderImpl();
         //xmlReader.parseOrdersXml("src/main/resources/FacilityInventory.xml");
 
-        OrderProcessor orderProcessor = new OrderProcessor();
-        orderProcessor.loadOrdersXml("src/main/resources/Orders.xml");
+        // OrderProcessor orderProcessor = new OrderProcessor();
+        // orderProcessor.loadOrdersXml("src/main/resources/Orders.xml");
 
 
 

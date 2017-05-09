@@ -1,7 +1,7 @@
 package src.main.java;
 
-import src.main.java.Facilities.*;
-import src.main.java.Interfaces.Facility;
+import src.main.java.interfaces.Facility;
+
 
 /**
  * Created by Jordan on 4/14/2017.
@@ -10,6 +10,7 @@ public class FacilityFactory {
 
     private FacilityFactory(){} // static methods, no reason to "new"
 
+    /*
     public static Facility createFacility(String type) {
 
         switch (type) {
@@ -28,7 +29,7 @@ public class FacilityFactory {
             case "Fargo, ND":
                 return FargoFacility.getInstance();
             case "Austin, TX":
-                return AustinFacility.getInstance();
+                return src.main.java.facilities.AustinFacility.getInstance();
             case "St. Louis, MO":
                 return StLouisFacility.getInstance();
             case "Chicago, IL":
@@ -52,5 +53,7 @@ public class FacilityFactory {
             default:
                 return null;
         }
+
     }
+    */
 }

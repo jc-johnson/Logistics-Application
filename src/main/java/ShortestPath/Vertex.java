@@ -1,11 +1,8 @@
-package src.main.java.ShortestPath;
+package src.main.java.shortestpath;
 
-import src.main.java.FacilityFactory;
-import src.main.java.Interfaces.Facility;
+import src.main.java.interfaces.Facility;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by Jordan on 4/20/2017.

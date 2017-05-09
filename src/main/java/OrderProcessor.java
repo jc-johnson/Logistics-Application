@@ -1,10 +1,10 @@
 package src.main.java;
 
 import org.xml.sax.SAXException;
-import src.main.java.Interfaces.Facility;
-import src.main.java.Interfaces.Impl.XmlReaderImpl;
-import src.main.java.Interfaces.Order;
-import src.main.java.Interfaces.XmlReader;
+import src.main.java.interfaces.Facility;
+import src.main.java.interfaces.impl.XmlReaderImpl;
+import src.main.java.interfaces.Order;
+import src.main.java.interfaces.XmlReader;
 
 import javax.xml.parsers.ParserConfigurationException;
 import java.io.IOException;
