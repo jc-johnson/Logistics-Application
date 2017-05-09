@@ -46,6 +46,8 @@ public interface Facility {
 
     void addScheduleDay(Integer day, Integer value);
 
+    void changeScheduleDay(Integer day, Integer value);
+
     void printActiveInventory();
 
     void printDepletedInventory();

@@ -19,14 +19,14 @@ public class FacilityImpl implements Facility {
     private ArrayList<FacilityEdge> neighbors = new ArrayList<>();
 
     // TODO: Make each of these a class inventory and schedule
+    private Schedule schedule = new FacilitySchedule();
+
     private HashMap<Item, Integer> activeInventory = new HashMap<>();
     private HashMap<String, Integer> depletedInventory = new HashMap<>();
-    private HashMap<Integer, Integer> schedule = new HashMap<>();
 
     private ActiveInventoryPrinter activeInventoryPrinter = new ActiveInventoryPrinterImpl();
     private DepletedInventoryPrinter depletedInventoryPrinter = new DepletedInventoryPrinterImpl();
 
-    private SchedulePrinter schedulePrinter = new SchedulePrinterImpl();
     private NeighborPrinter neighborPrinter = new NeighborPrinterImpl();
     private ScheduleSetter scheduleSetter = new ScheduleSetterImpl();
 
@@ -104,7 +104,7 @@ public class FacilityImpl implements Facility {
 
     @Override
     public String getCity() {
-        return null;
+        return getLocation().substring(0, getLocation().length()-4);
     }
 
     @Override
@@ -131,7 +131,11 @@ public class FacilityImpl implements Facility {
 
     @Override
     public void addScheduleDay(Integer day, Integer value) {
+        schedule.setScheduleDay(day, value);
+    }
 
+    public void changeScheduleDay(Integer day, Integer value) {
+        schedule.setScheduleDay(day, value);
     }
 
     @Override
@@ -146,7 +150,29 @@ public class FacilityImpl implements Facility {
 
     @Override
     public void printOutput() {
+        System.out.println("---------------------------------------------------------------");
+        System.out.println("");
+        System.out.println(" " + location + "" );
+        System.out.println("");
+        System.out.println("--------------------------");
+        System.out.println("");
+        System.out.println("Rate per day: " + ratePerDay);
+        System.out.println("Cost per day: $" + costPerDay);
+        System.out.println("");
 
+        // print direct links
+        printNeighbors();
+        System.out.println("");
+
+        // print active inventory
+        System.out.println("Active Inventory: ");
+        printActiveInventory();
+
+        // print depleted inventory
+        printDepletedInventory();
+        System.out.println("");
+
+        printSchedule();
     }
 
     @Override
@@ -156,6 +182,6 @@ public class FacilityImpl implements Facility {
 
     @Override
     public void printSchedule() {
-
+        schedule.printOutput();
     }
 }
