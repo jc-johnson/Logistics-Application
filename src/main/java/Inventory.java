@@ -7,11 +7,8 @@ import java.util.Map;
  */
 public interface Inventory {
 
-    void addInventoryItem(Item item, Integer quantity);
-    void addInvnetoryItems(Map<Item, Integer> items);
-    void reduceInventory(Item item, Integer quantity);
+    void updateInventoryItem(Item item, Integer quantity);
     void printInventory();
-    void printActiveInventory();
-    void printDepletedInventory();
+
 
 }

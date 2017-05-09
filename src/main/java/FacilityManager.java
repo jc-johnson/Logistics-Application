@@ -39,8 +39,8 @@ public final class FacilityManager {
         facilitiesList = facilityNetworkXMLLoader.parse();
     }
 
-    public void loadFacilityInventoryFromXML() throws FileNotFoundException, NullFacilityException {
-        // facilityNetworkXMLLoader.parse(facilitiesList);
+    public void loadFacilityInventoryFromXML(String path) throws FileNotFoundException, NullFacilityException {
+        facilityInventoryXMLLoader.parse(facilitiesList, path);
     }
 
     public void printEachFacilityOutput() {
@@ -65,7 +65,7 @@ public final class FacilityManager {
     public void initializeSchedules() {
         for (Facility facility : facilitiesList) {
             for (int i = 0; i < 21 ; i++) {
-                facility.addScheduleDay(i, 10);
+                facility.updateSchedule(i, 10);
             }
         }
     }

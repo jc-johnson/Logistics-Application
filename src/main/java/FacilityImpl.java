@@ -18,17 +18,10 @@ public class FacilityImpl implements Facility {
     private Integer costPerDay = 300;
     private ArrayList<FacilityEdge> neighbors = new ArrayList<>();
 
-    // TODO: Make each of these a class inventory and schedule
     private Schedule schedule = new FacilitySchedule();
-
-    private HashMap<Item, Integer> activeInventory = new HashMap<>();
-    private HashMap<String, Integer> depletedInventory = new HashMap<>();
-
-    private ActiveInventoryPrinter activeInventoryPrinter = new ActiveInventoryPrinterImpl();
-    private DepletedInventoryPrinter depletedInventoryPrinter = new DepletedInventoryPrinterImpl();
+    private Inventory inventory = new FacilityInventory();
 
     private NeighborPrinter neighborPrinter = new NeighborPrinterImpl();
-    private ScheduleSetter scheduleSetter = new ScheduleSetterImpl();
 
     // Vertex fields
     private double minDistance = 435;
@@ -102,19 +95,23 @@ public class FacilityImpl implements Facility {
         return neighborCopy;
     }
 
+    public boolean inNeighbors(Facility facility, String neighborLocation) {
+        return false;
+    }
+
+    public Integer getNeighborDistance(Facility facility, String neighborName) {
+
+        return 0;
+    }
+
     @Override
     public String getCity() {
         return getLocation().substring(0, getLocation().length()-4);
     }
 
     @Override
-    public void addInventory(Item item, Integer quantity) {
-
-    }
-
-    @Override
-    public void addInventory(HashMap<Item, Integer> inventoryList) {
-
+    public void updateInventory(Item item, Integer quantity) {
+        inventory.updateInventoryItem(item, quantity);
     }
 
     @Override
@@ -122,30 +119,23 @@ public class FacilityImpl implements Facility {
         neighbors.add(facilityEdge);
     }
 
-    @Override
-    public void addNeighbors(List<FacilityEdge> facilityEdges) {
-        for (FacilityEdge facilityEdge : facilityEdges) {
-            this.addNeighbor(facilityEdge);
-        }
-    }
-
-    @Override
-    public void addScheduleDay(Integer day, Integer value) {
-        schedule.setScheduleDay(day, value);
-    }
-
-    public void changeScheduleDay(Integer day, Integer value) {
+    public void updateSchedule(Integer day, Integer value) {
         schedule.setScheduleDay(day, value);
     }
 
     @Override
-    public void printActiveInventory() {
-
+    public void printInventory() {
+        schedule.printOutput();
     }
 
     @Override
-    public void printDepletedInventory() {
+    public void printNeighbors() {
+        neighborPrinter.print(neighbors);
+    }
 
+    @Override
+    public void printSchedule() {
+        schedule.printOutput();
     }
 
     @Override
@@ -164,24 +154,9 @@ public class FacilityImpl implements Facility {
         printNeighbors();
         System.out.println("");
 
-        // print active inventory
-        System.out.println("Active Inventory: ");
-        printActiveInventory();
-
-        // print depleted inventory
-        printDepletedInventory();
+        printInventory();
         System.out.println("");
 
         printSchedule();
-    }
-
-    @Override
-    public void printNeighbors() {
-        neighborPrinter.print(neighbors);
-    }
-
-    @Override
-    public void printSchedule() {
-        schedule.printOutput();
     }
 }
