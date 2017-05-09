@@ -33,20 +33,20 @@ public class FacilityInventory implements Inventory {
 
     private void printActiveInventory() {
         System.out.println("Active Inventory: ");
-        System.out.println("\tItem ID\tQuantity");
+        System.out.println("\tItem ID\t\tQuantity");
         for (Map.Entry<Item, Integer> entry : activeInventory.entrySet()) {
-            System.out.println("\t" + entry.getKey().getId() + "\t" + entry.getValue() );
+            System.out.println("\t" + entry.getKey().getId() + "\t\t" + entry.getValue() );
         }
     }
 
 
     private void printDepletedInventory() {
-        System.out.println("Depleted (Used-Up) Inventory: ");
         if (depletedInventory.size() == 0) {
-            System.out.println("None");
+            System.out.println("\tDepleted (Used-Up) Inventory: None");
             return;
         }
 
+        System.out.println("\tDepleted (Used-Up) Inventory: ");
         System.out.println("\tItem ID\tQuantity");
         for (Map.Entry<Item, Integer> entry : activeInventory.entrySet()) {
             System.out.println("\t" + entry.getKey().getId() + "\t" + entry.getValue() );

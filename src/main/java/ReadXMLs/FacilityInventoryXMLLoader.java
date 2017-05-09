@@ -11,5 +11,5 @@ import java.util.*;
  */
 public interface FacilityInventoryXMLLoader {
 
-    public void parse(List<Facility> facilities) throws FileNotFoundException, NullFacilityException;
+    public void parse(List<Facility> facilities, String path) throws FileNotFoundException, NullFacilityException;
 }

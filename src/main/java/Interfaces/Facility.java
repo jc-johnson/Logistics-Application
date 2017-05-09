@@ -36,26 +36,19 @@ public interface Facility {
 
     String getCity();
 
-    void addInventory(Item item, Integer quantity);
-
-    void addInventory(HashMap<Item, Integer> inventoryList);
+    void updateInventory(Item item, Integer quantity);
 
     void addNeighbor(FacilityEdge facilityEdge);
 
-    void addNeighbors(List<FacilityEdge> facilityEdges);
-
-    void addScheduleDay(Integer day, Integer value);
-
-    void changeScheduleDay(Integer day, Integer value);
-
-    void printActiveInventory();
-
-    void printDepletedInventory();
+    void updateSchedule(Integer day, Integer value);
 
     void printOutput();
+
+    void printInventory();
 
     void printNeighbors();
 
     void printSchedule();
+
 
 }

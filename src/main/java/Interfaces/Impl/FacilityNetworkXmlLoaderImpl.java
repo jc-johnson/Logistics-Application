@@ -31,7 +31,7 @@ public class FacilityNetworkXmlLoaderImpl implements FacilityNetworkXMLLoader {
     @Override
     public List<Facility> parse() throws FileNotFoundException, NullFacilityException {
         try {
-            List<Facility> facilities = new ArrayList<>();
+
 
             // Open file path to xml
             File xmlFile = new File("src/main/resources/FacilityNetwork.xml"); // File Path C:\Logistics-Program\LogisticsApplication\src\main\resources\ItemCatalog.xml
@@ -50,6 +50,8 @@ public class FacilityNetworkXmlLoaderImpl implements FacilityNetworkXMLLoader {
 
             System.out.println("Root element : " + document.getDocumentElement().getNodeName());
             NodeList nodeList = document.getElementsByTagName("Facility");
+
+            List<Facility> facilities = new ArrayList<>();
 
             // Parse xml and build data structure from it
             for (int i = 0; i < nodeList.getLength(); i++) {
@@ -73,13 +75,6 @@ public class FacilityNetworkXmlLoaderImpl implements FacilityNetworkXMLLoader {
 
                     Facility currentFacility = new FacilityImpl(facilityLocation, facilityRate, facilityCostPerDay);
 
-                    /*
-                    Facility currentFacility = FacilityFactory.createFacility(facilityLocation);
-                    if (currentFacility == null) {
-                        throw new NullFacilityException();
-                    }
-                    */
-
                     // get all facility neighbors
                     NodeList facilityLinks = element.getElementsByTagName("link");
 
@@ -102,11 +97,14 @@ public class FacilityNetworkXmlLoaderImpl implements FacilityNetworkXMLLoader {
                         // currentFacility.addNeighbor(facilityEdge);
 
                     }
-                    currentFacility.addNeighbors(facilityEdges);
-                    facilities.add(currentFacility);
 
+                    for (FacilityEdge facilityEdge : facilityEdges) {
+                        currentFacility.addNeighbor(facilityEdge);
+                    }
+                    facilities.add(currentFacility);
                 }
             }
+
 
             printFacilitiesList(facilities);
             return facilities;

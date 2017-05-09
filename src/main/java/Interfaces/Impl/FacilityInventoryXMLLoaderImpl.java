@@ -17,8 +17,10 @@ import javax.xml.parsers.ParserConfigurationException;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by Jordan on 5/7/2017.
@@ -26,10 +28,11 @@ import java.util.List;
 public class FacilityInventoryXMLLoaderImpl implements FacilityInventoryXMLLoader {
 
     @Override
-    public void parse(List<Facility> facilities) throws FileNotFoundException, NullFacilityException {
+    public void parse(List<Facility> facilities, String path) throws FileNotFoundException, NullFacilityException {
         try {
             // Open file path to xml
-            File xmlFile = new File("src/main/resources/FacilityInventory.xml"); // File Path C:\Logistics-Program\LogisticsApplication\src\main\resources\FacilityInventory.xml
+            File xmlFile = new File(path); // File Path C:\Logistics-Program\LogisticsApplication\src\main\resources\FacilityInventory.xml
+
             if (xmlFile == null) {
                 throw new FileNotFoundException();
             }
@@ -59,7 +62,7 @@ public class FacilityInventoryXMLLoaderImpl implements FacilityInventoryXMLLoade
 
                     Element element = (Element) node;
 
-                    String facilityLocation = element.getAttribute("Location");
+                    String currentFacility = element.getAttribute("Location");
                     // System.out.println("Facility Location : " + facilityLocation);
 
 
@@ -78,6 +81,8 @@ public class FacilityInventoryXMLLoaderImpl implements FacilityInventoryXMLLoade
                         // System.out.println("Quantity : " + itemQuantity);
 
                         Item item = new Item(itemId);
+                        itemList.put(item, itemQuantity);
+
                         // currentFacility.addInventory(item, itemQuantity);
 
                         // Add inventory to the correct facility
@@ -88,15 +93,15 @@ public class FacilityInventoryXMLLoaderImpl implements FacilityInventoryXMLLoade
                         }*/
                     }
 
-                    // facilities.add(currentFacility);
+                    for (Facility facility : facilities) {
+                        if (facility.getLocation() == currentFacility) {
+                            for (Map.Entry<Item, Integer> entry : itemList.entrySet()) {
+                                facility.updateInventory(entry.getKey(), entry.getValue());
+                            }
+                        }
+                    }
                 }
             }
-
-           /* for (Facility facility : facilities) {
-                System.out.println("Facility: " + facility.getLocation());
-                facility.printActiveInventory();
-            }
-            System.out.println("");*/
 
 
         } catch (SAXException e) {
@@ -105,6 +110,14 @@ public class FacilityInventoryXMLLoaderImpl implements FacilityInventoryXMLLoade
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
+        }
+
+        printFacilityInventory(facilities);
+    }
+
+    private void printFacilityInventory(List<Facility> facilities) {
+        for (Facility facility : facilities) {
+            facility.printInventory();
         }
     }
 }

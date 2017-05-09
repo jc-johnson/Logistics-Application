@@ -125,7 +125,7 @@ public class FacilityImpl implements Facility {
 
     @Override
     public void printInventory() {
-        schedule.printOutput();
+        inventory.printInventory();
     }
 
     @Override
