@@ -38,7 +38,6 @@ public class FacilityDijkstra {
 
         if (source != null && target != null) {
             System.out.println(source.getLocation() + " to " + target.getLocation() + ":");
-            // computePaths(source);
             shortestPath(source, target);
         }
     }
@@ -130,7 +129,8 @@ public class FacilityDijkstra {
             // System.out.println("Facility: " + facility.getLocation());
             for (FacilityEdge facilityEdge : facility.getNeighborList()) {
                 // System.out.println("Facility Edge Target: " + facilityEdge.getTarget().getLocation());
-                if (facilityEdge.getTarget() == facilityPath.get(i+1).getLocation()) {
+                String nextFacility = facilityPath.get(i+1).getLocation();
+                if (facilityEdge.getTarget().equals(nextFacility)) {
                     totalDistance += facilityEdge.getWeight();
                 }
             }

@@ -41,43 +41,42 @@ public class Main {
         facilityManager.resetFacilitiesMinDistance();
         facilityManager.resetPrevious();
 
-        /*
-        FacilityDijkstra.run("Atlanta, GA", "St. Louis, MO");
+        facilityManager.runShortestPath("Atlanta, GA", "St. Louis, MO");
         facilityManager.resetFacilitiesMinDistance();
         facilityManager.resetPrevious();
 
-        FacilityDijkstra.run("Seattle, WA", "Nashville, TN");
+        facilityManager.runShortestPath("Seattle, WA", "Nashville, TN");
         facilityManager.resetFacilitiesMinDistance();
         facilityManager.resetPrevious();
 
-        FacilityDijkstra.run("New York City, NY", "Phoenix, AZ");
+        facilityManager.runShortestPath("New York City, NY", "Phoenix, AZ");
         facilityManager.resetFacilitiesMinDistance();
         facilityManager.resetPrevious();
 
-        FacilityDijkstra.run("Fargo, ND", "Austin, TX");
+        facilityManager.runShortestPath("Fargo, ND", "Austin, TX");
         facilityManager.resetFacilitiesMinDistance();
         facilityManager.resetPrevious();
 
-        FacilityDijkstra.run("Denver, CO", "Miami, FL");
+        facilityManager.runShortestPath("Denver, CO", "Miami, FL");
         facilityManager.resetFacilitiesMinDistance();
         facilityManager.resetPrevious();
 
-        FacilityDijkstra.run("Austin, TX", "Norfolk, VA");
+        facilityManager.runShortestPath("Austin, TX", "Norfolk, VA");
         facilityManager.resetFacilitiesMinDistance();
         facilityManager.resetPrevious();
 
-        FacilityDijkstra.run("Miami, FL", "Seattle, WA");
+        facilityManager.runShortestPath("Miami, FL", "Seattle, WA");
         facilityManager.resetFacilitiesMinDistance();
         facilityManager.resetPrevious();
 
-        FacilityDijkstra.run("Los Angeles, CA", "Chicago, IL");
+        facilityManager.runShortestPath("Los Angeles, CA", "Chicago, IL");
         facilityManager.resetFacilitiesMinDistance();
         facilityManager.resetPrevious();
 
-        FacilityDijkstra.run("Detroit, MI", "Nashville, TN");
+        facilityManager.runShortestPath("Detroit, MI", "Nashville, TN");
         facilityManager.resetFacilitiesMinDistance();
         facilityManager.resetPrevious();
-        */
+
 
         // -------------------- Part 2 Code ----------------------------------
 
