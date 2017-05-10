@@ -11,7 +11,7 @@ import java.util.List;
 /**
  * Created by Jordan on 5/8/2017.
  */
-public class FacilityImpl implements Facility {
+public class FacilityImpl implements Facility, Comparable<Facility> {
 
     private String location = "";
     private Integer ratePerDay = 0;
@@ -24,7 +24,7 @@ public class FacilityImpl implements Facility {
     private NeighborPrinter neighborPrinter = new NeighborPrinterImpl();
 
     // Vertex fields
-    private double minDistance = 435;
+    private double minDistance = Double.POSITIVE_INFINITY;
     private Facility previous = null;
 
     public FacilityImpl(String location) {
@@ -158,5 +158,10 @@ public class FacilityImpl implements Facility {
         System.out.println("");
 
         printSchedule();
+    }
+
+    @Override
+    public int compareTo(Facility otherFacility) {
+        return Double.compare(getMinDistance(), otherFacility.getMinDistance());
     }
 }

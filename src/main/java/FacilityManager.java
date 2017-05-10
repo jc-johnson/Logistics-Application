@@ -1,6 +1,9 @@
 package src.main.java;
 
+import src.main.java.exceptions.EmptyNeighborListException;
 import src.main.java.exceptions.NullFacilityException;
+import src.main.java.exceptions.NullNeighborListException;
+import src.main.java.exceptions.NullPriorityQueueException;
 import src.main.java.interfaces.Facility;
 import src.main.java.interfaces.impl.FacilityInventoryXMLLoaderImpl;
 import src.main.java.interfaces.impl.FacilityNetworkXmlLoaderImpl;
@@ -21,6 +24,8 @@ public final class FacilityManager {
     FacilityNetworkXMLLoader facilityNetworkXMLLoader = new FacilityNetworkXmlLoaderImpl();
     FacilityInventoryXMLLoader facilityInventoryXMLLoader = new FacilityInventoryXMLLoaderImpl();
 
+    FacilityDijkstra facilityDijkstra = new FacilityDijkstra(facilitiesList);
+
 
     FacilityDTO facilityDTO = null;
 
@@ -37,6 +42,7 @@ public final class FacilityManager {
 
     public void loadFacilitesAndNeighborsFromXML() throws FileNotFoundException, NullFacilityException {
         facilitiesList = facilityNetworkXMLLoader.parse();
+        facilityDijkstra = new FacilityDijkstra(facilitiesList);
     }
 
     public void loadFacilityInventoryFromXML(String path) throws FileNotFoundException, NullFacilityException {
@@ -68,6 +74,10 @@ public final class FacilityManager {
                 facility.updateSchedule(i, 10);
             }
         }
+    }
+
+    public void runShortestPath(String sourceFacility, String targetFacility) throws EmptyNeighborListException, NullNeighborListException, NullPriorityQueueException, NullFacilityException {
+        facilityDijkstra.run(sourceFacility, targetFacility);
     }
 
 

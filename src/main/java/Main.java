@@ -16,10 +16,9 @@ public class Main {
 
     public static void main(String[] args) throws IOException, NullFacilityException, NullPriorityQueueException, EmptyNeighborListException, NullNeighborListException, ParserConfigurationException, SAXException {
 
-
         // Load in facilities Network from XML - gives you all 18 facilities
-        // FacilityManager facilityManager = FacilityManager.getInstance();
-        // facilityManager.loadFacilitesAndNeighborsFromXML();
+        FacilityManager facilityManager = FacilityManager.getInstance();
+        facilityManager.loadFacilitesAndNeighborsFromXML();
 
         // Load each facilities' inventory
         // facilityManager.loadFacilityInventoryFromXML("src/main/resources/FacilityInventory.xml");
@@ -31,18 +30,18 @@ public class Main {
 
         // Output 2 : Item catalog
         // Parse and Print Item Catalog
-        ItemCatalogManager itemCatalogManager = ItemCatalogManager.getInstance();
-        itemCatalogManager.parseItemsInventoryXML("src/main/resources/ItemCatalog.xml");
+        // ItemCatalogManager itemCatalogManager = ItemCatalogManager.getInstance();
+        // itemCatalogManager.parseItemsInventoryXML("src/main/resources/ItemCatalog.xml");
 
         // Output 3 : Shortest path
         // System.out.println("Shortest Path Tests: ");
         // System.out.println("");
 
-        /*
-        FacilityDijkstra.run("Santa Fe, NM", "Chicago, IL");
+        facilityManager.runShortestPath("Santa Fe, NM", "Chicago, IL");
         facilityManager.resetFacilitiesMinDistance();
         facilityManager.resetPrevious();
 
+        /*
         FacilityDijkstra.run("Atlanta, GA", "St. Louis, MO");
         facilityManager.resetFacilitiesMinDistance();
         facilityManager.resetPrevious();

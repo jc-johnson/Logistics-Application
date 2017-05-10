@@ -97,6 +97,7 @@ public final class ItemCatalogManager {
     public void printItemsCatalog(HashMap<String, Long> catalog) {
 
         System.out.println("Item Catalog: ");
+        System.out.println("");
         for (HashMap.Entry entry : catalog.entrySet()) {
             System.out.println(entry.getKey() + "\t:\t$ " + entry.getValue());
         }
