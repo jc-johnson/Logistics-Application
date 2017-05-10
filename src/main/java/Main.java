@@ -4,6 +4,7 @@ import org.xml.sax.SAXException;
 import src.main.java.exceptions.*;
 import src.main.java.interfaces.impl.FacilityInventoryXMLLoaderImpl;
 import src.main.java.readxmls.FacilityInventoryXMLLoader;
+import src.main.java.readxmls.ItemCatalogXMLLoader;
 
 import javax.xml.parsers.ParserConfigurationException;
 import java.io.IOException;
@@ -15,24 +16,23 @@ public class Main {
 
     public static void main(String[] args) throws IOException, NullFacilityException, NullPriorityQueueException, EmptyNeighborListException, NullNeighborListException, ParserConfigurationException, SAXException {
 
-        FacilityManager facilityManager = FacilityManager.getInstance();
 
         // Load in facilities Network from XML - gives you all 18 facilities
-
-        facilityManager.loadFacilitesAndNeighborsFromXML();
+        // FacilityManager facilityManager = FacilityManager.getInstance();
+        // facilityManager.loadFacilitesAndNeighborsFromXML();
 
         // Load each facilities' inventory
-        facilityManager.loadFacilityInventoryFromXML("src/main/resources/FacilityInventory.xml");
-        facilityManager.initializeSchedules();
+        // facilityManager.loadFacilityInventoryFromXML("src/main/resources/FacilityInventory.xml");
+        // facilityManager.initializeSchedules();
 
 
         // Output 1
-        facilityManager.printEachFacilityOutput();
+        // facilityManager.printEachFacilityOutput();
 
-        // Output 2 : Item catalog // TODO Create object to hold Item catalog - item catalog manager?
+        // Output 2 : Item catalog
         // Parse and Print Item Catalog
-        // ItemCatalogXMLLoader itemCatalogXMLLoader = new ItemCatalogXMLLoader();
-        // itemCatalogXMLLoader.parse();
+        ItemCatalogManager itemCatalogManager = ItemCatalogManager.getInstance();
+        itemCatalogManager.parseItemsInventoryXML("src/main/resources/ItemCatalog.xml");
 
         // Output 3 : Shortest path
         // System.out.println("Shortest Path Tests: ");
