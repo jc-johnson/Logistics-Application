@@ -22,15 +22,12 @@ public class Main {
         facilityManager.loadFacilitesAndNeighborsFromXML();
 
         // Load each facilities' inventory
-        // FacilityInventoryXMLLoader facilityInventoryXMLLoader = new FacilityInventoryXMLLoaderImpl();
-        // facilityInventoryXMLLoader.parse(facilitiesList);
         facilityManager.loadFacilityInventoryFromXML("src/main/resources/FacilityInventory.xml");
-
-        //  facilityManager.initializeSchedules();
+        facilityManager.initializeSchedules();
 
 
         // Output 1
-        // facilityManager.printEachFacilityOutput();
+        facilityManager.printEachFacilityOutput();
 
         // Output 2 : Item catalog // TODO Create object to hold Item catalog - item catalog manager?
         // Parse and Print Item Catalog

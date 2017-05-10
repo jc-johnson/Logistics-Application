@@ -36,7 +36,7 @@ public class FacilityInventoryXMLLoaderImpl implements FacilityInventoryXMLLoade
             if (xmlFile == null) {
                 throw new FileNotFoundException();
             }
-            // System.out.println("File found...");
+            System.out.println("File found...");
 
             // Parser setup
             DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
@@ -50,8 +50,6 @@ public class FacilityInventoryXMLLoaderImpl implements FacilityInventoryXMLLoade
 
             // Parse xml
             NodeList nodeList = document.getElementsByTagName("Facility");
-
-            HashMap<Item, Integer> itemList = new HashMap<>();
 
             for (int i = 0; i < nodeList.getLength(); i++) {
                 Node node = nodeList.item(i);
@@ -68,6 +66,7 @@ public class FacilityInventoryXMLLoaderImpl implements FacilityInventoryXMLLoade
 
                     // get all items ids and quantity for each facility
                     NodeList facilityItems = element.getElementsByTagName("Item");
+                    HashMap<Item, Integer> itemList = new HashMap<>();
 
                     for (int j = 0; j < facilityItems.getLength(); j++) {
 
@@ -94,15 +93,16 @@ public class FacilityInventoryXMLLoaderImpl implements FacilityInventoryXMLLoade
                     }
 
                     for (Facility facility : facilities) {
-                        if (facility.getLocation() == currentFacility) {
+                        if (facility.getLocation().equals(currentFacility)) {
+                            System.out.println("Facility : " + facility.getLocation());
                             for (Map.Entry<Item, Integer> entry : itemList.entrySet()) {
                                 facility.updateInventory(entry.getKey(), entry.getValue());
                             }
+                            facility.printInventory();
                         }
                     }
                 }
             }
-
 
         } catch (SAXException e) {
             e.printStackTrace();
@@ -112,7 +112,7 @@ public class FacilityInventoryXMLLoaderImpl implements FacilityInventoryXMLLoade
             e.printStackTrace();
         }
 
-        printFacilityInventory(facilities);
+        // printFacilityInventory(facilities);
     }
 
     private void printFacilityInventory(List<Facility> facilities) {

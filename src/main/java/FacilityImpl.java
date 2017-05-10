@@ -144,7 +144,7 @@ public class FacilityImpl implements Facility {
         System.out.println("");
         System.out.println(" " + location + "" );
         System.out.println("");
-        System.out.println("--------------------------");
+        System.out.println("---------------------");
         System.out.println("");
         System.out.println("Rate per day: " + ratePerDay);
         System.out.println("Cost per day: $" + costPerDay);
