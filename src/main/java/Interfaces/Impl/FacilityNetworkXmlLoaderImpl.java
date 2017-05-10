@@ -29,16 +29,15 @@ import java.util.Locale;
 public class FacilityNetworkXmlLoaderImpl implements FacilityNetworkXMLLoader {
 
     @Override
-    public List<Facility> parse() throws FileNotFoundException, NullFacilityException {
+    public List<Facility> parse(String path) throws FileNotFoundException, NullFacilityException {
         try {
 
-
             // Open file path to xml
-            File xmlFile = new File("src/main/resources/FacilityNetwork.xml"); // File Path C:\Logistics-Program\LogisticsApplication\src\main\resources\ItemCatalog.xml
+            File xmlFile = new File(path); // File Path C:\Logistics-Program\LogisticsApplication\src\main\resources\ItemCatalog.xml
             if (xmlFile == null) {
                 throw new FileNotFoundException();
             }
-            System.out.println("File found...");
+            // System.out.println("File found...");
 
             // Build parser and parse
             DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
@@ -48,7 +47,7 @@ public class FacilityNetworkXmlLoaderImpl implements FacilityNetworkXMLLoader {
             // Optional but recommended
             document.getDocumentElement().normalize();
 
-            System.out.println("Root element : " + document.getDocumentElement().getNodeName());
+            // System.out.println("Root element : " + document.getDocumentElement().getNodeName());
             NodeList nodeList = document.getElementsByTagName("Facility");
 
             List<Facility> facilities = new ArrayList<>();
@@ -106,7 +105,7 @@ public class FacilityNetworkXmlLoaderImpl implements FacilityNetworkXMLLoader {
             }
 
 
-            printFacilitiesList(facilities);
+            // printFacilitiesList(facilities);
             return facilities;
 
         } catch (FileNotFoundException e) {

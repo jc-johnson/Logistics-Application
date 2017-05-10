@@ -1,5 +1,7 @@
 package src.main.java;
 
+import src.main.java.interfaces.Inventory;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -33,6 +35,17 @@ public class FacilityInventory implements Inventory {
     public void printInventory() {
         printActiveInventory();
         printDepletedInventory();
+    }
+
+    @Override
+    public boolean containsItem(Item item) {
+        for (Map.Entry<Item, Integer> entry : activeInventory.entrySet()) {
+            if (item.getId().equals(entry.getKey().getId()) && entry.getValue() > 0) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
 

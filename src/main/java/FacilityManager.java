@@ -82,5 +82,13 @@ public final class FacilityManager {
         facilityDijkstra.run(sourceFacility, targetFacility);
     }
 
-
+    public List<Facility> getFacilitiesWithItem(Item item) {
+        List<Facility> facilitiesWithItem = new ArrayList<>();
+        for (Facility facility : facilitiesList) {
+            if (facility.containsItem(item)) {
+                facilitiesWithItem.add(facility);
+            }
+        }
+        return facilitiesWithItem;
+    }
 }

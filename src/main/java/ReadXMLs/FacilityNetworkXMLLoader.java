@@ -15,7 +15,7 @@ public interface FacilityNetworkXMLLoader {
     /**
      * Parse xml and load each facilities' neighbors
      */
-    public List<Facility> parse() throws FileNotFoundException, NullFacilityException;
+    public List<Facility> parse(String path) throws FileNotFoundException, NullFacilityException;
 
     public void printFacilitiesList(List<Facility> facilities);
 

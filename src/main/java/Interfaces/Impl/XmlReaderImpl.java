@@ -99,11 +99,6 @@ public class XmlReaderImpl implements XmlReader {
             }
         }
 
-        System.out.println("Order List: ");
-        for (Order order : orderList) {
-            order.printOutput();
-        }
-
         return orderList;
     }
 }

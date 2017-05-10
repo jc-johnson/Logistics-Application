@@ -1,4 +1,6 @@
-package src.main.java;
+package src.main.java.interfaces;
+
+import src.main.java.Item;
 
 import java.util.Map;
 
@@ -9,6 +11,7 @@ public interface Inventory {
 
     void updateInventoryItem(Item item, Integer quantity);
     void printInventory();
+    boolean containsItem(Item item);
 
 
 }

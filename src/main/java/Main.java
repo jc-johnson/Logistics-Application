@@ -2,7 +2,11 @@ package src.main.java;
 
 import org.xml.sax.SAXException;
 import src.main.java.exceptions.*;
+import src.main.java.interfaces.Order;
+import src.main.java.interfaces.XmlReader;
 import src.main.java.interfaces.impl.FacilityInventoryXMLLoaderImpl;
+import src.main.java.interfaces.impl.OrderImpl;
+import src.main.java.interfaces.impl.XmlReaderImpl;
 import src.main.java.readxmls.FacilityInventoryXMLLoader;
 import src.main.java.readxmls.ItemCatalogXMLLoader;
 
@@ -15,6 +19,7 @@ import java.io.IOException;
 public class Main {
 
     public static void main(String[] args) throws IOException, NullFacilityException, NullPriorityQueueException, EmptyNeighborListException, NullNeighborListException, ParserConfigurationException, SAXException {
+        /*
 
         // Load in facilities Network from XML - gives you all 18 facilities
         FacilityManager facilityManager = FacilityManager.getInstance();
@@ -76,24 +81,24 @@ public class Main {
         facilityManager.resetFacilitiesMinDistance();
         facilityManager.resetPrevious();
 
+        */
 
         // -------------------- Part 2 Code ----------------------------------
 
-        //XmlReader xmlReader = new XmlReaderImpl();
-        //xmlReader.parseOrdersXml("src/main/resources/FacilityInventory.xml");
+        // XmlReader xmlReader = new XmlReaderImpl();
+        // xmlReader.parseOrdersXml("src/main/resources/FacilityInventory.xml");
 
-        // OrderProcessor orderProcessor = new OrderProcessor();
-        // orderProcessor.loadOrdersXml("src/main/resources/Orders.xml");
+        OrderProcessor orderProcessor = OrderProcessor.getInstance();
+        orderProcessor.loadOrdersXml("src/main/resources/Orders.xml");
+        orderProcessor.printOrders();
 
+        Order order = new OrderImpl("123456", "Chicago, IL", 1);
 
-
-        // Order order = new OrderImpl(123456, "Chicago, IL", 1);
-
-        /*for (int i = 1; i < 7 ; i++) {
+        for (int i = 1; i < 7 ; i++) {
             System.out.println("-------------------------------------------------------");
             System.out.println("Order #" + i);
             order.printOutput();
-        }*/
+        }
 
 
     }

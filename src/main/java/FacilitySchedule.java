@@ -1,5 +1,7 @@
 package src.main.java;
 
+import src.main.java.interfaces.Schedule;
+
 import java.util.HashMap;
 import java.util.Map;
 

@@ -5,8 +5,6 @@ import src.main.java.interfaces.impl.*;
 import src.main.java.shortestpath.FacilityEdge;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
 
 /**
  * Created by Jordan on 5/8/2017.
@@ -163,5 +161,10 @@ public class FacilityImpl implements Facility, Comparable<Facility> {
     @Override
     public int compareTo(Facility otherFacility) {
         return Double.compare(getMinDistance(), otherFacility.getMinDistance());
+    }
+
+    @Override
+    public boolean containsItem(Item item) {
+        return this.inventory.containsItem(item);
     }
 }

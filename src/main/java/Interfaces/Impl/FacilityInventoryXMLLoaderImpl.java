@@ -36,7 +36,7 @@ public class FacilityInventoryXMLLoaderImpl implements FacilityInventoryXMLLoade
             if (xmlFile == null) {
                 throw new FileNotFoundException();
             }
-            System.out.println("File found...");
+            // System.out.println("File found...");
 
             // Parser setup
             DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
@@ -94,11 +94,11 @@ public class FacilityInventoryXMLLoaderImpl implements FacilityInventoryXMLLoade
 
                     for (Facility facility : facilities) {
                         if (facility.getLocation().equals(currentFacility)) {
-                            System.out.println("Facility : " + facility.getLocation());
+                            // System.out.println("Facility : " + facility.getLocation());
                             for (Map.Entry<Item, Integer> entry : itemList.entrySet()) {
                                 facility.updateInventory(entry.getKey(), entry.getValue());
                             }
-                            facility.printInventory();
+                            // facility.printInventory();
                         }
                     }
                 }
