@@ -12,6 +12,11 @@ public class FacilityInventory implements Inventory {
     Map<Item, Integer> depletedInventory = new HashMap<>();
 
     public void updateInventoryItem(Item item, Integer quantity) {
+        if (activeInventory.size() == 0 || activeInventory.get(item) == null) {
+            activeInventory.put(item, quantity);
+            return;
+        }
+
         Integer originalQuantity = activeInventory.get(item);
         Integer newQuantity = quantity;
 
@@ -37,6 +42,7 @@ public class FacilityInventory implements Inventory {
         for (Map.Entry<Item, Integer> entry : activeInventory.entrySet()) {
             System.out.println("\t" + entry.getKey().getId() + "\t\t" + entry.getValue() );
         }
+        System.out.println("");
     }
 
 
@@ -51,5 +57,7 @@ public class FacilityInventory implements Inventory {
         for (Map.Entry<Item, Integer> entry : activeInventory.entrySet()) {
             System.out.println("\t" + entry.getKey().getId() + "\t" + entry.getValue() );
         }
+        System.out.println("");
+        System.out.println("");
     }
 }
