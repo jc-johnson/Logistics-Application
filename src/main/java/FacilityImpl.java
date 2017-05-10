@@ -147,7 +147,7 @@ public class FacilityImpl implements Facility, Comparable<Facility> {
         System.out.println("---------------------");
         System.out.println("");
         System.out.println("Rate per day: " + ratePerDay);
-        System.out.println("Cost per day: $" + costPerDay);
+        System.out.println("Cost per day: " + costPerDay);
         System.out.println("");
 
         // print direct links

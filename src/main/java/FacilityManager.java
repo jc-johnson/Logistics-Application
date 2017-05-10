@@ -40,8 +40,8 @@ public final class FacilityManager {
 
     private FacilityManager() {}
 
-    public void loadFacilitesAndNeighborsFromXML() throws FileNotFoundException, NullFacilityException {
-        facilitiesList = facilityNetworkXMLLoader.parse();
+    public void loadFacilitesAndNeighborsFromXML(String path) throws FileNotFoundException, NullFacilityException {
+        facilitiesList = facilityNetworkXMLLoader.parse(path);
         facilityDijkstra = new FacilityDijkstra(facilitiesList);
     }
 
@@ -50,6 +50,8 @@ public final class FacilityManager {
     }
 
     public void printEachFacilityOutput() {
+        System.out.println("Facility Output: ");
+        System.out.println("");
         for (Facility facility : facilitiesList) {
             facility.printOutput();
         }
@@ -70,7 +72,7 @@ public final class FacilityManager {
     // Initalized schedule to 20 days
     public void initializeSchedules() {
         for (Facility facility : facilitiesList) {
-            for (int i = 0; i < 21 ; i++) {
+            for (int i = 1; i < 21 ; i++) {
                 facility.updateSchedule(i, 10);
             }
         }

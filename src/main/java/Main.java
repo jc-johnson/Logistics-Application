@@ -18,24 +18,23 @@ public class Main {
 
         // Load in facilities Network from XML - gives you all 18 facilities
         FacilityManager facilityManager = FacilityManager.getInstance();
-        facilityManager.loadFacilitesAndNeighborsFromXML();
+        facilityManager.loadFacilitesAndNeighborsFromXML("src/main/resources/FacilityNetwork.xml");
 
         // Load each facilities' inventory
-        // facilityManager.loadFacilityInventoryFromXML("src/main/resources/FacilityInventory.xml");
-        // facilityManager.initializeSchedules();
-
+        facilityManager.loadFacilityInventoryFromXML("src/main/resources/FacilityInventory.xml");
+        facilityManager.initializeSchedules();
 
         // Output 1
-        // facilityManager.printEachFacilityOutput();
+        facilityManager.printEachFacilityOutput();
 
         // Output 2 : Item catalog
         // Parse and Print Item Catalog
-        // ItemCatalogManager itemCatalogManager = ItemCatalogManager.getInstance();
-        // itemCatalogManager.parseItemsInventoryXML("src/main/resources/ItemCatalog.xml");
+        ItemCatalogManager itemCatalogManager = ItemCatalogManager.getInstance();
+        itemCatalogManager.parseItemsInventoryXML("src/main/resources/ItemCatalog.xml");
 
         // Output 3 : Shortest path
-        // System.out.println("Shortest Path Tests: ");
-        // System.out.println("");
+        System.out.println("Shortest Path Tests: ");
+        System.out.println("");
 
         facilityManager.runShortestPath("Santa Fe, NM", "Chicago, IL");
         facilityManager.resetFacilitiesMinDistance();
