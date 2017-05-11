@@ -18,26 +18,51 @@ public class SolutionImpl implements Solution {
 
     @Override
     public void print() {
-        System.out.println("Processing Solution");
+        System.out.println("Processing Solution:");
+        System.out.println("\tTotal Cost:\t\t$" + getTotalCost());
+        System.out.println("\t1st Delivery Day: " + getFirstDeliveryDay());
+        System.out.println("\tLast Delivery Day: " + getLastDeliveryDay());
+        printOrderItems(orderItemCalculationsList);
     }
 
     @Override
     public Integer getTotalCost() {
-        return null;
+        return totalCost;
+    }
+
+    public void setTotalCost(Integer cost) {
+        this.totalCost = cost;
     }
 
     @Override
     public Integer getFirstDeliveryDay() {
-        return null;
+        return firstDeliveryDay;
+    }
+
+    public void setFirstDeliveryDay(Integer day) {
+        this.firstDeliveryDay = day;
     }
 
     @Override
     public Integer getLastDeliveryDay() {
-        return null;
+        return lastDeliveryDay;
+    }
+
+    public void setLastDeliveryDay(Integer day) {
+        this.lastDeliveryDay = day;
+    }
+
+    public void addOrderItemCalculation(OrderItemCalculations orderItemCalculation) {
+        orderItemCalculationsList.add(orderItemCalculation);
     }
 
     @Override
-    public Integer printOrderItems(List<OrderItemCalculations> itemCalculationsList) {
-        return null;
+    public void printOrderItems(List<OrderItemCalculations> itemCalculationsList) {
+        System.out.println("Item ID\t\tQuantity\t\tCost\t\t# Sources Used\t\tFirst Day\t\tLast Day");
+        for(OrderItemCalculations orderItemCalculations : orderItemCalculationsList) {
+            System.out.println(orderItemCalculations.getItemId() + "\t\t" + orderItemCalculations.getQuantity() +
+                    "\t\t" + orderItemCalculations.getCost() + "\t\t" + orderItemCalculations.getNumberOfSources() +
+                    "\t\t" + orderItemCalculations.getFirstDay() + "\t\t" + orderItemCalculations.getLastDay());
+        }
     }
 }

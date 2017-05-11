@@ -11,9 +11,15 @@ public interface Solution {
 
     Integer getTotalCost();
 
+    void setTotalCost(Integer cost);
+
     Integer getFirstDeliveryDay();
+
+    void setFirstDeliveryDay(Integer day);
 
     Integer getLastDeliveryDay();
 
-    Integer printOrderItems(List<OrderItemCalculations> itemCalculationsList);
+    void setLastDeliveryDay(Integer day);
+
+    void printOrderItems(List<OrderItemCalculations> itemCalculationsList);
 }
