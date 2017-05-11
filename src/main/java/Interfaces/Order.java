@@ -20,5 +20,6 @@ public interface Order {
     void printItemList();
     void printProcessingSolution();
     void printOutput();
+    Integer getItemQuantity(Item item);
 
 }

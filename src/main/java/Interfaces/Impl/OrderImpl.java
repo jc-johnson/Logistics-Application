@@ -4,6 +4,7 @@ import src.main.java.interfaces.ItemPrinter;
 import src.main.java.interfaces.Order;
 import src.main.java.interfaces.OrderOutput;
 import src.main.java.Item;
+import src.main.java.interfaces.Solution;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -16,9 +17,11 @@ import java.util.Map;
 public class OrderImpl implements Order{
 
     private String id;
-    private String destinaiton;
+    private String destination;
     private List<Item> items;
     private Map<Item, Integer> itemsList = new HashMap<>();
+
+    private Solution solution = new SolutionImpl();
 
     private Integer orderTime = 0;
 
@@ -26,9 +29,9 @@ public class OrderImpl implements Order{
     private OrderOutput orderOutput = new OrderOutputImpl(this);
 
 
-    public OrderImpl(String id, String destinaiton, Integer orderTime) {
+    public OrderImpl(String id, String destination, Integer orderTime) {
         this.id = id;
-        this.destinaiton = destinaiton;
+        this.destination = destination;
         this.orderTime = orderTime;
     }
 
@@ -44,12 +47,12 @@ public class OrderImpl implements Order{
 
     @Override
     public String getDestination() {
-        return destinaiton;
+        return destination;
     }
 
     @Override
     public void setDestination(String destination) {
-        this.destinaiton = destination;
+        this.destination = destination;
     }
 
     @Override
@@ -88,4 +91,16 @@ public class OrderImpl implements Order{
     public void printOutput() {
         orderOutput.printOrder();
     }
+
+    @Override
+    public Integer getItemQuantity(Item item) {
+        for (Map.Entry<Item, Integer> entry : itemsList.entrySet()) {
+            if (entry.getKey().getId().equals(item.getId())) {
+                return entry.getValue();
+            }
+
+        }
+        return null;
+    }
+
 }

@@ -91,4 +91,18 @@ public final class FacilityManager {
         }
         return facilitiesWithItem;
     }
+
+    public Facility getFacility(String location) {
+        for (Facility facility : facilitiesList) {
+            if(facility.getLocation().equals(location)) {
+                return facility;
+            }
+        }
+        return null;
+    }
+
+    public double getShortestPathInDays(String sourceFacility, String targetFacility) throws EmptyNeighborListException, NullNeighborListException, NullPriorityQueueException, NullFacilityException {
+        facilityDijkstra.run(sourceFacility, targetFacility);
+        return facilityDijkstra.getTotalDays();
+    }
 }

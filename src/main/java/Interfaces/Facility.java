@@ -1,6 +1,7 @@
 package src.main.java.interfaces;
 
 import src.main.java.Item;
+import src.main.java.exceptions.NoAvailableDaysException;
 import src.main.java.shortestpath.FacilityEdge;
 
 import java.util.ArrayList;
@@ -49,6 +50,10 @@ public interface Facility {
     void printNeighbors();
 
     void printSchedule();
+
+    boolean containsItem(Item item);
+
+    Integer getProcessingDays(Integer itemQuantity) throws NoAvailableDaysException;
 
 
 }
