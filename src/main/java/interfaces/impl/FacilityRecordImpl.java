@@ -3,10 +3,12 @@ package src.main.java.interfaces.impl;
 import src.main.java.interfaces.Facility;
 import src.main.java.interfaces.FacilityRecord;
 
+import java.util.Comparator;
+
 /**
  * Created by Jordan on 5/11/2017.
  */
-public class FacilityRecordImpl implements FacilityRecord, Comparable<FacilityRecordImpl> {
+public class FacilityRecordImpl implements FacilityRecord, Comparator<FacilityRecord>, Comparable<FacilityRecord> {
 
     private String facilityLocation;
     private double arrivalDay;
@@ -37,7 +39,12 @@ public class FacilityRecordImpl implements FacilityRecord, Comparable<FacilityRe
     }
 
     @Override
-    public int compareTo(FacilityRecordImpl otherFacilityRecord) {
+    public int compareTo(FacilityRecord otherFacilityRecord) {
         return Double.compare(this.getArrivalDay(), otherFacilityRecord.getArrivalDay());
+    }
+
+    @Override
+    public int compare(FacilityRecord facilityRecord1, FacilityRecord facilityRecord2) {
+        return (int) (facilityRecord1.getArrivalDay() - facilityRecord2.getArrivalDay());
     }
 }

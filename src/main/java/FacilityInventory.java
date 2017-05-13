@@ -13,6 +13,7 @@ public class FacilityInventory implements Inventory {
     Map<Item, Integer> activeInventory = new HashMap<>();
     Map<Item, Integer> depletedInventory = new HashMap<>();
 
+    @Override
     public void updateInventoryItem(Item item, Integer quantity) {
         if (activeInventory.size() == 0 || activeInventory.get(item) == null) {
             activeInventory.put(item, quantity);

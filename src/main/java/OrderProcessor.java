@@ -11,10 +11,7 @@ import src.main.java.interfaces.XmlReader;
 
 import javax.xml.parsers.ParserConfigurationException;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Created by Jordan on 5/7/2017.
@@ -62,30 +59,52 @@ public final class OrderProcessor {
 
             String destination = order.getDestination();
 
+
             // go through each item in the order
             for (Item item : order.getOrderItems()) {
-                List<Facility> facilitiesWithItem = FacilityManager.getInstance().getFacilitiesWithItem(item);
 
-                // get each facility with the desired item
+
+                List<Facility> facilitiesWithItem = FacilityManager.getInstance().getFacilitiesWithItem(item);
+                List<FacilityRecord> facilityRecords = new ArrayList<>();
+
                 for (Facility facility : facilitiesWithItem) {
+
                     // FacilityManager.getInstance().runShortestPath(facility.getLocation(), destination);
                     Facility destinationFacility = FacilityManager.getInstance().getFacility(destination);
                     Integer processingDays = destinationFacility.getProcessingDays(order.getItemQuantity(item));
                     double travelDays = FacilityManager.getInstance().getShortestPathInDays(facility.getLocation(), destination);
-
                     double arrivalDay = travelDays + processingDays;
 
-                    // keep track of facility and arrival day
-                    List<FacilityRecord> facilityRecords = new ArrayList<>();
+
                     FacilityRecord facilityRecord = new FacilityRecordImpl(facility.getLocation(), arrivalDay);
                     facilityRecords.add(facilityRecord);
                 }
 
-                // sort records by lowest arrival day
+                Integer quantityNeeded = order.getItemQuantity(item);
 
+                // sort records by lowest arrival day
+                // Collections.sort(facilityRecords, new FacilityRecord()); {
+                // get facility with lowest arrival date
+
+                // TODO: remember to reduce quantityNeeded so you don't get infinite loop
+                while (quantityNeeded > 0 ) {
+
+                    // Integer facilityDay = facility.getFirstAvailableDay(); // TODO: Have facility manager do this
+                    // Integer itemsTaken = Facility.getAvailableItems(facilityDay);
+
+
+                    // Facility.update schedule(facilityDay, facilityAvailableItems);
+                    // Facility.updateInventoryItem(item, itemsTaken);
+
+
+                }
+
+                // Integer totalItemCost = ...;
+                // LogisticsRecord logisticsRecord = new LogisticsRecord();
+                // print logisticsRecord
+                // print output
 
             }
-
         }
     }
 
@@ -97,27 +116,6 @@ public final class OrderProcessor {
     }
 
     public static void main(String[] args) {
-
-        // for each order
-            // Integer orderTime = order.getOrderTime
-            // String destination = order.getDestination
-
-            // for each item in the order
-                // get all facilities with desired item
-                // List<Facility> facilitiesWithItem = FacilityManager.getInstance().getFacilitiesWithItem(Item item);
-
-                    // for each facilitiy in facilitiesWithItem
-                        // facility.runShortestPath(facility, destination)
-                        // Integer processDays = daysNeededToProcess(Facility facility, Item item)
-                        // Integer arrivalDay = shortestPathTravelTime + processDays
-
-                        // Class FacilityRecord
-                            // Integer arrivalDay
-                            // Facility source
-                            // Facility target
-                            // List<Facility> shortestPath
-                            // Integer daysNeededToProcessItem
-
 
 
     }

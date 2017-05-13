@@ -1,4 +1,4 @@
-package src.main.java;
+package src.main.java.interfaces.impl;
 
 import src.main.java.exceptions.NoAvailableDaysException;
 import src.main.java.interfaces.Schedule;
