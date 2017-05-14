@@ -145,11 +145,8 @@ public class FacilityNetworkXmlLoaderImpl implements FacilityNetworkXMLLoader {
         // based on facility location
         for (Facility tempFacility : facilities) {
             // If location is already in list update facility attributes
-            if (tempFacility.getLocation() == facility.getLocation()) {
+            if (tempFacility.getLocation().equals(facility.getLocation()))
                 return true;
-            } else {
-                return false;
-            }
         }
         return false;
     }
