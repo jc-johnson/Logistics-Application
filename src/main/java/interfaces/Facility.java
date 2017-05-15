@@ -3,6 +3,7 @@ package src.main.java.interfaces;
 import src.main.java.Item;
 import src.main.java.exceptions.NegativeQuantityException;
 import src.main.java.exceptions.NoAvailableDaysException;
+import src.main.java.interfaces.impl.FacilityRecordImpl;
 import src.main.java.shortestpath.FacilityEdge;
 
 import java.util.ArrayList;
@@ -12,7 +13,7 @@ import java.util.List;
 /**
  * Created by Jordan on 4/14/2017.
  */
-public interface Facility {
+public interface Facility  {
 
     String getLocation();
 

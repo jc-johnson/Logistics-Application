@@ -1,9 +1,10 @@
 package src.main.java.interfaces.impl;
 
-import src.main.java.interfaces.Facility;
 import src.main.java.interfaces.FacilityRecord;
 
 import java.util.Comparator;
+
+import static javafx.scene.input.KeyCode.T;
 
 /**
  * Created by Jordan on 5/11/2017.
@@ -45,7 +46,7 @@ public class FacilityRecordImpl implements FacilityRecord, Comparator<FacilityRe
 
     @Override
     public int compare(FacilityRecord facilityRecord1, FacilityRecord facilityRecord2) {
-        return (int) (facilityRecord1.getArrivalDay() - facilityRecord2.getArrivalDay());
+        return Double.compare(facilityRecord1.getArrivalDay(), facilityRecord2.getArrivalDay());
     }
 
     @Override

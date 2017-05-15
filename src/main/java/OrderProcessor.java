@@ -2,12 +2,10 @@ package src.main.java;
 
 import org.xml.sax.SAXException;
 import src.main.java.exceptions.*;
-import src.main.java.interfaces.Facility;
-import src.main.java.interfaces.FacilityRecord;
+import src.main.java.interfaces.*;
 import src.main.java.interfaces.impl.FacilityRecordImpl;
+import src.main.java.interfaces.impl.SolutionImpl;
 import src.main.java.interfaces.impl.XmlReaderImpl;
-import src.main.java.interfaces.Order;
-import src.main.java.interfaces.XmlReader;
 
 import javax.xml.parsers.ParserConfigurationException;
 import java.io.IOException;
@@ -74,6 +72,7 @@ public final class OrderProcessor {
                 for (Facility facility : facilitiesWithItem) {
                     System.out.println(facility.getLocation());
                 }
+                System.out.println("");
 
                 List<FacilityRecord> facilityRecords = new ArrayList<>();
 
@@ -96,37 +95,59 @@ public final class OrderProcessor {
                     facilityRecords.add(facilityRecord);
                 }
 
-                /*
+                // sort TODO: create sort class?
+                Collections.sort(facilityRecords, new Comparator<FacilityRecord>() {
+                    @Override
+                    public int compare(FacilityRecord facilityRecord1, FacilityRecord facilityRecord2) {
+                        return Double.compare(facilityRecord1.getArrivalDay(), facilityRecord2.getArrivalDay());
+                    }
+                });
+
                 for (FacilityRecord facilityRecord : facilityRecords) {
                     facilityRecord.print();
                 }
-                */
 
                 Integer quantityNeeded = order.getItemQuantity(item);
+                /*
+                while (quantityNeeded > 0) {
+                    for (int i = 0; i < facilityRecords.size(); i++) {
+                        FacilityRecord currentRecord = facilityRecords.get(i);
+                        String facilityLocation = currentRecord.getFacilityLocation();
 
-                // sort records by lowest arrival day
-                // Collections.sort(facilityRecords, new FacilityRecord()); {
-                // get facility with lowest arrival date
+                        Facility currentFacility = FacilityManager.getInstance().getFacility(facilityLocation);
+                        Integer facilityItemQuantity = currentFacility.getItemQuantity(item);
+                        Integer orderItemQuantity = order.getItemQuantity(item);
+                        Integer itemsTakenFromFacility = 0;
+                        // take all available items from the facility
+                        if ( order.getItemQuantity(item) <= facilityItemQuantity) {
+                            itemsTakenFromFacility = facilityItemQuantity - orderItemQuantity;
+                            currentFacility.updateInventory(item, itemsTakenFromFacility);
 
-                // TODO: remember to reduce quantityNeeded so you don't get infinite loop
-                // while (quantityNeeded > 0 ) {
+                            // book schedule days
+                            for (int j = 0; j < arrivalDay; j++) {
+                                Integer availableItems = currentFacility.getAvailableItems(arrivalDay);
+                                Integer itemsToProcess = availableItems - orderItemQuantity;
+                                currentFacility.updateSchedule(arrivalDay, availableItems);
+                                arrivalDay++;
+                            }
+                        } else {
 
-                    // Integer facilityDay = facility.getFirstAvailableDay(); // TODO: Have facility manager do this
-                    // Integer itemsTaken = Facility.getAvailableItems(facilityDay);
+                        }
 
+                        Solution solution = new SolutionImpl();
+                        quantityNeeded -= facilityItemQuantity;
 
-                    // Facility.update schedule(facilityDay, facilityAvailableItems);
-                    // Facility.updateInventoryItem(item, itemsTaken);
+                    }
+                }
+                */
 
-
-                // }
-
-                // Integer totalItemCost = ...;
-                // LogisticsRecord logisticsRecord = new LogisticsRecord();
-                // print logisticsRecord
-                // print output
+                // compute total cost
+                // generate logistics record
 
             }
+
+            // update order info for order output
+            order.printOutput();
         }
     }
 
