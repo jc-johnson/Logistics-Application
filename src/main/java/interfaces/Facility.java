@@ -1,6 +1,7 @@
 package src.main.java.interfaces;
 
 import src.main.java.Item;
+import src.main.java.exceptions.NegativeQuantityException;
 import src.main.java.exceptions.NoAvailableDaysException;
 import src.main.java.shortestpath.FacilityEdge;
 
@@ -53,7 +54,7 @@ public interface Facility {
 
     boolean containsItem(Item item);
 
-    Integer getProcessingDays(Integer itemQuantity) throws NoAvailableDaysException;
+    Integer getProcessingDays(Integer itemQuantity) throws NoAvailableDaysException, NegativeQuantityException;
 
 
 }

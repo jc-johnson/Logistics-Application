@@ -47,4 +47,10 @@ public class FacilityRecordImpl implements FacilityRecord, Comparator<FacilityRe
     public int compare(FacilityRecord facilityRecord1, FacilityRecord facilityRecord2) {
         return (int) (facilityRecord1.getArrivalDay() - facilityRecord2.getArrivalDay());
     }
+
+    @Override
+    public void print() {
+        System.out.println("Facility Location: " + facilityLocation);
+        System.out.println("Arrival Day: " + arrivalDay);
+    }
 }

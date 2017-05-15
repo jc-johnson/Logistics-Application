@@ -18,8 +18,8 @@ import java.io.IOException;
  */
 public class Main {
 
-    public static void main(String[] args) throws IOException, NullFacilityException, NullPriorityQueueException, EmptyNeighborListException, NullNeighborListException, ParserConfigurationException, SAXException {
-        /*
+    public static void main(String[] args) throws IOException, NullFacilityException, NullPriorityQueueException, EmptyNeighborListException, NullNeighborListException, ParserConfigurationException, SAXException, NoAvailableDaysException, NegativeQuantityException, EmptyPathException {
+
 
         // Load in facilities Network from XML - gives you all 18 facilities
         FacilityManager facilityManager = FacilityManager.getInstance();
@@ -30,14 +30,15 @@ public class Main {
         facilityManager.initializeSchedules();
 
         // Output 1
-        facilityManager.printEachFacilityOutput();
+        // facilityManager.printEachFacilityOutput();
 
         // Output 2 : Item catalog
         // Parse and Print Item Catalog
-        ItemCatalogManager itemCatalogManager = ItemCatalogManager.getInstance();
-        itemCatalogManager.parseItemsInventoryXML("src/main/resources/ItemCatalog.xml");
+        // ItemCatalogManager itemCatalogManager = ItemCatalogManager.getInstance();
+        // itemCatalogManager.parseItemsInventoryXML("src/main/resources/ItemCatalog.xml");
 
         // Output 3 : Shortest path
+        /*
         System.out.println("Shortest Path Tests: ");
         System.out.println("");
 
@@ -90,7 +91,11 @@ public class Main {
 
         OrderProcessor orderProcessor = OrderProcessor.getInstance();
         orderProcessor.loadOrdersXml("src/main/resources/Orders.xml");
-        orderProcessor.printOrders();
+        // orderProcessor.printOrders();
+        orderProcessor.computeSolution();
+
+
+        /*
 
         Order order = new OrderImpl("123456", "Chicago, IL", 1);
 
@@ -99,6 +104,7 @@ public class Main {
             System.out.println("Order #" + i);
             order.printOutput();
         }
+        */
 
 
     }

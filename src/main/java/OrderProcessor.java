@@ -32,7 +32,7 @@ public final class OrderProcessor {
 
     private OrderProcessor() {}
 
-    public void loadOrdersXml(String path) throws ParserConfigurationException, SAXException, IOException {
+    public void loadOrdersXml(String path) throws ParserConfigurationException, SAXException, IOException, EmptyPathException {
         XmlReader xmlReader = new XmlReaderImpl();
         orders = xmlReader.parseOrdersXml(path);
     }
@@ -54,31 +54,53 @@ public final class OrderProcessor {
         return null;
     }
 
-    public void computeSolution() throws EmptyNeighborListException, NullNeighborListException, NullPriorityQueueException, NullFacilityException, NoAvailableDaysException {
+    public void computeSolution() throws EmptyNeighborListException, NullNeighborListException, NullPriorityQueueException, NullFacilityException, NoAvailableDaysException, NegativeQuantityException {
         for (Order order : orders ) {
 
-            String destination = order.getDestination();
+            order.printOutput();
 
+            String destination = order.getDestination();
+            List<Item> orderItems = order.getOrderItems();
 
             // go through each item in the order
-            for (Item item : order.getOrderItems()) {
-
+            for (Item item : orderItems) {
 
                 List<Facility> facilitiesWithItem = FacilityManager.getInstance().getFacilitiesWithItem(item);
+                System.out.println("Item: " + item.getId());
+                System.out.println("");
+                System.out.println("Facilities with item: ");
+                System.out.println("");
+
+                for (Facility facility : facilitiesWithItem) {
+                    System.out.println(facility.getLocation());
+                }
+
                 List<FacilityRecord> facilityRecords = new ArrayList<>();
 
                 for (Facility facility : facilitiesWithItem) {
 
                     // FacilityManager.getInstance().runShortestPath(facility.getLocation(), destination);
-                    Facility destinationFacility = FacilityManager.getInstance().getFacility(destination);
-                    Integer processingDays = destinationFacility.getProcessingDays(order.getItemQuantity(item));
+                    // Facility destinationFacility = FacilityManager.getInstance().getFacility(destination);
+                    Integer orderItemQuantity = order.getItemQuantity(item);
+                    Integer processingDays = facility.getProcessingDays(orderItemQuantity);
+
                     double travelDays = FacilityManager.getInstance().getShortestPathInDays(facility.getLocation(), destination);
                     double arrivalDay = travelDays + processingDays;
 
+                    System.out.println("Processing Days: " + processingDays);
+                    System.out.println("Shortest path / number of travel days to " + destination + ": " + travelDays);
+                    System.out.println("Arrival Day: " + arrivalDay);
 
-                    FacilityRecord facilityRecord = new FacilityRecordImpl(facility.getLocation(), arrivalDay);
+
+                    FacilityRecord facilityRecord = new FacilityRecordImpl(destination, arrivalDay);
                     facilityRecords.add(facilityRecord);
                 }
+
+                /*
+                for (FacilityRecord facilityRecord : facilityRecords) {
+                    facilityRecord.print();
+                }
+                */
 
                 Integer quantityNeeded = order.getItemQuantity(item);
 
@@ -87,7 +109,7 @@ public final class OrderProcessor {
                 // get facility with lowest arrival date
 
                 // TODO: remember to reduce quantityNeeded so you don't get infinite loop
-                while (quantityNeeded > 0 ) {
+                // while (quantityNeeded > 0 ) {
 
                     // Integer facilityDay = facility.getFirstAvailableDay(); // TODO: Have facility manager do this
                     // Integer itemsTaken = Facility.getAvailableItems(facilityDay);
@@ -97,7 +119,7 @@ public final class OrderProcessor {
                     // Facility.updateInventoryItem(item, itemsTaken);
 
 
-                }
+                // }
 
                 // Integer totalItemCost = ...;
                 // LogisticsRecord logisticsRecord = new LogisticsRecord();

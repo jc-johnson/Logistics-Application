@@ -1,5 +1,6 @@
 package src.main.java;
 
+import src.main.java.exceptions.NegativeQuantityException;
 import src.main.java.exceptions.NoAvailableDaysException;
 import src.main.java.interfaces.*;
 import src.main.java.interfaces.impl.*;
@@ -170,8 +171,10 @@ public class FacilityImpl implements Facility, Comparable<Facility> {
     }
 
     @Override
-    public Integer getProcessingDays(Integer quantityNeeded) throws NoAvailableDaysException {
-        // TODO: input checking for negative numbers
+    public Integer getProcessingDays(Integer quantityNeeded) throws NoAvailableDaysException, NegativeQuantityException {
+        if (quantityNeeded < 0)
+            throw new NegativeQuantityException();
+
         if (quantityNeeded > 0 ) {
             Integer firstAvailable = this.schedule.getFirstAvailableDay();
             Integer itemsNeeded = quantityNeeded;

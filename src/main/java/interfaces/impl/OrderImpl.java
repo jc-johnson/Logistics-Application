@@ -58,7 +58,9 @@ public class OrderImpl implements Order{
     @Override
     public List<Item> getOrderItems() {
         List<Item> itemsCopy = new ArrayList<>();
-        itemsCopy = items;
+        for (Map.Entry<Item, Integer> entry : itemsList.entrySet()) {
+            itemsCopy.add(entry.getKey());
+        }
         return itemsCopy;
     }
 

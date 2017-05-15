@@ -1,6 +1,7 @@
 package src.main.java.interfaces;
 
 import org.xml.sax.SAXException;
+import src.main.java.exceptions.EmptyPathException;
 import src.main.java.exceptions.NullFacilityException;
 
 import javax.xml.parsers.ParserConfigurationException;
@@ -15,5 +16,5 @@ public interface XmlReader {
 
     public List<Facility> parse() throws FileNotFoundException, NullFacilityException;
 
-    public List<Order> parseOrdersXml(String path) throws IOException, ParserConfigurationException, SAXException;
+    public List<Order> parseOrdersXml(String path) throws IOException, ParserConfigurationException, SAXException, EmptyPathException;
 }

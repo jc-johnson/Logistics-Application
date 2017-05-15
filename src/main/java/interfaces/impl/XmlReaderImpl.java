@@ -5,6 +5,7 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
+import src.main.java.exceptions.EmptyPathException;
 import src.main.java.exceptions.NullFacilityException;
 import src.main.java.interfaces.Facility;
 import src.main.java.interfaces.Order;
@@ -31,13 +32,17 @@ public class XmlReaderImpl implements XmlReader {
     }
 
     @Override
-    public List<Order> parseOrdersXml(String path) throws IOException, ParserConfigurationException, SAXException {
+    public List<Order> parseOrdersXml(String path) throws IOException, ParserConfigurationException, SAXException, EmptyPathException {
+        if (path.equals("")) {
+            throw new EmptyPathException();
+        }
+
         // Open file path to xml
         File xmlFile = new File(path);
-        if (xmlFile == null) {
+        if (!xmlFile.exists()) {
             throw new FileNotFoundException();
         }
-        System.out.println("File found...");
+        // System.out.println("File found...");
 
         // Parser setup
         DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
@@ -47,7 +52,7 @@ public class XmlReaderImpl implements XmlReader {
         // Optional but recommended
         document.getDocumentElement().normalize();
 
-        System.out.println("Root element : " + document.getDocumentElement().getNodeName());
+        // System.out.println("Root element : " + document.getDocumentElement().getNodeName());
 
         // Parse xml
         NodeList nodeList = document.getElementsByTagName("Order");
@@ -70,9 +75,9 @@ public class XmlReaderImpl implements XmlReader {
                 String orderTimeString = element.getElementsByTagName("OrderTime").item(0).getTextContent();
                 Integer orderTime = Integer.parseInt(orderTimeString);
 
-                System.out.println("Order Id: " + orderId);
-                System.out.println("Order Time: " + orderTimeString);
-                System.out.println("Destination: " + destination);
+                // System.out.println("Order Id: " + orderId);
+                // System.out.println("Order Time: " + orderTimeString);
+                // System.out.println("Destination: " + destination);
 
                 Order order = new OrderImpl(orderId, destination, orderTime);
 
@@ -87,8 +92,8 @@ public class XmlReaderImpl implements XmlReader {
                     String itemQuantityString = itemElement.getElementsByTagName("Quantity").item(0).getTextContent();
                     Integer itemQuantity = Integer.parseInt(itemQuantityString);
 
-                    System.out.println("Item Id : " + itemId);
-                    System.out.println("Quantity : " + itemQuantity);
+                    // System.out.println("Item Id : " + itemId);
+                    // System.out.println("Quantity : " + itemQuantity);
 
                     Item item = new Item(itemId);
                     order.addOrderItem(item, itemQuantity);
