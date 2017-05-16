@@ -12,6 +12,8 @@ public interface Inventory {
     void updateInventoryItem(Item item, Integer quantity);
     void printInventory();
     boolean containsItem(Item item);
+    Integer getItemQuantity(Item item);
+
 
 
 }

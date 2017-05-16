@@ -15,9 +15,15 @@ public class FacilitySchedule implements Schedule {
 
     Map<Integer, Integer> scheduleMap = new HashMap<>();
 
+    public void addScheduleDay(Integer day, Integer itemsAvailable) {
+        scheduleMap.put(day, itemsAvailable);
+    }
 
     @Override
     public void setScheduleDay(Integer day, Integer itemNumber) {
+        if (day > scheduleMap.size()) {
+            extendSchedule(); // TODO: maybe have Facility or FacilityManager do this
+        }
         scheduleMap.put(day, itemNumber);
     }
 
@@ -34,7 +40,7 @@ public class FacilitySchedule implements Schedule {
         return value;
     }
 
-    private Integer getLastScheduleDay() {
+    public Integer getLastScheduleDay() {
         Integer day = 0;
         Iterator iterator = scheduleMap.entrySet().iterator();
         while (iterator.hasNext()) {
@@ -44,12 +50,17 @@ public class FacilitySchedule implements Schedule {
         return day;
     }
 
-    private void extendSchedule() {
+    public void extendSchedule() {
         // adds 10 days to schedule
-        Integer lastScheduleDay = getLastScheduleDay();
+        Integer lastScheduleDay = 0;
+        Iterator iterator = scheduleMap.entrySet().iterator();
+        while (iterator.hasNext()) {
+            Map.Entry entry = (Map.Entry) iterator.next();
+            lastScheduleDay = (Integer) entry.getKey();
+        }
         lastScheduleDay++;
         for (int i = 0; i < 11; i++) {
-            this.setScheduleDay(lastScheduleDay, 10);
+            this.addScheduleDay(lastScheduleDay, 10);
             lastScheduleDay++;
         }
     }
@@ -66,6 +77,10 @@ public class FacilitySchedule implements Schedule {
 
     @Override
     public Integer getFirstAvailableDay() throws NoAvailableDaysException {
+        Integer lastDay = getLastScheduleDay();
+        Integer lastDayValue = scheduleMap.get(lastDay);
+        if (lastDayValue == 0)
+            extendSchedule();
 
         for (Map.Entry<Integer, Integer> entry : scheduleMap.entrySet()) {
             if (entry.getValue() > 0) {

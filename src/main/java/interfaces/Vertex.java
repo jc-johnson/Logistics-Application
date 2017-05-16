@@ -13,9 +13,9 @@ public interface Vertex {
 
     public void setName(String string);
 
-    public double getMinDistance();
+    public Integer getMinDistance();
 
-    public void setMinDistance(double distance);
+    public void setMinDistance(Integer distance);
 
     public Vertex getPrevious();
 

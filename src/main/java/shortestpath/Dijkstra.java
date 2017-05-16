@@ -30,8 +30,8 @@ public class Dijkstra {
                 // Visit each edge exiting the headVertex
                 for (Edge edge : headVertex.getAdjacenciesList()) {
                     Vertex edgeVertex = edge.target;
-                    double edgeWeight = edge.weight;    // Note: temp variable to hold weight. Not changing vertex.weight;
-                    double distanceFromHeadVertex = headVertex.getMinDistance() + edgeWeight;  // will constantly be updating the head vertex weight as we travel along the graph
+                    Integer edgeWeight = edge.weight;    // Note: temp variable to hold weight. Not changing vertex.weight;
+                    Integer distanceFromHeadVertex = headVertex.getMinDistance() + edgeWeight;  // will constantly be updating the head vertex weight as we travel along the graph
                     System.out.println("Distance from head vertex: " + distanceFromHeadVertex);
                     System.out.println("Source Edge Vertex: " + edgeVertex.getName());
                     System.out.println("Source Edge Weight: " + edgeWeight);

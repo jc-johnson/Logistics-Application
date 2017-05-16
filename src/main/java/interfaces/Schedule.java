@@ -15,5 +15,14 @@ public interface Schedule {
 
     void printOutput();
 
+    Integer getLastScheduleDay();
+
+    void extendSchedule();
+
+    void addScheduleDay(Integer day, Integer itemsAvailable);
+
+
+
+
 
 }

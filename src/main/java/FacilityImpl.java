@@ -24,7 +24,8 @@ public class FacilityImpl implements Facility, Comparable<Facility> {
     private NeighborPrinter neighborPrinter = new NeighborPrinterImpl();
 
     // Vertex fields
-    private double minDistance = Double.POSITIVE_INFINITY;
+    private Integer minDistance = Integer.MAX_VALUE;
+
     private Facility previous = null;
 
     public FacilityImpl(String location) {
@@ -69,12 +70,12 @@ public class FacilityImpl implements Facility, Comparable<Facility> {
     }
 
     @Override
-    public double getMinDistance() {
+    public Integer getMinDistance() {
         return minDistance;
     }
 
     @Override
-    public void setMinDistance(double distance) {
+    public void setMinDistance(Integer distance) {
         this.minDistance = distance;
     }
 
@@ -162,7 +163,7 @@ public class FacilityImpl implements Facility, Comparable<Facility> {
 
     @Override
     public int compareTo(Facility otherFacility) {
-        return Double.compare(getMinDistance(), otherFacility.getMinDistance());
+        return Integer.compare(getMinDistance(), otherFacility.getMinDistance());
     }
 
     @Override
@@ -175,18 +176,37 @@ public class FacilityImpl implements Facility, Comparable<Facility> {
         if (quantityNeeded < 0)
             throw new NegativeQuantityException();
 
-        if (quantityNeeded > 0 ) {
-            Integer firstAvailable = this.schedule.getFirstAvailableDay();
-            Integer itemsNeeded = quantityNeeded;
-            Integer processDays = 1;
+        Integer itemsNeeded = quantityNeeded;
+        Integer processDays = 1;
 
+        if (itemsNeeded > 0 ) {
             while (itemsNeeded > 0) {
-                Integer itemsAvailable = this.schedule.getAvailableItems(firstAvailable++);
+                Integer firstAvailable = this.schedule.getFirstAvailableDay();
+                if (firstAvailable.equals(this.schedule.getLastScheduleDay())) {
+                    this.schedule.extendSchedule();
+                }
+                Integer itemsAvailable = this.schedule.getAvailableItems(firstAvailable);
                 itemsNeeded -= itemsAvailable;
+                itemsAvailable = itemsAvailable - itemsAvailable;
+                this.schedule.setScheduleDay(firstAvailable, itemsAvailable);
                 processDays++;
             }
             return processDays;
         }
         return 0;
+    }
+
+    @Override
+    public Integer getItemQuantity(Item item) {
+        return inventory.getItemQuantity(item);
+    }
+
+    @Override
+    public Integer getAvailableItems(Integer day) {
+        return schedule.getAvailableItems(day);
+    }
+
+    public void addScheduleDay(Integer day, Integer itemsAvailable) {
+        schedule.addScheduleDay(day, itemsAvailable);
     }
 }

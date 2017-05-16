@@ -3,9 +3,7 @@ package src.main.java;
 import org.xml.sax.SAXException;
 import src.main.java.exceptions.*;
 import src.main.java.interfaces.*;
-import src.main.java.interfaces.impl.FacilityRecordImpl;
-import src.main.java.interfaces.impl.SolutionImpl;
-import src.main.java.interfaces.impl.XmlReaderImpl;
+import src.main.java.interfaces.impl.*;
 
 import javax.xml.parsers.ParserConfigurationException;
 import java.io.IOException;
@@ -60,10 +58,34 @@ public final class OrderProcessor {
             String destination = order.getDestination();
             List<Item> orderItems = order.getOrderItems();
 
+            Integer arrivalDay = 0;
+
             // go through each item in the order
             for (Item item : orderItems) {
 
+                Boolean isRealItem = ItemCatalogManager.getInstance().isRealItem(item.getId());
+                if (!isRealItem) {
+                    System.out.println("Not a real item! Rejecting item...");
+                    continue;
+                }
+
                 List<Facility> facilitiesWithItem = FacilityManager.getInstance().getFacilitiesWithItem(item);
+                // removes destination facility from consideration
+                /*
+                for (Facility facility : facilitiesWithItem) {
+                    if (facility.getLocation() == destination) {
+                        facilitiesWithItem.remove(facility);
+                    }
+                }
+                */
+
+                if (facilitiesWithItem.size() == 0) {
+                    // generate back order for the item
+                    BackOrder backOrder = new BackOrderImpl(item.getId(), order.getItemQuantity(item));
+                    backOrder.print();
+                    continue;
+                }
+
                 System.out.println("Item: " + item.getId());
                 System.out.println("");
                 System.out.println("Facilities with item: ");
@@ -75,80 +97,129 @@ public final class OrderProcessor {
                 System.out.println("");
 
                 List<FacilityRecord> facilityRecords = new ArrayList<>();
+                Integer quantityNeeded = order.getItemQuantity(item);
 
                 for (Facility facility : facilitiesWithItem) {
 
+                    // skip destination facility
+                    if (facility.getLocation().equals(destination)) continue;
+
                     // FacilityManager.getInstance().runShortestPath(facility.getLocation(), destination);
                     // Facility destinationFacility = FacilityManager.getInstance().getFacility(destination);
-                    Integer orderItemQuantity = order.getItemQuantity(item);
-                    Integer processingDays = facility.getProcessingDays(orderItemQuantity);
 
-                    double travelDays = FacilityManager.getInstance().getShortestPathInDays(facility.getLocation(), destination);
-                    double arrivalDay = travelDays + processingDays;
+                    Integer processingEndDay = facility.getProcessingDays(quantityNeeded);
+                    Integer travelDays = FacilityManager.getInstance().getShortestPathInDays(facility.getLocation(), destination);
 
-                    System.out.println("Processing Days: " + processingDays);
-                    System.out.println("Shortest path / number of travel days to " + destination + ": " + travelDays);
+                    FacilityManager.getInstance().resetFacilitiesMinDistance();
+                    FacilityManager.getInstance().resetPrevious();
+
+                    arrivalDay = travelDays + processingEndDay;
+
+                    System.out.println("Processing Days: " + processingEndDay);
+                    System.out.println("Number of travel days to " + destination + ": " + travelDays + " via shortest path");
                     System.out.println("Arrival Day: " + arrivalDay);
 
 
                     FacilityRecord facilityRecord = new FacilityRecordImpl(destination, arrivalDay);
+                    facilityRecord.setNumberOfItems(quantityNeeded);
+                    facilityRecord.setProcessingEndDay(processingEndDay);
+                    facilityRecord.setTravelTime(travelDays);
                     facilityRecords.add(facilityRecord);
                 }
 
-                // sort TODO: create sort class?
+                // sort TODO: create sort class? Or have Facility manager do this or facility records manager
                 Collections.sort(facilityRecords, new Comparator<FacilityRecord>() {
                     @Override
                     public int compare(FacilityRecord facilityRecord1, FacilityRecord facilityRecord2) {
-                        return Double.compare(facilityRecord1.getArrivalDay(), facilityRecord2.getArrivalDay());
+                        return Integer.compare(facilityRecord1.getArrivalDay(), facilityRecord2.getArrivalDay());
                     }
                 });
 
+                // Print each facility record
                 for (FacilityRecord facilityRecord : facilityRecords) {
                     facilityRecord.print();
                 }
 
-                Integer quantityNeeded = order.getItemQuantity(item);
+                // Process facility records
+                for (FacilityRecord facilityRecord : facilityRecords) {
+                    String currentFacilityLocation = facilityRecord.getFacilityLocation();
+                    Facility currentFacility = FacilityManager.getInstance().getFacility(currentFacilityLocation);
+
+                    currentFacility.updateInventory(item, facilityRecord.getNumberOfItems());
+                    quantityNeeded -= facilityRecord.getNumberOfItems();
+                    // from arrival day to end process day update facility schedule
+                    for (Integer i = facilityRecord.getArrivalDay(); i < facilityRecord.getProcessingEndDay() ; i++) {
+                        currentFacility.updateSchedule(i, currentFacility.getAvailableItems(i));
+                    }
+                    item.addSolution(facilityRecord);
+
+
+                }
+
                 /*
+                Integer quantityCollected = 0;
+                double currentDay = arrivalDay;
+
                 while (quantityNeeded > 0) {
                     for (int i = 0; i < facilityRecords.size(); i++) {
                         FacilityRecord currentRecord = facilityRecords.get(i);
                         String facilityLocation = currentRecord.getFacilityLocation();
-
                         Facility currentFacility = FacilityManager.getInstance().getFacility(facilityLocation);
+
                         Integer facilityItemQuantity = currentFacility.getItemQuantity(item);
                         Integer orderItemQuantity = order.getItemQuantity(item);
-                        Integer itemsTakenFromFacility = 0;
+                        Integer availableItemsOnDay = 0;
+                        Integer itemsTaken = 0;
+                        Integer itemsToTake = 0;
+
                         // take all available items from the facility
-                        if ( order.getItemQuantity(item) <= facilityItemQuantity) {
-                            itemsTakenFromFacility = facilityItemQuantity - orderItemQuantity;
-                            currentFacility.updateInventory(item, itemsTakenFromFacility);
+                        if ( orderItemQuantity <= facilityItemQuantity) {
+                            itemsToTake = facilityItemQuantity - orderItemQuantity;
+                            currentFacility.updateInventory(item, itemsToTake);
 
                             // book schedule days
-                            for (int j = 0; j < arrivalDay; j++) {
-                                Integer availableItems = currentFacility.getAvailableItems(arrivalDay);
-                                Integer itemsToProcess = availableItems - orderItemQuantity;
-                                currentFacility.updateSchedule(arrivalDay, availableItems);
-                                arrivalDay++;
+                            while (itemsTaken < quantityNeeded) {
+                                availableItemsOnDay = currentFacility.getAvailableItems(currentDay);
+                                currentFacility.updateSchedule(currentDay, availableItemsOnDay);
+                                currentDay++;
+                                itemsTaken += availableItemsOnDay;
                             }
-                        } else {
 
+
+                        } else {
+                            itemsToTake = orderItemQuantity - facilityItemQuantity;
+                            currentFacility.updateInventory(item, itemsToTake);
+
+                            // book schedule days
+                            while (itemsTaken < quantityNeeded) {
+                                availableItemsOnDay = currentFacility.getAvailableItems(currentDay);
+                                currentFacility.updateSchedule(currentDay, availableItemsOnDay);
+                                currentDay++;
+                                itemsTaken += availableItemsOnDay;
+                            }
                         }
 
-                        Solution solution = new SolutionImpl();
+                        OrderItemCalculations orderItemCalculations = new OrderItemCalcluationsImpl();
+                        Integer totalCost = 0;
+                        Integer firstDeliveryDay = 0;
+                        Integer lastDeliveryDay = 0;
+
+                        Solution solution = new SolutionImpl(totalCost, firstDeliveryDay, lastDeliveryDay);
                         quantityNeeded -= facilityItemQuantity;
 
                     }
                 }
                 */
-
-                // compute total cost
-                // generate logistics record
-
             }
 
-            // update order info for order output
             order.printOutput();
+
         }
+    }
+
+    // after records have been sorted
+    public void process(List<FacilityRecord> records) {
+
     }
 
     public void printOrders() {
@@ -157,11 +228,4 @@ public final class OrderProcessor {
             order.printOutput();
         }
     }
-
-    public static void main(String[] args) {
-
-
-    }
-
-
 }

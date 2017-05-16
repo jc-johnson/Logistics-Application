@@ -6,9 +6,9 @@ package src.main.java.shortestpath;
 public class Edge {
 
     public Vertex target;
-    public double weight = 0;
+    public Integer weight = 0;
 
-    public Edge(Vertex targetVertex, double edgeWeight) {
+    public Edge(Vertex targetVertex, Integer edgeWeight) {
         target = targetVertex;
         this.weight = edgeWeight;
     }

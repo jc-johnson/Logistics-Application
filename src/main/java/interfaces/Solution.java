@@ -22,4 +22,8 @@ public interface Solution {
     void setLastDeliveryDay(Integer day);
 
     void printOrderItems(List<OrderItemCalculations> itemCalculationsList);
+
+    void addOrderItemCalculation(OrderItemCalculations orderItemCalculation);
+
+    void addFacilityRecord(FacilityRecord facilityRecord);
 }

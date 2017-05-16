@@ -11,7 +11,7 @@ public class Vertex implements Comparable<Vertex>{
 
 
     private String name;   // may need to change to location for FacilityVertex
-    private double minDistance = Double.POSITIVE_INFINITY;
+    private Integer minDistance = Integer.MAX_VALUE;
     private Vertex previous = null;
 
     private Facility facility;
@@ -26,11 +26,11 @@ public class Vertex implements Comparable<Vertex>{
     }
 
 
-    public double getMinDistance() {
+    public Integer getMinDistance() {
         return minDistance;
     }
 
-    public void setMinDistance(double distance) {
+    public void setMinDistance(Integer distance) {
         minDistance = distance;
     }
 
@@ -63,7 +63,7 @@ public class Vertex implements Comparable<Vertex>{
 
     @Override
     public int compareTo(Vertex otherVertex) {
-        return Double.compare(minDistance, otherVertex.minDistance);
+        return Integer.compare(minDistance, otherVertex.minDistance);
     }
 
 }

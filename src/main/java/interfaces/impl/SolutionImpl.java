@@ -1,5 +1,6 @@
 package src.main.java.interfaces.impl;
 
+import src.main.java.interfaces.FacilityRecord;
 import src.main.java.interfaces.OrderItemCalculations;
 import src.main.java.interfaces.Solution;
 
@@ -16,13 +17,14 @@ public class SolutionImpl implements Solution {
     Integer lastDeliveryDay = 0;
     List<OrderItemCalculations> orderItemCalculationsList = new ArrayList<>();
 
-    @Override
-    public void print() {
-        System.out.println("Processing Solution:");
-        System.out.println("\tTotal Cost:\t\t$" + getTotalCost());
-        System.out.println("\t1st Delivery Day: " + getFirstDeliveryDay());
-        System.out.println("\tLast Delivery Day: " + getLastDeliveryDay());
-        printOrderItems(orderItemCalculationsList);
+    List<FacilityRecord> facilityRecords = new ArrayList<>();
+
+    public SolutionImpl() {}
+
+    public SolutionImpl(Integer totalCost, Integer firstDeliveryDay, Integer lastDeliveryDay) {
+        this.totalCost = totalCost;
+        this.firstDeliveryDay = firstDeliveryDay;
+        this.lastDeliveryDay = lastDeliveryDay;
     }
 
     @Override
@@ -30,6 +32,7 @@ public class SolutionImpl implements Solution {
         return totalCost;
     }
 
+    @Override
     public void setTotalCost(Integer cost) {
         this.totalCost = cost;
     }
@@ -39,6 +42,7 @@ public class SolutionImpl implements Solution {
         return firstDeliveryDay;
     }
 
+    @Override
     public void setFirstDeliveryDay(Integer day) {
         this.firstDeliveryDay = day;
     }
@@ -48,12 +52,28 @@ public class SolutionImpl implements Solution {
         return lastDeliveryDay;
     }
 
+    @Override
     public void setLastDeliveryDay(Integer day) {
         this.lastDeliveryDay = day;
     }
 
+    @Override
     public void addOrderItemCalculation(OrderItemCalculations orderItemCalculation) {
         orderItemCalculationsList.add(orderItemCalculation);
+    }
+
+    @Override
+    public void addFacilityRecord(FacilityRecord facilityRecord) {
+        facilityRecords.add(facilityRecord);
+    }
+
+    @Override
+    public void print() {
+        System.out.println("Processing Solution:");
+        System.out.println("\tTotal Cost:\t\t$" + getTotalCost());
+        System.out.println("\t1st Delivery Day: " + getFirstDeliveryDay());
+        System.out.println("\tLast Delivery Day: " + getLastDeliveryDay());
+        printOrderItems(orderItemCalculationsList);
     }
 
     @Override

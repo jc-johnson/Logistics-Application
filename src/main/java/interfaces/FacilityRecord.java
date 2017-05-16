@@ -5,13 +5,25 @@ package src.main.java.interfaces;
  */
 public interface FacilityRecord {
 
-    double getArrivalDay();
+    Integer getArrivalDay();
 
     void setArrivalDay(Integer day);
 
     String getFacilityLocation();
 
-    void setFacility(String facilityLocation);
+    void setFacilityLocation(String facilityLocation);
+
+    public Integer getNumberOfItems();
+
+    public void setNumberOfItems(Integer numberOfItems);
+
+    public Integer getProcessingEndDay();
+
+    public void setProcessingEndDay(Integer processingEndDay);
+
+    public Integer getTravelTime();
+
+    public void setTravelTime(Integer travelTime);
 
     void print();
 }

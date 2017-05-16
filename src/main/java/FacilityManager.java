@@ -59,7 +59,7 @@ public final class FacilityManager {
 
     public void resetFacilitiesMinDistance() {
         for (Facility facility : facilitiesList) {
-            facility.setMinDistance(Double.POSITIVE_INFINITY);
+            facility.setMinDistance(Integer.MAX_VALUE);
         }
     }
 
@@ -73,7 +73,7 @@ public final class FacilityManager {
     public void initializeSchedules() {
         for (Facility facility : facilitiesList) {
             for (int i = 1; i < 21 ; i++) {
-                facility.updateSchedule(i, 10);
+                facility.addScheduleDay(i, 10);
             }
         }
     }
@@ -101,7 +101,7 @@ public final class FacilityManager {
         return null;
     }
 
-    public double getShortestPathInDays(String sourceFacility, String targetFacility) throws EmptyNeighborListException, NullNeighborListException, NullPriorityQueueException, NullFacilityException {
+    public Integer getShortestPathInDays(String sourceFacility, String targetFacility) throws EmptyNeighborListException, NullNeighborListException, NullPriorityQueueException, NullFacilityException {
         facilityDijkstra.run(sourceFacility, targetFacility);
         return facilityDijkstra.getTotalDays();
     }

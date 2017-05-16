@@ -21,12 +21,12 @@ public class FacilityEdge {
         return target;
     }
 
-    public double getWeight(){
+    public Integer getWeight(){
         return weight;
     }
 
-    public double getDistanceInDays() {
-        double rate = 8 * 50;
+    public Integer getDistanceInDays() {
+        Integer rate = 8 * 50;
         return weight / rate;
     }
 

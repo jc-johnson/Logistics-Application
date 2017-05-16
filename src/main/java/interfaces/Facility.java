@@ -27,9 +27,9 @@ public interface Facility  {
 
     void setCostPerDay(Integer ratePerday);
 
-    double getMinDistance();
+    Integer getMinDistance();
 
-    void setMinDistance(double distance);
+    void setMinDistance(Integer distance);
 
     Facility getPrevious();
 
@@ -56,6 +56,12 @@ public interface Facility  {
     boolean containsItem(Item item);
 
     Integer getProcessingDays(Integer itemQuantity) throws NoAvailableDaysException, NegativeQuantityException;
+
+    Integer getItemQuantity(Item item);
+
+    Integer getAvailableItems(Integer day);
+
+    void addScheduleDay(Integer day, Integer itemsAvailable);
 
 
 }

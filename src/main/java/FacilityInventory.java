@@ -50,6 +50,13 @@ public class FacilityInventory implements Inventory {
     }
 
 
+    @Override
+    public Integer getItemQuantity(Item item) {
+        Integer itemQuanity = activeInventory.get(item);
+        return itemQuanity;
+    }
+
+
     private void printActiveInventory() {
         System.out.println("Active Inventory: ");
         System.out.println("\tItem ID\t\tQuantity");

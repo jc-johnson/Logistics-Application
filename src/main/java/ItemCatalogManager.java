@@ -35,6 +35,11 @@ public final class ItemCatalogManager {
 
     private ItemCatalogManager() {}
 
+    public boolean isRealItem(String itemID) {
+        if (catalog.containsKey(itemID)) return true;
+        return false;
+    }
+
     public void parseItemsInventoryXML(String path) {
 
 

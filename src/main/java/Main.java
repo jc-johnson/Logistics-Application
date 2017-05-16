@@ -29,13 +29,14 @@ public class Main {
         facilityManager.loadFacilityInventoryFromXML("src/main/resources/FacilityInventory.xml");
         facilityManager.initializeSchedules();
 
+
         // Output 1
         // facilityManager.printEachFacilityOutput();
 
         // Output 2 : Item catalog
         // Parse and Print Item Catalog
-        // ItemCatalogManager itemCatalogManager = ItemCatalogManager.getInstance();
-        // itemCatalogManager.parseItemsInventoryXML("src/main/resources/ItemCatalog.xml");
+        ItemCatalogManager itemCatalogManager = ItemCatalogManager.getInstance();
+        itemCatalogManager.parseItemsInventoryXML("src/main/resources/ItemCatalog.xml");
 
         // Output 3 : Shortest path
         /*

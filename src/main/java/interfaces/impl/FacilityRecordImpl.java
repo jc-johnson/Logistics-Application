@@ -12,15 +12,52 @@ import static javafx.scene.input.KeyCode.T;
 public class FacilityRecordImpl implements FacilityRecord, Comparator<FacilityRecord>, Comparable<FacilityRecord> {
 
     private String facilityLocation;
-    private double arrivalDay;
+    private Integer numberOfItems;
+    private Integer processingEndDay;
+    private Integer travelTime;
+    private Integer arrivalDay;
 
-    public FacilityRecordImpl(String location, double day) {
+    public FacilityRecordImpl(String location, Integer day) {
         this.facilityLocation = location;
         this.arrivalDay = day;
     }
 
     @Override
-    public double getArrivalDay() {
+    public String getFacilityLocation() {
+        return facilityLocation;
+    }
+
+    @Override
+    public void setFacilityLocation(String location) {
+        facilityLocation = location;
+    }
+
+    public Integer getNumberOfItems() {
+        return numberOfItems;
+    }
+
+    public void setNumberOfItems(Integer numberOfItems) {
+        this.numberOfItems = numberOfItems;
+    }
+
+    public Integer getProcessingEndDay() {
+        return processingEndDay;
+    }
+
+    public void setProcessingEndDay(Integer processingEndDay) {
+        this.processingEndDay = processingEndDay;
+    }
+
+    public Integer getTravelTime() {
+        return travelTime;
+    }
+
+    public void setTravelTime(Integer travelTime) {
+        this.travelTime = travelTime;
+    }
+
+    @Override
+    public Integer getArrivalDay() {
         return arrivalDay;
     }
 
@@ -30,23 +67,13 @@ public class FacilityRecordImpl implements FacilityRecord, Comparator<FacilityRe
     }
 
     @Override
-    public String getFacilityLocation() {
-        return facilityLocation;
-    }
-
-    @Override
-    public void setFacility(String location) {
-        facilityLocation = location;
-    }
-
-    @Override
     public int compareTo(FacilityRecord otherFacilityRecord) {
-        return Double.compare(this.getArrivalDay(), otherFacilityRecord.getArrivalDay());
+        return Integer.compare(this.getArrivalDay(), otherFacilityRecord.getArrivalDay());
     }
 
     @Override
     public int compare(FacilityRecord facilityRecord1, FacilityRecord facilityRecord2) {
-        return Double.compare(facilityRecord1.getArrivalDay(), facilityRecord2.getArrivalDay());
+        return Integer.compare(facilityRecord1.getArrivalDay(), facilityRecord2.getArrivalDay());
     }
 
     @Override

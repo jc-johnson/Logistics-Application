@@ -18,8 +18,8 @@ import java.util.PriorityQueue;
 public class FacilityDijkstra {
 
     private List<Facility> facilityList = null;
-    private double totalMiles = 0;
-    private double totalDays = 0;
+    private Integer totalMiles = 0;
+    private Integer totalDays = 0;
 
     public FacilityDijkstra(List<Facility> facilities) {
         this.facilityList = facilities;
@@ -75,8 +75,8 @@ public class FacilityDijkstra {
             // Visit each edge exiting the headFacility
             for (FacilityEdge facilityEdge : headFacility.getNeighborList()) {
                 String edgeFacilityString = facilityEdge.getTarget();
-                double edgeWeight = facilityEdge.getWeight();
-                double distanceFromHeadFacility = headFacility.getMinDistance() + edgeWeight;
+                Integer edgeWeight = facilityEdge.getWeight();
+                Integer distanceFromHeadFacility = headFacility.getMinDistance() + edgeWeight;
                 Facility edgeFacility = getFacility(edgeFacilityString);
 
                 // System.out.println("Distance from head facility: " + distanceFromHeadFacility);
@@ -118,10 +118,10 @@ public class FacilityDijkstra {
         }
 
         // setTotalMiles(facilityPath);
-        Double totalMiles = getTotalMiles();
+        Integer totalMiles = getTotalMiles();
 
         // setTotalDays(totalMiles);
-        Double totalDays = getTotalDays();
+        Integer totalDays = getTotalDays();
 
         System.out.println(" = " + totalMiles + " mi");
         System.out.println(totalMiles + " mi / (8 hours per day * 50 mph) = " + totalDays + " days");
@@ -129,7 +129,7 @@ public class FacilityDijkstra {
     }
 
     public void setTotalMiles(List<Facility> facilityPath) {
-        double totalDistance = 0;
+        Integer totalDistance = 0;
 
         for (int i = 0; i < facilityPath.size()-1; i++) {
             Facility facility = facilityPath.get(i);
@@ -146,13 +146,13 @@ public class FacilityDijkstra {
         totalMiles = totalDistance;
     }
 
-    public double getTotalMiles() { return totalMiles; }
+    public Integer getTotalMiles() { return totalMiles; }
 
-    public void setTotalDays(double totalMiles) {
+    public void setTotalDays(Integer totalMiles) {
         totalDays = totalMiles / 400;
     }
 
-    public double getTotalDays() { return totalDays; }
+    public Integer getTotalDays() { return totalDays; }
 
     public static void main(String[] args) throws NullFacilityException, NullNeighborListException, NullPriorityQueueException, EmptyNeighborListException {
         /*Facility santaFeFacility = FacilityFactory.createFacility("Santa Fe, NM");
