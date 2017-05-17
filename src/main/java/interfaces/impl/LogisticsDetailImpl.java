@@ -1,5 +1,7 @@
 package src.main.java.interfaces.impl;
 
+import src.main.java.exceptions.NegativeQuantityException;
+import src.main.java.exceptions.NullParameterException;
 import src.main.java.interfaces.LogisticsDetail;
 
 /**
@@ -20,6 +22,12 @@ public class LogisticsDetailImpl implements LogisticsDetail {
     }
 
     public void setFacilityLocation(String facilityLocation) {
+        if (facilityLocation.isEmpty() || facilityLocation.equals("")) try {
+            throw new NullParameterException();
+        } catch (NullParameterException e) {
+            e.printStackTrace();
+        }
+
         this.facilityLocation = facilityLocation;
     }
 
@@ -28,6 +36,12 @@ public class LogisticsDetailImpl implements LogisticsDetail {
     }
 
     public void setTotalQuantity(Integer totalQuantity) {
+        if (totalQuantity < 0) try {
+            throw new NegativeQuantityException();
+        } catch (NegativeQuantityException e) {
+            e.printStackTrace();
+        }
+
         this.totalQuantity = totalQuantity;
     }
 
@@ -36,6 +50,11 @@ public class LogisticsDetailImpl implements LogisticsDetail {
     }
 
     public void setitemsProcessed(Integer itemsProcessed) {
+        if (itemsProcessed < 0) try {
+            throw new NegativeQuantityException();
+        } catch (NegativeQuantityException e) {
+            e.printStackTrace();
+        }
         this.itemsProcessed = itemsProcessed;
     }
 
@@ -44,6 +63,12 @@ public class LogisticsDetailImpl implements LogisticsDetail {
     }
 
     public void setProcessingStart(Integer processingStart) {
+        if (processingStart < 0) try {
+            throw new NegativeQuantityException();
+        } catch (NegativeQuantityException e) {
+            e.printStackTrace();
+        }
+
         this.processingStart = processingStart;
     }
 
@@ -52,6 +77,11 @@ public class LogisticsDetailImpl implements LogisticsDetail {
     }
 
     public void setProcessingEnd(Integer processingEnd) {
+        if (processingEnd < 0) try {
+            throw new NegativeQuantityException();
+        } catch (NegativeQuantityException e) {
+            e.printStackTrace();
+        }
         this.processingEnd = processingEnd;
     }
 
@@ -60,6 +90,12 @@ public class LogisticsDetailImpl implements LogisticsDetail {
     }
 
     public void setTravelStart(Integer travelStart) {
+        if (travelStart < 0) try {
+            throw new NegativeQuantityException();
+        } catch (NegativeQuantityException e) {
+            e.printStackTrace();
+        }
+
         this.travelStart = travelStart;
     }
 
@@ -68,6 +104,12 @@ public class LogisticsDetailImpl implements LogisticsDetail {
     }
 
     public void setTravelEnd(Integer travelEnd) {
+        if (travelEnd < 0) try {
+            throw new NegativeQuantityException();
+        } catch (NegativeQuantityException e) {
+            e.printStackTrace();
+        }
+
         this.travelEnd = travelEnd;
     }
 

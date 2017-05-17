@@ -1,5 +1,6 @@
 package src.main.java.interfaces.impl;
 
+import src.main.java.exceptions.NullParameterException;
 import src.main.java.interfaces.ItemPrinter;
 import src.main.java.Item;
 
@@ -12,6 +13,11 @@ public class ItemPrinterImpl implements ItemPrinter {
 
     @Override
     public void print(Map<Item, Integer> items) {
+        if (items == null) try {
+            throw new NullParameterException();
+        } catch (NullParameterException e) {
+            e.printStackTrace();
+        }
 
         int i = 1;
         for (Map.Entry<Item, Integer> entry : items.entrySet()) {
