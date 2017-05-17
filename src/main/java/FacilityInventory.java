@@ -52,8 +52,8 @@ public class FacilityInventory implements Inventory {
 
     @Override
     public Integer getItemQuantity(Item item) {
-        Integer itemQuanity = activeInventory.get(item);
-        return itemQuanity;
+        Integer itemQuantity = activeInventory.get(item);
+        return itemQuantity;
     }
 
 

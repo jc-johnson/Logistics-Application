@@ -1,9 +1,6 @@
 package src.main.java;
 
-import src.main.java.exceptions.EmptyNeighborListException;
-import src.main.java.exceptions.NullFacilityException;
-import src.main.java.exceptions.NullNeighborListException;
-import src.main.java.exceptions.NullPriorityQueueException;
+import src.main.java.exceptions.*;
 import src.main.java.interfaces.Facility;
 import src.main.java.shortestpath.FacilityEdge;
 
@@ -25,7 +22,10 @@ public class FacilityDijkstra {
         this.facilityList = facilities;
     }
 
-    private Facility getFacility(String facilityLocation) {
+    private Facility getFacility(String facilityLocation) throws DataValidationException {
+        if (facilityLocation.equals("") || facilityLocation.isEmpty()) {
+            throw new DataValidationException("Empty string parameter in FacilityDijkstra.getFacility()");
+        }
         for (Facility facility : facilityList) {
             if(facility.getLocation().equals(facilityLocation)) {
                 return facility;
@@ -34,7 +34,11 @@ public class FacilityDijkstra {
         return null;
     }
 
-    public void run(String startFacility, String endFacility) throws EmptyNeighborListException, NullNeighborListException, NullPriorityQueueException, NullFacilityException {
+    public void run(String startFacility, String endFacility) throws EmptyNeighborListException, NullNeighborListException, NullPriorityQueueException, NullFacilityException, DataValidationException, NullParameterException, NegativeQuantityException {
+        if (startFacility.equals("") || startFacility.isEmpty() || endFacility.equals("") || endFacility.isEmpty()) {
+            throw new DataValidationException("Empty string parameter in FacilityDijkstra.getFacility()");
+        }
+
         Facility source = getFacility(startFacility);
         Facility target = getFacility(endFacility);
 
@@ -44,7 +48,9 @@ public class FacilityDijkstra {
         }
     }
 
-    public List<Facility> shortestPath(Facility source, Facility target) throws NullFacilityException, NullNeighborListException, NullPriorityQueueException, EmptyNeighborListException {
+    public List<Facility> shortestPath(Facility source, Facility target) throws NullFacilityException, NullNeighborListException, NullPriorityQueueException, EmptyNeighborListException, DataValidationException, NullParameterException, NegativeQuantityException {
+        if (source == null || target == null) throw new DataValidationException("Empty Facility parameter in FacilityDijkstra.shortestPath()");
+
         computePaths(source);
         List<Facility> path = getShortestPathTo(target);
         setTotalMiles(path);
@@ -56,7 +62,9 @@ public class FacilityDijkstra {
     }
 
     // each Facility in shortest path gets a previous
-    public void computePaths(Facility source) throws NullFacilityException, NullNeighborListException, NullPriorityQueueException, EmptyNeighborListException {
+    public void computePaths(Facility source) throws NullFacilityException, NullNeighborListException, NullPriorityQueueException, EmptyNeighborListException, DataValidationException {
+        if (source == null) throw new DataValidationException("Empty Facility parameter in FacilityDijkstra.computePaths()");
+
         source.setMinDistance(0);
         PriorityQueue<Facility> facilityQueue = new PriorityQueue<>();
         facilityQueue.add(source);
@@ -99,7 +107,9 @@ public class FacilityDijkstra {
         }
     }
 
-    public List<Facility> getShortestPathTo(Facility target) {
+    public List<Facility> getShortestPathTo(Facility target) throws NullParameterException {
+        if (target == null) throw new NullParameterException("Null Facility parameter in FacilityDijkstra.getShortestPathTo(Facility)");
+
         List<Facility> path = new ArrayList<>();
         for (Facility facility = target; facility != null; facility = facility.getPrevious()) {
             path.add(facility);
@@ -108,7 +118,8 @@ public class FacilityDijkstra {
         return path;
     }
 
-    public  void printFacilityPath(List<Facility> facilityPath) {
+    public void printFacilityPath(List<Facility> facilityPath) throws NullParameterException {
+        if (facilityPath == null) throw new NullParameterException("Null facilityPath list in FacilityDijkstra.printFacilityPath");
 
         System.out.print(facilityPath.get(0).getLocation());
 
@@ -128,7 +139,9 @@ public class FacilityDijkstra {
         System.out.println("");
     }
 
-    public void setTotalMiles(List<Facility> facilityPath) {
+    public void setTotalMiles(List<Facility> facilityPath) throws NullParameterException {
+        if (facilityPath == null) throw new NullParameterException("Null facilityPath list in FacilityDijkstra.setTotalMiles");
+
         Integer totalDistance = 0;
 
         for (int i = 0; i < facilityPath.size()-1; i++) {
@@ -148,7 +161,9 @@ public class FacilityDijkstra {
 
     public Integer getTotalMiles() { return totalMiles; }
 
-    public void setTotalDays(Integer totalMiles) {
+    public void setTotalDays(Integer totalMiles) throws NegativeQuantityException {
+        if (totalMiles < 0 ) throw new NegativeQuantityException("Negative parameter in FacilityDijkstra.setTotalDay()");
+
         totalDays = totalMiles / 400;
     }
 

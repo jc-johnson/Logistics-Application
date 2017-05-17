@@ -50,7 +50,7 @@ public final class OrderProcessor {
         return null;
     }
 
-    public void computeSolution() throws EmptyNeighborListException, NullNeighborListException, NullPriorityQueueException, NullFacilityException, NoAvailableDaysException, NegativeQuantityException {
+    public void computeSolution() throws EmptyNeighborListException, NullNeighborListException, NullPriorityQueueException, NullFacilityException, NoAvailableDaysException, NegativeQuantityException, DataValidationException, NullParameterException {
         for (Order order : orders ) {
 
             order.printOutput();
@@ -63,6 +63,7 @@ public final class OrderProcessor {
             // go through each item in the order
             for (Item item : orderItems) {
 
+                Integer ItemTotalCost = 0;
                 Boolean isRealItem = ItemCatalogManager.getInstance().isRealItem(item.getId());
                 if (!isRealItem) {
                     System.out.println("Not a real item! Rejecting item...");
@@ -150,6 +151,7 @@ public final class OrderProcessor {
                     // from arrival day to end process day update facility schedule
                     for (Integer i = facilityRecord.getArrivalDay(); i < facilityRecord.getProcessingEndDay() ; i++) {
                         currentFacility.updateSchedule(i, currentFacility.getAvailableItems(i));
+                        // TODO: might be redundant with Integer processingEndDay = facility.getProcessingDays(quantityNeeded);
                     }
                     item.addSolution(facilityRecord);
 

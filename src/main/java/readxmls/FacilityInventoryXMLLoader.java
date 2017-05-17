@@ -1,5 +1,6 @@
 package src.main.java.readxmls;
 
+import src.main.java.exceptions.DataValidationException;
 import src.main.java.exceptions.NullFacilityException;
 import src.main.java.interfaces.Facility;
 
@@ -11,5 +12,5 @@ import java.util.*;
  */
 public interface FacilityInventoryXMLLoader {
 
-    public void parse(List<Facility> facilities, String path) throws FileNotFoundException, NullFacilityException;
+    public void parse(List<Facility> facilities, String path) throws FileNotFoundException, NullFacilityException, DataValidationException;
 }

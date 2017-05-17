@@ -5,6 +5,7 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
+import src.main.java.exceptions.DataValidationException;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -35,13 +36,19 @@ public final class ItemCatalogManager {
 
     private ItemCatalogManager() {}
 
-    public boolean isRealItem(String itemID) {
+    public boolean isRealItem(String itemID) throws DataValidationException {
+        if (itemID.equals("") || itemID.isEmpty()) {
+            throw new DataValidationException("Empty string parameter in ItemCatalogManager.isRealItem");
+        }
+
         if (catalog.containsKey(itemID)) return true;
         return false;
     }
 
-    public void parseItemsInventoryXML(String path) {
-
+    public void parseItemsInventoryXML(String path) throws DataValidationException {
+        if (path.equals("") || path.isEmpty()) {
+            throw new DataValidationException("Empty string parameter in ItemCatalogManager.parseItemsInventoryXML");
+        }
 
         try {
             // Open file path to xml
@@ -80,10 +87,9 @@ public final class ItemCatalogManager {
                     // System.out.println("Price : " + itemPrice);
 
                     catalog.put(itemId, price);
-
                 }
             }
-            printItemsCatalog(catalog);
+            printItemsCatalog();
 
         } catch (FileNotFoundException e) {
             e.printStackTrace();
@@ -99,7 +105,7 @@ public final class ItemCatalogManager {
 
     }
 
-    public void printItemsCatalog(HashMap<String, Long> catalog) {
+    public void printItemsCatalog() {
 
         System.out.println("Item Catalog: ");
         System.out.println("");

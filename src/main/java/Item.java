@@ -1,5 +1,6 @@
 package src.main.java;
 
+import src.main.java.exceptions.NullParameterException;
 import src.main.java.interfaces.FacilityRecord;
 import src.main.java.interfaces.Solution;
 import src.main.java.interfaces.impl.SolutionImpl;
@@ -40,7 +41,7 @@ public class Item {
 
 
     // TODO: make into interface method for Item
-    public void addSolution(FacilityRecord facilityRecord) {
+    public void addSolution(FacilityRecord facilityRecord) throws NullParameterException {
         solution.addFacilityRecord(facilityRecord);
     }
 }

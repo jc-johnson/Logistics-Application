@@ -18,7 +18,7 @@ import java.io.IOException;
  */
 public class Main {
 
-    public static void main(String[] args) throws IOException, NullFacilityException, NullPriorityQueueException, EmptyNeighborListException, NullNeighborListException, ParserConfigurationException, SAXException, NoAvailableDaysException, NegativeQuantityException, EmptyPathException {
+    public static void main(String[] args) throws IOException, NullFacilityException, NullPriorityQueueException, EmptyNeighborListException, NullNeighborListException, ParserConfigurationException, SAXException, NoAvailableDaysException, NegativeQuantityException, EmptyPathException, DataValidationException, NullParameterException {
 
 
         // Load in facilities Network from XML - gives you all 18 facilities

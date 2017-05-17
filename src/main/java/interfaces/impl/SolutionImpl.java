@@ -1,5 +1,7 @@
 package src.main.java.interfaces.impl;
 
+import src.main.java.exceptions.NegativeQuantityException;
+import src.main.java.exceptions.NullParameterException;
 import src.main.java.interfaces.FacilityRecord;
 import src.main.java.interfaces.OrderItemCalculations;
 import src.main.java.interfaces.Solution;
@@ -33,7 +35,9 @@ public class SolutionImpl implements Solution {
     }
 
     @Override
-    public void setTotalCost(Integer cost) {
+    public void setTotalCost(Integer cost) throws NegativeQuantityException {
+        if (cost < 0 ) throw new NegativeQuantityException("SolutionImpl.setTotalCost()");
+
         this.totalCost = cost;
     }
 
@@ -43,7 +47,9 @@ public class SolutionImpl implements Solution {
     }
 
     @Override
-    public void setFirstDeliveryDay(Integer day) {
+    public void setFirstDeliveryDay(Integer day) throws NegativeQuantityException {
+        if (day < 0) throw new NegativeQuantityException("SolutionImpl.setFirstDeliveryDay()");
+
         this.firstDeliveryDay = day;
     }
 
@@ -53,22 +59,25 @@ public class SolutionImpl implements Solution {
     }
 
     @Override
-    public void setLastDeliveryDay(Integer day) {
+    public void setLastDeliveryDay(Integer day) throws NegativeQuantityException {
+        if (day < 0 ) throw new NegativeQuantityException("SolutionImpl.setLastDeliveryDay()");
         this.lastDeliveryDay = day;
     }
 
     @Override
-    public void addOrderItemCalculation(OrderItemCalculations orderItemCalculation) {
+    public void addOrderItemCalculation(OrderItemCalculations orderItemCalculation) throws NullParameterException {
+        if (orderItemCalculation == null) throw new NullParameterException("SolutionImpl.addOrderItemCalculation()");
         orderItemCalculationsList.add(orderItemCalculation);
     }
 
     @Override
-    public void addFacilityRecord(FacilityRecord facilityRecord) {
+    public void addFacilityRecord(FacilityRecord facilityRecord) throws NullParameterException {
+        if (facilityRecord == null) throw new NullParameterException("SolutionImpl.addFacilityRecord()");
         facilityRecords.add(facilityRecord);
     }
 
     @Override
-    public void print() {
+    public void print() throws NullParameterException {
         System.out.println("Processing Solution:");
         System.out.println("\tTotal Cost:\t\t$" + getTotalCost());
         System.out.println("\t1st Delivery Day: " + getFirstDeliveryDay());
@@ -77,7 +86,8 @@ public class SolutionImpl implements Solution {
     }
 
     @Override
-    public void printOrderItems(List<OrderItemCalculations> itemCalculationsList) {
+    public void printOrderItems(List<OrderItemCalculations> itemCalculationsList) throws NullParameterException {
+        if (itemCalculationsList == null) throw new NullParameterException("SolutionImpl.printOrderItems()");
         System.out.println("Item ID\t\tQuantity\t\tCost\t\t# Sources Used\t\tFirst Day\t\tLast Day");
         for(OrderItemCalculations orderItemCalculations : orderItemCalculationsList) {
             System.out.println(orderItemCalculations.getItemId() + "\t\t" + orderItemCalculations.getQuantity() +

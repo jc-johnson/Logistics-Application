@@ -5,6 +5,7 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
+import src.main.java.exceptions.DataValidationException;
 import src.main.java.exceptions.NullFacilityException;
 import src.main.java.FacilityImpl;
 import src.main.java.interfaces.Facility;
@@ -29,7 +30,10 @@ import java.util.Locale;
 public class FacilityNetworkXmlLoaderImpl implements FacilityNetworkXMLLoader {
 
     @Override
-    public List<Facility> parse(String path) throws FileNotFoundException, NullFacilityException {
+    public List<Facility> parse(String path) throws FileNotFoundException, NullFacilityException, DataValidationException {
+
+        if (path.isEmpty() || path.equals("")) throw new DataValidationException("Empty string parameter FacilityNetworkXmlLoaderImpl");
+
         try {
 
             // Open file path to xml

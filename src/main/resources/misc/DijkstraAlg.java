@@ -1,5 +1,5 @@
 
-package src.main.resources;
+package src.main.resources.misc;
 
 /**
  * Created by Jordan on 4/19/2017.

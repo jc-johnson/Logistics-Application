@@ -1,5 +1,8 @@
 package src.main.java.interfaces;
 
+import src.main.java.exceptions.NegativeQuantityException;
+import src.main.java.exceptions.NullParameterException;
+
 import java.util.List;
 
 /**
@@ -7,23 +10,23 @@ import java.util.List;
  */
 public interface Solution {
 
-    void print();
+    void print() throws NullParameterException;
 
     Integer getTotalCost();
 
-    void setTotalCost(Integer cost);
+    void setTotalCost(Integer cost) throws NegativeQuantityException;
 
     Integer getFirstDeliveryDay();
 
-    void setFirstDeliveryDay(Integer day);
+    void setFirstDeliveryDay(Integer day) throws NegativeQuantityException;
 
     Integer getLastDeliveryDay();
 
-    void setLastDeliveryDay(Integer day);
+    void setLastDeliveryDay(Integer day) throws NegativeQuantityException;
 
-    void printOrderItems(List<OrderItemCalculations> itemCalculationsList);
+    void printOrderItems(List<OrderItemCalculations> itemCalculationsList) throws NullParameterException;
 
-    void addOrderItemCalculation(OrderItemCalculations orderItemCalculation);
+    void addOrderItemCalculation(OrderItemCalculations orderItemCalculation) throws NullParameterException;
 
-    void addFacilityRecord(FacilityRecord facilityRecord);
+    void addFacilityRecord(FacilityRecord facilityRecord) throws NullParameterException;
 }

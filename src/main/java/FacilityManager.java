@@ -1,9 +1,6 @@
 package src.main.java;
 
-import src.main.java.exceptions.EmptyNeighborListException;
-import src.main.java.exceptions.NullFacilityException;
-import src.main.java.exceptions.NullNeighborListException;
-import src.main.java.exceptions.NullPriorityQueueException;
+import src.main.java.exceptions.*;
 import src.main.java.interfaces.Facility;
 import src.main.java.interfaces.impl.FacilityInventoryXMLLoaderImpl;
 import src.main.java.interfaces.impl.FacilityNetworkXmlLoaderImpl;
@@ -26,9 +23,6 @@ public final class FacilityManager {
 
     FacilityDijkstra facilityDijkstra = new FacilityDijkstra(facilitiesList);
 
-
-    FacilityDTO facilityDTO = null;
-
     private static FacilityManager instance;
 
     public static FacilityManager getInstance() {
@@ -40,12 +34,19 @@ public final class FacilityManager {
 
     private FacilityManager() {}
 
-    public void loadFacilitesAndNeighborsFromXML(String path) throws FileNotFoundException, NullFacilityException {
+    public void loadFacilitesAndNeighborsFromXML(String path) throws FileNotFoundException, NullFacilityException, DataValidationException {
+        if (path.equals("") || path.isEmpty()) {
+            throw new DataValidationException("Empty string path in FacilityManager.loadFacilitesAndNeighborsFromXML");
+        }
+
         facilitiesList = facilityNetworkXMLLoader.parse(path);
         facilityDijkstra = new FacilityDijkstra(facilitiesList);
     }
 
-    public void loadFacilityInventoryFromXML(String path) throws FileNotFoundException, NullFacilityException {
+    public void loadFacilityInventoryFromXML(String path) throws FileNotFoundException, NullFacilityException, DataValidationException {
+        if (path.equals("") || path.isEmpty()) {
+            throw new DataValidationException("Empty string path in FacilityManger.loadFacilityInventoryFromXML");
+        }
         facilityInventoryXMLLoader.parse(facilitiesList, path);
     }
 
@@ -78,11 +79,13 @@ public final class FacilityManager {
         }
     }
 
-    public void runShortestPath(String sourceFacility, String targetFacility) throws EmptyNeighborListException, NullNeighborListException, NullPriorityQueueException, NullFacilityException {
+    public void runShortestPath(String sourceFacility, String targetFacility) throws EmptyNeighborListException, NullNeighborListException, NullPriorityQueueException, NullFacilityException, NegativeQuantityException, NullParameterException, DataValidationException {
         facilityDijkstra.run(sourceFacility, targetFacility);
     }
 
-    public List<Facility> getFacilitiesWithItem(Item item) {
+    public List<Facility> getFacilitiesWithItem(Item item) throws NullParameterException {
+        if (item == null) throw new NullParameterException("Empty Item parameter in FacilityManager.getFacilitiesWithItem");
+
         List<Facility> facilitiesWithItem = new ArrayList<>();
         for (Facility facility : facilitiesList) {
             if (facility.containsItem(item)) {
@@ -92,7 +95,10 @@ public final class FacilityManager {
         return facilitiesWithItem;
     }
 
-    public Facility getFacility(String location) {
+    public Facility getFacility(String location) throws DataValidationException {
+        if (location.equals("") || location.isEmpty()) {
+            throw new DataValidationException("Empty string parameter in FacilityManager.getFacility");
+        }
         for (Facility facility : facilitiesList) {
             if(facility.getLocation().equals(location)) {
                 return facility;
@@ -101,7 +107,10 @@ public final class FacilityManager {
         return null;
     }
 
-    public Integer getShortestPathInDays(String sourceFacility, String targetFacility) throws EmptyNeighborListException, NullNeighborListException, NullPriorityQueueException, NullFacilityException {
+    public Integer getShortestPathInDays(String sourceFacility, String targetFacility) throws EmptyNeighborListException, NullNeighborListException, NullPriorityQueueException, NullFacilityException, DataValidationException, NullParameterException, NegativeQuantityException {
+        if ((sourceFacility.equals("") || sourceFacility.isEmpty() || targetFacility.equals("") || targetFacility.isEmpty())) {
+            throw new DataValidationException("Empty string parameter in FacilityManager.getShortestPathInDays");
+        }
         facilityDijkstra.run(sourceFacility, targetFacility);
         return facilityDijkstra.getTotalDays();
     }

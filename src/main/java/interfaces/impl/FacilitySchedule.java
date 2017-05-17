@@ -1,5 +1,6 @@
 package src.main.java.interfaces.impl;
 
+import src.main.java.exceptions.NegativeQuantityException;
 import src.main.java.exceptions.NoAvailableDaysException;
 import src.main.java.interfaces.Schedule;
 
@@ -16,11 +17,23 @@ public class FacilitySchedule implements Schedule {
     Map<Integer, Integer> scheduleMap = new HashMap<>();
 
     public void addScheduleDay(Integer day, Integer itemsAvailable) {
+        if (day < 0 || itemsAvailable < 0) try {
+            throw new NegativeQuantityException();
+        } catch (NegativeQuantityException e) {
+            e.printStackTrace();
+        }
+
         scheduleMap.put(day, itemsAvailable);
     }
 
     @Override
     public void setScheduleDay(Integer day, Integer itemNumber) {
+        if (day < 0 || itemNumber < 0) try {
+            throw new NegativeQuantityException();
+        } catch (NegativeQuantityException e) {
+            e.printStackTrace();
+        }
+
         if (day > scheduleMap.size()) {
             extendSchedule(); // TODO: maybe have Facility or FacilityManager do this
         }
@@ -28,6 +41,13 @@ public class FacilitySchedule implements Schedule {
     }
 
     private boolean isLastEntry(Integer day) {
+
+        if (day < 0) try {
+            throw new NegativeQuantityException();
+        } catch (NegativeQuantityException e) {
+            e.printStackTrace();
+        }
+
         Boolean value = false;
         Iterator iterator = scheduleMap.entrySet().iterator();
         // Iterate until you find day
@@ -67,6 +87,12 @@ public class FacilitySchedule implements Schedule {
 
     @Override
     public Integer getAvailableItems(Integer day) {
+        if (day < 0) try {
+            throw new NegativeQuantityException();
+        } catch (NegativeQuantityException e) {
+            e.printStackTrace();
+        }
+
         if (day >= scheduleMap.size()) {
             extendSchedule(); // TODO: maybe have Facility or FacilityManager do this
         }

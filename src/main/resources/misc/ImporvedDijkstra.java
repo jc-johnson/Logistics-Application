@@ -1,4 +1,4 @@
-package src.main.java;
+package src.main.resources.misc;
 
 /**
  * Created by Jordan on 5/3/2017.

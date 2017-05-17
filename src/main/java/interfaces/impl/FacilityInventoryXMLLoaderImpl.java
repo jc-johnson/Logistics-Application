@@ -5,8 +5,10 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
+import src.main.java.exceptions.DataValidationException;
 import src.main.java.exceptions.NullFacilityException;
 import src.main.java.FacilityFactory;
+import src.main.java.exceptions.NullParameterException;
 import src.main.java.interfaces.Facility;
 import src.main.java.Item;
 import src.main.java.readxmls.FacilityInventoryXMLLoader;
@@ -28,7 +30,9 @@ import java.util.Map;
 public class FacilityInventoryXMLLoaderImpl implements FacilityInventoryXMLLoader {
 
     @Override
-    public void parse(List<Facility> facilities, String path) throws FileNotFoundException, NullFacilityException {
+    public void parse(List<Facility> facilities, String path) throws FileNotFoundException, NullFacilityException, DataValidationException {
+        if (facilities == null || path.isEmpty() || path.equals("")) throw new DataValidationException("Empty parameter in FacilityInventoryXMLLoaderImpl.parse");
+
         try {
             // Open file path to xml
             File xmlFile = new File(path); // File Path C:\Logistics-Program\LogisticsApplication\src\main\resources\FacilityInventory.xml
@@ -115,7 +119,8 @@ public class FacilityInventoryXMLLoaderImpl implements FacilityInventoryXMLLoade
         // printFacilityInventory(facilities);
     }
 
-    private void printFacilityInventory(List<Facility> facilities) {
+    private void printFacilityInventory(List<Facility> facilities) throws NullParameterException {
+        if (facilities == null) throw new NullParameterException("Null parameter in FacilityInventoryXMLLoaderImpl.printFacilityInventory()");
         for (Facility facility : facilities) {
             facility.printInventory();
         }

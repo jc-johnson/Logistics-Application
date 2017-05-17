@@ -1,5 +1,7 @@
 package src.main.java.interfaces.impl;
 
+import src.main.java.exceptions.DataValidationException;
+import src.main.java.exceptions.NegativeQuantityException;
 import src.main.java.interfaces.BackOrder;
 
 /**
@@ -8,11 +10,11 @@ import src.main.java.interfaces.BackOrder;
 public class BackOrderImpl implements BackOrder {
 
     String itemId;
-    Integer backOrderQuanity;
+    Integer backOrderQuantity;
 
-    public BackOrderImpl(String itemId, Integer backOrderQuanity){
+    public BackOrderImpl(String itemId, Integer backOrderQuantity){
         this.itemId = itemId;
-        this.backOrderQuanity = backOrderQuanity;
+        this.backOrderQuantity = backOrderQuantity;
     }
 
     @Override
@@ -21,22 +23,25 @@ public class BackOrderImpl implements BackOrder {
     }
 
     @Override
-    public void setItemId(String itemId) {
+    public void setItemId(String itemId) throws DataValidationException {
+        if (itemId.isEmpty() || itemId.equals("")) throw new DataValidationException("Empty string in BackOrderImpl.setItemId()");
         this.itemId = itemId;
     }
 
     @Override
-    public Integer getBackOrderQuanity() {
-        return backOrderQuanity;
+    public Integer getBackOrderQuantity() {
+        return backOrderQuantity;
     }
 
     @Override
-    public void setBackOrderQuanity(Integer backOrderQuanity) {
-        this.backOrderQuanity = backOrderQuanity;
+    public void setBackOrderQuantity(Integer backOrderQuantity) throws NegativeQuantityException {
+        if (backOrderQuantity < 0) throw new NegativeQuantityException("Negative quantity parameter in BackOrderImpl.setBackOrderQuantity");
+
+        this.backOrderQuantity = backOrderQuantity;
     }
 
     public void print() {
         System.out.println("Back-order for item: " + itemId);
-        System.out.println("Quantity back-ordered: " + backOrderQuanity);
+        System.out.println("Quantity back-ordered: " + backOrderQuantity);
     }
 }

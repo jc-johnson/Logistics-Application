@@ -1,5 +1,6 @@
 package src.main.java.readxmls;
 
+import src.main.java.exceptions.DataValidationException;
 import src.main.java.exceptions.NullFacilityException;
 import src.main.java.interfaces.Facility;
 
@@ -15,7 +16,7 @@ public interface FacilityNetworkXMLLoader {
     /**
      * Parse xml and load each facilities' neighbors
      */
-    public List<Facility> parse(String path) throws FileNotFoundException, NullFacilityException;
+    public List<Facility> parse(String path) throws FileNotFoundException, NullFacilityException, DataValidationException;
 
     public void printFacilitiesList(List<Facility> facilities);
 
