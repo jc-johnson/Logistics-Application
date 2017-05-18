@@ -141,6 +141,10 @@ public final class OrderProcessor {
                     facilityRecord.print();
                 }
 
+                // Create OrderItemLogManager to manage all orter item logistics records - keeps a list of logistics records
+                // Create log record for the item
+
+
                 // Process facility records
                 for (FacilityRecord facilityRecord : facilityRecords) {
                     String currentFacilityLocation = facilityRecord.getFacilityLocation();
@@ -155,63 +159,23 @@ public final class OrderProcessor {
                     }
                     item.addSolution(facilityRecord);
 
+                    // compute total cost
+                    Integer totalItemCost = getTotalItemCost(item, order.getItemQuantity(item), currentFacility, facilityRecord.getTravelTime());
+
+                    // for each faciltyRecord create LogDetail
+                    // add LogDetail to LogRecord
 
                 }
 
-                /*
-                Integer quantityCollected = 0;
-                double currentDay = arrivalDay;
-
-                while (quantityNeeded > 0) {
-                    for (int i = 0; i < facilityRecords.size(); i++) {
-                        FacilityRecord currentRecord = facilityRecords.get(i);
-                        String facilityLocation = currentRecord.getFacilityLocation();
-                        Facility currentFacility = FacilityManager.getInstance().getFacility(facilityLocation);
-
-                        Integer facilityItemQuantity = currentFacility.getItemQuantity(item);
-                        Integer orderItemQuantity = order.getItemQuantity(item);
-                        Integer availableItemsOnDay = 0;
-                        Integer itemsTaken = 0;
-                        Integer itemsToTake = 0;
-
-                        // take all available items from the facility
-                        if ( orderItemQuantity <= facilityItemQuantity) {
-                            itemsToTake = facilityItemQuantity - orderItemQuantity;
-                            currentFacility.updateInventory(item, itemsToTake);
-
-                            // book schedule days
-                            while (itemsTaken < quantityNeeded) {
-                                availableItemsOnDay = currentFacility.getAvailableItems(currentDay);
-                                currentFacility.updateSchedule(currentDay, availableItemsOnDay);
-                                currentDay++;
-                                itemsTaken += availableItemsOnDay;
-                            }
+                // for each LogDetail in LogRecord generate an Item arrival inside of the LogRecord class
+                // give each order a logistics record
+                // from the logistics record generate solution and order output for order
 
 
-                        } else {
-                            itemsToTake = orderItemQuantity - facilityItemQuantity;
-                            currentFacility.updateInventory(item, itemsToTake);
 
-                            // book schedule days
-                            while (itemsTaken < quantityNeeded) {
-                                availableItemsOnDay = currentFacility.getAvailableItems(currentDay);
-                                currentFacility.updateSchedule(currentDay, availableItemsOnDay);
-                                currentDay++;
-                                itemsTaken += availableItemsOnDay;
-                            }
-                        }
 
-                        OrderItemCalculations orderItemCalculations = new OrderItemCalcluationsImpl();
-                        Integer totalCost = 0;
-                        Integer firstDeliveryDay = 0;
-                        Integer lastDeliveryDay = 0;
 
-                        Solution solution = new SolutionImpl(totalCost, firstDeliveryDay, lastDeliveryDay);
-                        quantityNeeded -= facilityItemQuantity;
 
-                    }
-                }
-                */
             }
 
             order.printOutput();
@@ -222,6 +186,14 @@ public final class OrderProcessor {
     // after records have been sorted
     public void process(List<FacilityRecord> records) {
 
+    }
+
+    public int getTotalItemCost(Item item, Integer itemQuantity, Facility facility, Integer travelDays) {
+        Integer travelCost = 500 * travelDays;
+        Integer facilityProcessingCost = facility.getCostPerDay();
+        Integer totalItemCost = item.getPrice() * itemQuantity;
+
+        return travelCost + facilityProcessingCost + totalItemCost;
     }
 
     public void printOrders() {
