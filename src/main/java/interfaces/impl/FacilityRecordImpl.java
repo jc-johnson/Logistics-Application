@@ -13,16 +13,42 @@ import static javafx.scene.input.KeyCode.T;
  */
 public class FacilityRecordImpl implements FacilityRecord, Comparator<FacilityRecord>, Comparable<FacilityRecord> {
 
+    private String orderID;
+    private String itemID;
+    private Integer totalItemQuantity;
+
     private String facilityLocation;
-    private Integer numberOfItemsProcessed;
     private Integer processingEndDay;
     private Integer travelTime;
     private Integer arrivalDay;
-    private Integer itemCost;
 
     public FacilityRecordImpl(String location, Integer day) {
         this.facilityLocation = location;
         this.arrivalDay = day;
+    }
+
+    public String getOrderID() {
+        return orderID;
+    }
+
+    public void setOrderID(String orderID) {
+        this.orderID = orderID;
+    }
+
+    public Integer getTotalItemQuantity() {
+        return totalItemQuantity;
+    }
+
+    public void setTotalItemQuantity(Integer totalItemQuantity) {
+        this.totalItemQuantity = totalItemQuantity;
+    }
+
+    public String getItemID() {
+        return itemID;
+    }
+
+    public void setItemID(String itemID) {
+        this.itemID = itemID;
     }
 
     @Override
@@ -38,13 +64,13 @@ public class FacilityRecordImpl implements FacilityRecord, Comparator<FacilityRe
 
     @Override
     public Integer getNumberOfItemsProcessed() {
-        return numberOfItemsProcessed;
+        return totalItemQuantity;
     }
 
     @Override
     public void setNumberOfItemsProcessed(Integer number) throws NegativeQuantityException {
         if (number < 0 ) throw new NegativeQuantityException("Negative parameter FacilityRecordImpl.setNumberOfItems");
-        this.numberOfItemsProcessed = number;
+        this.totalItemQuantity = number;
     }
 
     public Integer getProcessingEndDay() {
@@ -63,16 +89,6 @@ public class FacilityRecordImpl implements FacilityRecord, Comparator<FacilityRe
     public void setTravelTime(Integer travelTime) throws NegativeQuantityException {
         if (travelTime < 0) throw new NegativeQuantityException("Negative parameter FacilityRecordImpl.setTravelTime()");
         this.travelTime = travelTime;
-    }
-
-    @Override
-    public Integer getItemCost() {
-        return null;
-    }
-
-    @Override
-    public void setItemCost(Integer itemCost) {
-
     }
 
     @Override

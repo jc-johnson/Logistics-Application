@@ -1,5 +1,7 @@
 package src.main.java.interfaces.impl;
 
+import src.main.java.Item;
+import src.main.java.interfaces.FacilityRecord;
 import src.main.java.interfaces.ItemArrival;
 import src.main.java.interfaces.LogisticsDetail;
 import src.main.java.interfaces.LogisticsRecord;
@@ -22,8 +24,20 @@ public class LogisticsRecordImpl implements LogisticsRecord {
 
     private List<Integer> totalPercentages = new ArrayList<>();
 
+    Map<Item, List<LogisticsDetail>> logisticDetails;
+
+
+    private List<FacilityRecord> facilityRecords = new ArrayList<>();
+
     public String getItemId() {
         return itemId;
+    }
+
+
+    public LogisticsRecordImpl(List<ItemArrival> itemArrivals, List<LogisticsDetail> logisticDetails, String itemId, Integer itemQuantity) {
+        this.itemId = itemId;
+        this.itemQuantity = itemQuantity;
+        this.logisticDetails = logisticDetails;
     }
 
     @Override

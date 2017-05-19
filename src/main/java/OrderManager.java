@@ -44,6 +44,16 @@ public final class OrderManager {
         orderProcessor.generateFacilityRecords(orders);
     }
 
+    public void computeSolutions() {
+
+    }
+
+    public void generateLogistics() {
+        for (Order order : orders) {
+            order.generateOrderItemLogisticsRecord();
+        }
+    }
+
 
 
 }

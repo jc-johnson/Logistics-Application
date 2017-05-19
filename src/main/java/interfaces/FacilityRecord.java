@@ -28,9 +28,10 @@ public interface FacilityRecord {
 
     public void setTravelTime(Integer travelTime) throws NegativeQuantityException;
 
-    public Integer getItemCost();
+    public String getItemID();
 
-    public void setItemCost(Integer itemCost);
+    public void setItemID(String itemID);
 
     void print();
+
 }

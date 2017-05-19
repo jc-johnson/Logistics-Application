@@ -187,13 +187,37 @@ public class FacilityImpl implements Facility, Comparable<Facility> {
                 }
                 Integer itemsAvailable = this.schedule.getAvailableItems(firstAvailable);
                 itemsNeeded -= itemsAvailable;
-                itemsAvailable = itemsAvailable - itemsAvailable;
-                this.schedule.setScheduleDay(firstAvailable, itemsAvailable);
+                // itemsAvailable = itemsAvailable - itemsAvailable;
+                // this.schedule.setScheduleDay(firstAvailable, itemsAvailable);
                 processDays++;
             }
             return processDays;
         }
         return 0;
+    }
+
+    @Override
+    public void processInventory(Integer quantityNeeded) throws NegativeQuantityException, NoAvailableDaysException {
+        if (quantityNeeded < 0)
+            throw new NegativeQuantityException();
+
+        Integer itemsNeeded = quantityNeeded;
+        // Integer processDays = 1;
+
+        if (itemsNeeded > 0 ) {
+            while (itemsNeeded > 0) {
+                Integer firstAvailable = this.schedule.getFirstAvailableDay();
+                if (firstAvailable.equals(this.schedule.getLastScheduleDay())) {
+                    this.schedule.extendSchedule();
+                }
+                Integer itemsAvailable = this.schedule.getAvailableItems(firstAvailable);
+                itemsNeeded -= itemsAvailable;
+                itemsAvailable = itemsAvailable - itemsAvailable;
+                this.schedule.setScheduleDay(firstAvailable, itemsAvailable);
+                // processDays++;
+            }
+        }
+        return;
     }
 
     @Override

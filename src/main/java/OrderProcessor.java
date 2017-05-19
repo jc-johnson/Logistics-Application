@@ -90,6 +90,8 @@ public final class OrderProcessor {
                         Integer processingEndDay = facility.getProcessingDays(facilityItems);
                         Integer travelDays = FacilityManager.getInstance().getShortestPathInDays(facility.getLocation(), destination);
                         arrivalDay = travelDays + processingEndDay;
+                        // compute total cost
+                        Integer itemCost = getItemCost(item, order.getItemQuantity(item),facility, travelDays);
 
                         // FacilityManager.getInstance().resetFacilitiesMinDistance();
                         // FacilityManager.getInstance().resetPrevious();
@@ -99,9 +101,11 @@ public final class OrderProcessor {
                         System.out.println("Arrival Day: " + arrivalDay);
 
                         FacilityRecord facilityRecord = new FacilityRecordImpl(destination, arrivalDay);
+                        facilityRecord.setItemID(item.getId());
                         facilityRecord.setNumberOfItemsProcessed(facilityItems);
                         facilityRecord.setProcessingEndDay(processingEndDay);
                         facilityRecord.setTravelTime(travelDays);
+                        facilityRecord.setItemCost(itemCost);
                         facilityRecords.add(facilityRecord);
                     }
 
@@ -129,21 +133,21 @@ public final class OrderProcessor {
                         String currentFacilityLocation = facilityRecord.getFacilityLocation();
                         Facility currentFacility = FacilityManager.getInstance().getFacility(currentFacilityLocation);
 
-                        // how much of item x does the current facility have?
+                        Integer currentFacilityItems = currentFacility.getItemQuantity(item);
+                        Integer newFacilityQuantity = currentFacilityItems - facilityRecord.getNumberOfItemsProcessed();
 
-                        currentFacility.updateInventory(item, facilityRecord.getNumberOfItemsProcessed());
+                        currentFacility.updateInventory(item, newFacilityQuantity);
                         quantityNeeded -= facilityRecord.getNumberOfItemsProcessed();
+
                         // from arrival day to end process day update facility schedule
-                        for (Integer i = facilityRecord.getArrivalDay(); i < facilityRecord.getProcessingEndDay() ; i++) {
+                        for (Integer i = facilityRecord.getArrivalDay(); i <= facilityRecord.getProcessingEndDay() ; i++) {
                             currentFacility.updateSchedule(i, currentFacility.getAvailableItems(i));
-                            // TODO: might be redundant with Integer processingEndDay = facility.getProcessingDays(quantityNeeded);
                         }
                         item.addSolution(facilityRecord);
 
-                        // compute total cost
-                        Integer itemCost = getItemCost(item, order.getItemQuantity(item), currentFacility, facilityRecord.getTravelTime());
-
                     }
+
+                    LogisticsRecordManager.getInstance().addFacilityRecord();
                 }
             }
         }

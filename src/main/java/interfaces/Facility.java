@@ -57,6 +57,8 @@ public interface Facility  {
 
     Integer getProcessingDays(Integer itemQuantity) throws NoAvailableDaysException, NegativeQuantityException;
 
+    public void processInventory(Integer quantityNeeded) throws NegativeQuantityException, NoAvailableDaysException;
+
     Integer getItemQuantity(Item item);
 
     Integer getAvailableItems(Integer day);

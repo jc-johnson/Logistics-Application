@@ -27,6 +27,7 @@ public class OrderImpl implements Order{
     private OrderOutput orderOutput = new OrderOutputImpl(this);
 
     private Map<Item, List<FacilityRecord>> itemFacilityRecords = new HashMap<>();
+    private Map<Item, List<LogisticsDetail>> itemLogisticDetails = new HashMap<>();
 
 
     public OrderImpl(String id, String destination, Integer orderTime) {
@@ -120,6 +121,36 @@ public class OrderImpl implements Order{
             facilityRecords.add(facilityRecord);
             itemFacilityRecords.put(item, facilityRecords);
         }
+    }
+
+    public void addFacilityRecords(Item item, List<FacilityRecord> facilityRecords) {
+
+        itemFacilityRecords.put(item, facilityRecords);
+
+    }
+
+    public void generateOrderItemLogisticsRecord() {
+
+        for (Map.Entry<Item, List<FacilityRecord>> entry : itemFacilityRecords.entrySet()) {
+            List<LogisticsDetail> logisticsDetails = new ArrayList<>();
+            for (FacilityRecord facilityRecord : entry.getValue()) {
+                LogisticsDetail logisticsDetail = facilityRecord.generateLogisticDetail();
+                logisticsDetails.add(logisticsDetail);
+            }
+            itemLogisticDetails.put(entry.getKey(), logisticsDetails);
+        }
+
+        // TODO: Create list of item arrivals to go in Order Item Logistics Record
+        for (Map.Entry<Item, List<LogisticsDetail>> entry : itemLogisticDetails.entrySet()) {
+            List<ItemArrival> itemArrivals = new ArrayList<>();
+            for (LogisticsDetail logisticsDetail : entry.getValue()) {
+                ItemArrival itemArrival = new ItemArrivalImpl();
+                logisticsDetail
+            }
+
+        }
+
+
     }
 
 }
