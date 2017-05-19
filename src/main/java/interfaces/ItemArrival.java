@@ -5,5 +5,6 @@ package src.main.java.interfaces;
  */
 public interface ItemArrival {
 
+
     void print();
 }

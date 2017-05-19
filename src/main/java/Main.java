@@ -90,10 +90,13 @@ public class Main {
         // XmlReader xmlReader = new XmlReaderImpl();
         // xmlReader.parseOrdersXml("src/main/resources/FacilityInventory.xml");
 
+        OrderManager orderManager = OrderManager.getInstance();
+        orderManager.loadOrdersXml("src/main/resources/Orders.xml");
+
         OrderProcessor orderProcessor = OrderProcessor.getInstance();
         orderProcessor.loadOrdersXml("src/main/resources/Orders.xml");
         // orderProcessor.printOrders();
-        orderProcessor.computeSolution();
+        // orderProcessor.computeSolution();
 
 
         /*

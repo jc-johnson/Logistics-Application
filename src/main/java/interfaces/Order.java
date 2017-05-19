@@ -1,6 +1,7 @@
 package src.main.java.interfaces;
 
 import src.main.java.Item;
+import src.main.java.exceptions.NullParameterException;
 
 import java.util.List;
 
@@ -19,7 +20,8 @@ public interface Order {
     void addOrderItem(Item item, Integer quantity);
     void printItemList();
     void printProcessingSolution();
-    void printOutput();
+    void printOutput() throws NullParameterException;
     Integer getItemQuantity(Item item);
+    void addFacilityRecord(Item item, FacilityRecord facilityRecord);
 
 }

@@ -1,10 +1,8 @@
 package src.main.java.interfaces.impl;
 
-import src.main.java.interfaces.ItemPrinter;
-import src.main.java.interfaces.Order;
-import src.main.java.interfaces.OrderOutput;
+import src.main.java.exceptions.NullParameterException;
+import src.main.java.interfaces.*;
 import src.main.java.Item;
-import src.main.java.interfaces.Solution;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -27,6 +25,8 @@ public class OrderImpl implements Order{
 
     private ItemPrinter itemPrinter = new ItemPrinterImpl();
     private OrderOutput orderOutput = new OrderOutputImpl(this);
+
+    private Map<Item, List<FacilityRecord>> itemFacilityRecords = new HashMap<>();
 
 
     public OrderImpl(String id, String destination, Integer orderTime) {
@@ -90,8 +90,10 @@ public class OrderImpl implements Order{
     }
 
     @Override
-    public void printOutput() {
+    public void printOutput() throws NullParameterException {
+
         orderOutput.printOrder();
+        solution.print();
     }
 
     @Override
@@ -103,6 +105,21 @@ public class OrderImpl implements Order{
 
         }
         return null;
+    }
+
+    @Override
+    public void addFacilityRecord(Item  item, FacilityRecord facilityRecord) {
+        List<FacilityRecord> facilityRecords = itemFacilityRecords.get(item);
+
+        // if list does note exist create it
+        if (facilityRecords == null) {
+            facilityRecords = new ArrayList<>();
+            facilityRecords.add(facilityRecord);
+            itemFacilityRecords.put(item, facilityRecords);
+        } else {
+            facilityRecords.add(facilityRecord);
+            itemFacilityRecords.put(item, facilityRecords);
+        }
     }
 
 }

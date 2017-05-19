@@ -81,6 +81,8 @@ public final class FacilityManager {
 
     public void runShortestPath(String sourceFacility, String targetFacility) throws EmptyNeighborListException, NullNeighborListException, NullPriorityQueueException, NullFacilityException, NegativeQuantityException, NullParameterException, DataValidationException {
         facilityDijkstra.run(sourceFacility, targetFacility);
+        this.getInstance().resetFacilitiesMinDistance();
+        this.getInstance().resetPrevious();
     }
 
     public List<Facility> getFacilitiesWithItem(Item item) throws NullParameterException {
@@ -112,6 +114,8 @@ public final class FacilityManager {
             throw new DataValidationException("Empty string parameter in FacilityManager.getShortestPathInDays");
         }
         facilityDijkstra.run(sourceFacility, targetFacility);
+        this.getInstance().resetFacilitiesMinDistance();
+        this.getInstance().resetPrevious();
         return facilityDijkstra.getTotalDays();
     }
 }

@@ -26,6 +26,21 @@ public class LogisticsRecordImpl implements LogisticsRecord {
         return itemId;
     }
 
+    @Override
+    public Integer getItemQuantityProcessed() {
+        return null;
+    }
+
+    @Override
+    public void setItemId() {
+
+    }
+
+    @Override
+    public void setItemQuantityProcessed() {
+
+    }
+
     public void setItemId(String itemId) {
         this.itemId = itemId;
     }

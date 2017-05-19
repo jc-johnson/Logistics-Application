@@ -16,9 +16,9 @@ public interface FacilityRecord {
 
     void setFacilityLocation(String facilityLocation) throws DataValidationException;
 
-    public Integer getNumberOfItems();
+    public Integer getNumberOfItemsProcessed();
 
-    public void setNumberOfItems(Integer numberOfItems) throws NegativeQuantityException;
+    public void setNumberOfItemsProcessed(Integer numberOfItems) throws NegativeQuantityException;
 
     public Integer getProcessingEndDay();
 
@@ -27,6 +27,10 @@ public interface FacilityRecord {
     public Integer getTravelTime();
 
     public void setTravelTime(Integer travelTime) throws NegativeQuantityException;
+
+    public Integer getItemCost();
+
+    public void setItemCost(Integer itemCost);
 
     void print();
 }
