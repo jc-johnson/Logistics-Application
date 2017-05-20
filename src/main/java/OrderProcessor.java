@@ -143,11 +143,9 @@ public final class OrderProcessor {
                         for (Integer i = facilityRecord.getArrivalDay(); i <= facilityRecord.getProcessingEndDay() ; i++) {
                             currentFacility.updateSchedule(i, currentFacility.getAvailableItems(i));
                         }
-                        item.addSolution(facilityRecord);
-
+                        // item.addSolution(facilityRecord);
+                        LogisticsRecordManager.getInstance().addFacilityRecord(facilityRecord);
                     }
-
-                    LogisticsRecordManager.getInstance().addFacilityRecord();
                 }
             }
         }

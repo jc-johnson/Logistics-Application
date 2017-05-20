@@ -45,7 +45,7 @@ public class LogisticsDetailImpl implements LogisticsDetail {
         this.totalQuantity = totalQuantity;
     }
 
-    public Integer getitemsProcessed() {
+    public Integer getItemsProcessed() {
         return itemsProcessed;
     }
 
@@ -55,6 +55,7 @@ public class LogisticsDetailImpl implements LogisticsDetail {
         } catch (NegativeQuantityException e) {
             e.printStackTrace();
         }
+
         this.itemsProcessed = itemsProcessed;
     }
 
@@ -115,7 +116,7 @@ public class LogisticsDetailImpl implements LogisticsDetail {
 
     @Override
     public void print() {
-        System.out.println("Name: " + facilityLocation + "( " + getitemsProcessed() + " of " + getTotalQuantity());
+        System.out.println("Name: " + facilityLocation + "( " + getItemsProcessed() + " of " + getTotalQuantity());
         System.out.println("\tProcessing Start: \tDay " + getProcessingStart());
         System.out.println("\tProcessing End: \tDay " + getProcessingEnd() );
         System.out.println("\tTravel Start: \tDay " + getTravelStart());

@@ -25,5 +25,13 @@ public interface LogisticsDetail {
 
     public void setTravelEnd(Integer processingStart);
 
+    Integer getItemsProcessed();
+
+    void setitemsProcessed(Integer itemsProcessed);
+
+    Integer getTotalQuantity();
+
+    void setTotalQuantity(Integer totalQuantity);
+
     void print();
 }

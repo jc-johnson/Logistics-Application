@@ -22,9 +22,19 @@ public class FacilityRecordImpl implements FacilityRecord, Comparator<FacilityRe
     private Integer travelTime;
     private Integer arrivalDay;
 
+    private Integer itemCost;
+
     public FacilityRecordImpl(String location, Integer day) {
         this.facilityLocation = location;
         this.arrivalDay = day;
+    }
+
+    public Integer getItemCost() {
+        return itemCost;
+    }
+
+    public void setItemCost(Integer itemCost) {
+        this.itemCost = itemCost;
     }
 
     public String getOrderID() {

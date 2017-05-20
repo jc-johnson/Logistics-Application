@@ -14,11 +14,22 @@ import java.util.Map;
 
 /**
  * Created by Jordan on 5/18/2017.
+ *
+ * Should go in Record manager --
+ * 1) OrderProcessor generates FacilityRecords from orders - and passes all FacilityRecords to RecordManager
+ * 2) RecordManager generates LogisticsDetails from FacilityRecords
+ * 3) RecordManager generates ItemArrivals from LogisticsDetails
+ * 4) RecordManager generates LogisticsRecords from ItemArrivals
+ *      LogicsticsRecords owns a List<ItemArrivals> and List<LogisticsDetails>
+ * 5) RecordManager generates ProcessingSolution from LogisticsRecords
+ * Note: record manager should own list of orders (or at least parse for order list) to get this process started
+ *
  */
 public final class LogisticsRecordManager {
 
-    private Map<Item, LogisticsRecord> itemLogisticsRecords = new HashMap<>();
+
     private List<LogisticsRecord> logisticsRecords = new ArrayList<>();
+
     private List<FacilityRecord> facilityRecords = new ArrayList<>();
 
     private static LogisticsRecordManager instance;
@@ -36,42 +47,36 @@ public final class LogisticsRecordManager {
         facilityRecords.add(facilityRecord);
     }
 
-    public void generateLogisticsRecords() throws DataValidationException {
+
+    public void generateAllLogisticsDetails() throws DataValidationException {
         List<LogisticsDetail> logisticsDetails = new ArrayList<>();
-        List<ItemArrival> itemArrivals = new ArrayList<>();
-
         for (FacilityRecord facilityRecord : facilityRecords) {
-            LogisticsDetail logisticsDetail = new LogisticsDetailImpl();
-            logisticsDetail = createLogisticsDetail(facilityRecord);
-            logisticsDetails.add(logisticsDetail);
+            logisticsDetails.add(this.createLogisticsDetail(facilityRecord));
         }
-
-        // TODO: Sort logistics details
-
-        for (LogisticsDetail logisticsDetail : logisticsDetails) {
-            ItemArrival itemArrival = new ItemArrivalImpl();
-            itemArrival = createItemArrival(logisticsDetail);
-            itemArrivals.add(itemArrival);
-        }
-
+        // TODO: sort log details on arrival day
         LogisticsRecord logisticsRecord = new LogisticsRecordImpl();
-        // add item id
-        // add quantity
-        // add all item arrivals
-        // add all log details
-        // logisticRecords.add(logicsticsRecord);
-
-        // For each log record create a solution
-
-
+        for (LogisticsDetail logisticsDetail : logisticsDetails) {
+            logisticsRecord.addLogisticsDetail(logisticsDetail);
+        }
+        logisticsRecords.add(logisticsRecord);
     }
 
-    public Solution createSolution(LogisticsRecord) {
+    public void generateLogisticsArrivals() throws DataValidationException {
 
-        // create solution
-        // find corresponding order with order ID
-        // add solution to Order
+        for (LogisticsRecord logisticsRecord : logisticsRecords) {
+            if (logisticsRecords.getLogisticsDetailsSize == 0) throw new DataValidationException("LogicsticsRecordManager.generateLogisticsArrivals() : No logistics details");
 
+            for (int i = 0; i < logisticsRecord.getLogisticsDetailSize().size ; i++) {
+                ItemArrival itemArrival = createItemArrival(logisticsRecord.getLogisticsDetail(i));
+                logisticsRecord.addItemArrival(itemArrival);
+            }
+
+        }
+        // for each logRecord
+        // sort log details
+        // fore each logDetail
+        // generate ItemArrival
+        // add ItemArrival to logRecord
     }
 
     public LogisticsDetail createLogisticsDetail(FacilityRecord facilityRecord) throws DataValidationException {
@@ -94,17 +99,22 @@ public final class LogisticsRecordManager {
 
     public ItemArrival createItemArrival(LogisticsDetail logisticsDetail) {
         ItemArrival itemArrival = new ItemArrivalImpl();
-        itemArrival.setDay(logisticsDetail.getTravelEnd());
-        itemArrival.setQuantity(logisticsDetail.getQuantity);
+        itemArrival.setArrivalDay(logisticsDetail.getTravelEnd());
+        itemArrival.setItemsProcessed(logisticsDetail.getItemsProcessed());
 
         return itemArrival;
     }
 
-    public void print() {
-        for (Map.Entry<Item, List<LogisticsDetail>> entry : logisticsDetailMap.entrySet()) {
-            System.out.println("Item ID: " + entry.getKey().getId() + ", Quantity " + "");
+    public Solution createSolution(LogisticsRecord logisticsRecord) {
 
-        }
+        // create solution
+        // find corresponding order with order ID
+        // add solution to Order
+        return  null;
+
+    }
+
+    public void print() {
     }
 
 }

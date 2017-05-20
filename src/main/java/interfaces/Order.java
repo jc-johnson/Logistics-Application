@@ -24,5 +24,4 @@ public interface Order {
     Integer getItemQuantity(Item item);
     void addFacilityRecord(Item item, FacilityRecord facilityRecord);
     public void addFacilityRecords(Item item, List<FacilityRecord> facilityRecords);
-    public void generateOrderItemLogisticsRecord();
 }

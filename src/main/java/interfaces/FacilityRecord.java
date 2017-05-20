@@ -16,21 +16,25 @@ public interface FacilityRecord {
 
     void setFacilityLocation(String facilityLocation) throws DataValidationException;
 
-    public Integer getNumberOfItemsProcessed();
+    Integer getNumberOfItemsProcessed();
 
-    public void setNumberOfItemsProcessed(Integer numberOfItems) throws NegativeQuantityException;
+    void setNumberOfItemsProcessed(Integer numberOfItems) throws NegativeQuantityException;
 
-    public Integer getProcessingEndDay();
+    Integer getProcessingEndDay();
 
-    public void setProcessingEndDay(Integer processingEndDay) throws NegativeQuantityException;
+    void setProcessingEndDay(Integer processingEndDay) throws NegativeQuantityException;
 
-    public Integer getTravelTime();
+    Integer getTravelTime();
 
-    public void setTravelTime(Integer travelTime) throws NegativeQuantityException;
+    void setTravelTime(Integer travelTime) throws NegativeQuantityException;
 
-    public String getItemID();
+    String getItemID();
 
-    public void setItemID(String itemID);
+    void setItemID(String itemID);
+
+    Integer getItemCost();
+
+    void setItemCost(Integer itemCost);
 
     void print();
 

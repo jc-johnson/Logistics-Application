@@ -95,7 +95,9 @@ public class Main {
 
         OrderProcessor orderProcessor = OrderProcessor.getInstance();
         orderProcessor.loadOrdersXml("src/main/resources/Orders.xml");
-        // orderProcessor.printOrders();
+        orderProcessor.printOrders(); // print all orders with completed solution
+
+        // print facilities after order processing
         // orderProcessor.computeSolution();
 
 

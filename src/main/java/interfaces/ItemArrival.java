@@ -5,6 +5,17 @@ package src.main.java.interfaces;
  */
 public interface ItemArrival {
 
+    Integer getPercentOfTotal();
+
+    void setPercentOfTotal(Integer totalQuantity);
+
+    Integer getArrivalDay();
+
+    void setArrivalDay(Integer day);
+
+    Integer getItemsProcessed();
+
+    void setItemsProcessed(Integer quantity);
 
     void print();
 }

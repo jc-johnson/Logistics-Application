@@ -128,29 +128,4 @@ public class OrderImpl implements Order{
         itemFacilityRecords.put(item, facilityRecords);
 
     }
-
-    public void generateOrderItemLogisticsRecord() {
-
-        for (Map.Entry<Item, List<FacilityRecord>> entry : itemFacilityRecords.entrySet()) {
-            List<LogisticsDetail> logisticsDetails = new ArrayList<>();
-            for (FacilityRecord facilityRecord : entry.getValue()) {
-                LogisticsDetail logisticsDetail = facilityRecord.generateLogisticDetail();
-                logisticsDetails.add(logisticsDetail);
-            }
-            itemLogisticDetails.put(entry.getKey(), logisticsDetails);
-        }
-
-        // TODO: Create list of item arrivals to go in Order Item Logistics Record
-        for (Map.Entry<Item, List<LogisticsDetail>> entry : itemLogisticDetails.entrySet()) {
-            List<ItemArrival> itemArrivals = new ArrayList<>();
-            for (LogisticsDetail logisticsDetail : entry.getValue()) {
-                ItemArrival itemArrival = new ItemArrivalImpl();
-                logisticsDetail
-            }
-
-        }
-
-
-    }
-
 }

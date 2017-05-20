@@ -33,13 +33,6 @@ public class LogisticsRecordImpl implements LogisticsRecord {
         return itemId;
     }
 
-
-    public LogisticsRecordImpl(List<ItemArrival> itemArrivals, List<LogisticsDetail> logisticDetails, String itemId, Integer itemQuantity) {
-        this.itemId = itemId;
-        this.itemQuantity = itemQuantity;
-        this.logisticDetails = logisticDetails;
-    }
-
     @Override
     public Integer getItemQuantityProcessed() {
         return null;
@@ -91,8 +84,6 @@ public class LogisticsRecordImpl implements LogisticsRecord {
                      currentQuantityPercent + "%, " + computeTotalPercent() + "% of total)");
             totalPercentages.add(computeQuantityPercent(itemQuantity));
         }
-
-
 
         System.out.println("Logistics Details");
         for (int i = 0; i < logisticsDetails.size(); i++) {

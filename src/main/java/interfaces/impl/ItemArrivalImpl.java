@@ -7,14 +7,36 @@ import src.main.java.interfaces.ItemArrival;
  */
 public class ItemArrivalImpl implements ItemArrival {
 
-    private Integer totalQuantity;
     private Integer arrivalDay;
     private Integer itemsProcessed;
+    private Integer percentOfTotal;
 
+    public Integer getPercentOfTotal() {
+        return percentOfTotal;
+    }
 
+    public void setPercentOfTotal(Integer totalQuantity) {
+        percentOfTotal = (itemsProcessed / totalQuantity) * 100;
+    }
 
-    private Integer getPercentOfTotal() {
-        return (itemsProcessed / totalQuantity) * 100;
+    @Override
+    public Integer getArrivalDay() {
+        return null;
+    }
+
+    @Override
+    public void setArrivalDay(Integer day) {
+
+    }
+
+    @Override
+    public Integer getItemsProcessed() {
+        return null;
+    }
+
+    @Override
+    public void setItemsProcessed(Integer quantity) {
+
     }
 
     @Override
