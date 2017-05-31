@@ -3,7 +3,7 @@ package src.main.java.interfaces;
 /**
  * Created by Jordan on 5/11/2017.
  */
-public interface OrderItemCalculations {
+public interface OrderItemCalculation {
 
     String getItemId();
 

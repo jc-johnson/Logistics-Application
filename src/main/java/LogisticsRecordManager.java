@@ -1,10 +1,10 @@
 package src.main.java;
 
 import src.main.java.exceptions.DataValidationException;
+import src.main.java.exceptions.FacilityNotFoundException;
+import src.main.java.exceptions.NullParameterException;
 import src.main.java.interfaces.*;
-import src.main.java.interfaces.impl.ItemArrivalImpl;
-import src.main.java.interfaces.impl.LogisticsDetailImpl;
-import src.main.java.interfaces.impl.LogisticsRecordImpl;
+import src.main.java.interfaces.impl.*;
 import sun.rmi.runtime.Log;
 
 import java.util.ArrayList;
@@ -29,7 +29,6 @@ public final class LogisticsRecordManager {
 
 
     private List<LogisticsRecord> logisticsRecords = new ArrayList<>();
-
     private List<FacilityRecord> facilityRecords = new ArrayList<>();
 
     private static LogisticsRecordManager instance;
@@ -47,39 +46,35 @@ public final class LogisticsRecordManager {
         facilityRecords.add(facilityRecord);
     }
 
+    public void gernerateLogisticsRecord(FacilityRecord facilityRecord) throws DataValidationException {
 
-    public void generateAllLogisticsDetails() throws DataValidationException {
-        List<LogisticsDetail> logisticsDetails = new ArrayList<>();
-        for (FacilityRecord facilityRecord : facilityRecords) {
-            logisticsDetails.add(this.createLogisticsDetail(facilityRecord));
+        if (facilityRecord == null) throw new DataValidationException("Null Facility Record");
+
+        LogisticsRecord logisticsRecord = new LogisticsRecordImpl(facilityRecord.getItemID());
+
+        LogisticsDetail logisticsDetail = createLogisticsDetail(facilityRecord);
+
+        ItemArrival itemArrival = new ItemArrivalImpl();
+        itemArrival = createItemArrival(logisticsDetail);
+
+        for (LogisticsRecord currentLogisticsRecord : logisticsRecords) {
+            // logistics record already exists
+            if (currentLogisticsRecord.getItemId() == logisticsRecord.getItemId()) {
+                currentLogisticsRecord.addLogisticsDetail(logisticsDetail);
+                currentLogisticsRecord.addItemArrival(itemArrival);
+                return;
+            }
         }
-        // TODO: sort log details on arrival day
-        LogisticsRecord logisticsRecord = new LogisticsRecordImpl();
-        for (LogisticsDetail logisticsDetail : logisticsDetails) {
-            logisticsRecord.addLogisticsDetail(logisticsDetail);
-        }
+
+        logisticsRecord.addLogisticsDetail(logisticsDetail);
+        logisticsRecord.addItemArrival(itemArrival);
         logisticsRecords.add(logisticsRecord);
     }
 
-    public void generateLogisticsArrivals() throws DataValidationException {
-
-        for (LogisticsRecord logisticsRecord : logisticsRecords) {
-            if (logisticsRecords.getLogisticsDetailsSize == 0) throw new DataValidationException("LogicsticsRecordManager.generateLogisticsArrivals() : No logistics details");
-
-            for (int i = 0; i < logisticsRecord.getLogisticsDetailSize().size ; i++) {
-                ItemArrival itemArrival = createItemArrival(logisticsRecord.getLogisticsDetail(i));
-                logisticsRecord.addItemArrival(itemArrival);
-            }
-
-        }
-        // for each logRecord
-        // sort log details
-        // fore each logDetail
-        // generate ItemArrival
-        // add ItemArrival to logRecord
-    }
-
     public LogisticsDetail createLogisticsDetail(FacilityRecord facilityRecord) throws DataValidationException {
+
+        if (facilityRecord == null) throw new DataValidationException("Null Facility Record");
+
         LogisticsDetail logisticsDetail = new LogisticsDetailImpl();
         // TODO: Query mediator for this
         Facility facility = FacilityManager.getInstance().getFacility(facilityRecord.getFacilityLocation());
@@ -97,7 +92,10 @@ public final class LogisticsRecordManager {
         return logisticsDetail;
     }
 
-    public ItemArrival createItemArrival(LogisticsDetail logisticsDetail) {
+    public ItemArrival createItemArrival(LogisticsDetail logisticsDetail) throws DataValidationException {
+
+        if (logisticsDetail == null) throw new DataValidationException("Null Logistics Detail");
+
         ItemArrival itemArrival = new ItemArrivalImpl();
         itemArrival.setArrivalDay(logisticsDetail.getTravelEnd());
         itemArrival.setItemsProcessed(logisticsDetail.getItemsProcessed());
@@ -105,12 +103,42 @@ public final class LogisticsRecordManager {
         return itemArrival;
     }
 
-    public Solution createSolution(LogisticsRecord logisticsRecord) {
+    public Solution createSolution(LogisticsRecord logisticsRecord) throws NullParameterException, DataValidationException, FacilityNotFoundException {
+
+        if (logisticsRecord == null) throw new DataValidationException("Null Logistics Record");
+
+        for (LogisticsRecord currentLogisticsRecord : logisticsRecords) {
+            Solution solution = new SolutionImpl();
+            solution.computeSolution(currentLogisticsRecord);
+            OrderManager.getInstance().addSolutionToOrder(solution);
+
+            OrderItemCalculation orderItemCalculation = new OrderItemCalculationImpl();
+            orderItemCalculation = computeOrderItemCalculation(logisticsRecord);
+            OrderManager.getInstance().addItemCalculationToOrderSolution(orderItemCalculation);
+
+        }
+
 
         // create solution
         // find corresponding order with order ID
         // add solution to Order
         return  null;
+
+    }
+
+    private OrderItemCalculation computeOrderItemCalculation(LogisticsRecord logisticsRecord) throws DataValidationException, FacilityNotFoundException {
+
+        if (logisticsRecord == null) throw new DataValidationException("Null Logistics Record");
+
+        OrderItemCalculation orderItemCalculation = new OrderItemCalculationImpl();
+        orderItemCalculation.setItemId(logisticsRecord.getItemId());
+        orderItemCalculation.setQuantity(logisticsRecord.getItemQuantityProcessed());
+        orderItemCalculation.setCost(logisticsRecord.getTotalItemCost());
+        orderItemCalculation.setNumberOfSources(logisticsRecord.getTotalSources());
+        orderItemCalculation.setFirstDay(logisticsRecord.getFirstProcessingDay());
+        orderItemCalculation.setLastDay(logisticsRecord.getLastProcessingDay());
+
+        return orderItemCalculation;
 
     }
 

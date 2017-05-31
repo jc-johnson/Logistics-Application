@@ -1,5 +1,6 @@
 package src.main.java.interfaces;
 
+import src.main.java.exceptions.DataValidationException;
 import src.main.java.exceptions.NegativeQuantityException;
 import src.main.java.exceptions.NullParameterException;
 
@@ -10,7 +11,7 @@ import java.util.List;
  */
 public interface Solution {
 
-    void print() throws NullParameterException;
+    void print() throws NullParameterException, DataValidationException;
 
     Integer getTotalCost();
 
@@ -24,9 +25,11 @@ public interface Solution {
 
     void setLastDeliveryDay(Integer day) throws NegativeQuantityException;
 
-    void printOrderItems(List<OrderItemCalculations> itemCalculationsList) throws NullParameterException;
+    void printOrderItems(List<OrderItemCalculation> itemCalculationsList) throws NullParameterException, DataValidationException;
 
-    void addOrderItemCalculation(OrderItemCalculations orderItemCalculation) throws NullParameterException;
+    void addOrderItemCalculation(OrderItemCalculation orderItemCalculation) throws NullParameterException, DataValidationException;
 
-    void addFacilityRecord(FacilityRecord facilityRecord) throws NullParameterException;
+    void addFacilityRecord(FacilityRecord facilityRecord) throws NullParameterException, DataValidationException;
+
+    void computeSolution(LogisticsRecord logisticsRecord);
 }

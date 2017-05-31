@@ -39,9 +39,4 @@ public class Item {
         this.price = price;
     }
 
-
-    // TODO: make into interface method for Item
-    public void addSolution(FacilityRecord facilityRecord) throws NullParameterException {
-        solution.addFacilityRecord(facilityRecord);
-    }
 }

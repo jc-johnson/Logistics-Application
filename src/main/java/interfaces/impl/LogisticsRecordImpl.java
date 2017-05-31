@@ -1,6 +1,10 @@
 package src.main.java.interfaces.impl;
 
+import src.main.java.FacilityManager;
 import src.main.java.Item;
+import src.main.java.ItemCatalogManager;
+import src.main.java.exceptions.DataValidationException;
+import src.main.java.exceptions.FacilityNotFoundException;
 import src.main.java.interfaces.FacilityRecord;
 import src.main.java.interfaces.ItemArrival;
 import src.main.java.interfaces.LogisticsDetail;
@@ -19,15 +23,22 @@ public class LogisticsRecordImpl implements LogisticsRecord {
     private String itemId;
     private Integer itemQuantity;
 
-    private Map<Integer, Integer> itemArrivals = new HashMap<>();
+    // private Map<Integer, Integer> itemArrivals = new HashMap<>();
     private List<LogisticsDetail> logisticsDetails = new ArrayList<>();
+    private List<ItemArrival> itemArrivals = new ArrayList<>();
 
     private List<Integer> totalPercentages = new ArrayList<>();
 
-    Map<Item, List<LogisticsDetail>> logisticDetails;
+    // Map<Item, List<LogisticsDetail>> logisticDetails;
 
 
     private List<FacilityRecord> facilityRecords = new ArrayList<>();
+
+
+    public LogisticsRecordImpl(String itemId) {
+        this.itemId = itemId;
+    }
+
 
     public String getItemId() {
         return itemId;
@@ -46,6 +57,78 @@ public class LogisticsRecordImpl implements LogisticsRecord {
     @Override
     public void setItemQuantityProcessed() {
 
+    }
+
+    @Override
+    public void addLogisticsDetail(LogisticsDetail logisticsDetail) {
+        logisticsDetails.add(logisticsDetail);
+    }
+
+    @Override
+    public Integer getLogisticsDetailSize() {
+        return logisticsDetails.size();
+    }
+
+    @Override
+    public void addItemArrival(ItemArrival itemArrival) {
+        itemArrivals.add(itemArrival);
+    }
+
+    @Override
+    public Integer getTotalItemCost() throws DataValidationException, FacilityNotFoundException {
+        Integer itemCost = getItemCost(this.getItemId());
+        Integer facilityProcessingCost = getFacilityProcessingCost();
+        Integer travelCost = getTravelCosts();
+
+        Integer totalItemcost = itemCost + facilityProcessingCost + travelCost;
+        return totalItemcost;
+
+    }
+
+    @Override
+    public Integer getFirstProcessingDay() {
+        return null;
+    }
+
+    @Override
+    public Integer getLastProcessingDay() {
+        return null;
+    }
+
+    @Override
+    public Integer getTotalSources() {
+        return null;
+    }
+
+    private Integer getItemCost(String itemId) {
+        Integer itemPrice =  ItemCatalogManager.getInstance().getItemPrice(this.itemId);
+        Integer itemQuantity = this.getItemQuantity();
+        return itemPrice * itemQuantity;
+    }
+
+    private Integer getFacilityProcessingCost() throws DataValidationException, FacilityNotFoundException {
+        Integer totalFacilityCosts = 0;
+        for (LogisticsDetail logisticsDetail : logisticsDetails) {
+            String facilityLocation = logisticsDetail.getFacilityLocation();
+            Integer dailyFacilityCost = FacilityManager.getInstance().getDailyFacilityCost(facilityLocation);
+            Integer totalProcessingDays = logisticsDetail.getProcessingEnd() - logisticsDetail.getTravelStart();
+            Integer totalProcessingCost = totalProcessingDays * dailyFacilityCost;
+
+            totalFacilityCosts += totalProcessingCost;
+        }
+        return  totalFacilityCosts;
+    }
+
+    private Integer getTravelCosts() {
+        Integer travelCosts = 0;
+        Integer travelDays = 0;
+
+        // TODO: find travel cost constant in code
+        for (LogisticsDetail logisticsDetail : logisticsDetails) {
+            travelDays += logisticsDetail.getTravelEnd() - logisticsDetail.getTravelStart();
+        }
+        travelCosts *= 500 * travelDays;
+        return travelCosts;
     }
 
     public void setItemId(String itemId) {
@@ -78,12 +161,8 @@ public class LogisticsRecordImpl implements LogisticsRecord {
         System.out.println("");
         System.out.println("Item Arrivals:");
         System.out.println("");
-        for (Map.Entry<Integer, Integer> entry : itemArrivals.entrySet()) {
-            Integer currentQuantityPercent = computeQuantityPercent(itemQuantity);
-            System.out.println("\tDay " + entry.getKey() + ": " + entry.getValue() + " (" +
-                     currentQuantityPercent + "%, " + computeTotalPercent() + "% of total)");
-            totalPercentages.add(computeQuantityPercent(itemQuantity));
-        }
+
+        // TODO: print item arrivals
 
         System.out.println("Logistics Details");
         for (int i = 0; i < logisticsDetails.size(); i++) {

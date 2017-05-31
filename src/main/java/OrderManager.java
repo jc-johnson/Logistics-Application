@@ -3,6 +3,8 @@ package src.main.java;
 import org.xml.sax.SAXException;
 import src.main.java.exceptions.*;
 import src.main.java.interfaces.Order;
+import src.main.java.interfaces.OrderItemCalculation;
+import src.main.java.interfaces.Solution;
 import src.main.java.interfaces.XmlReader;
 import src.main.java.interfaces.impl.XmlReaderImpl;
 
@@ -18,7 +20,7 @@ public final class OrderManager {
     private List<Order> orders;
 
     private static OrderManager instance;
-    private static OrderProcessor orderProcessor;
+    private static OrderProcessor orderProcessor = OrderProcessor.getInstance();
 
     public static OrderManager getInstance() {
         if (instance == null) {
@@ -34,14 +36,14 @@ public final class OrderManager {
         orders = xmlReader.parseOrdersXml(path);
     }
 
-    public void printOrders() throws NullParameterException {
+    public void createFacilityRecordsFromOrders() throws NoAvailableDaysException, NullParameterException, DataValidationException, NegativeQuantityException, NullPriorityQueueException, NullFacilityException, EmptyNeighborListException, NullNeighborListException {
+        orderProcessor.generateFacilityRecords(orders);
+    }
+
+    public void printOrders() throws NullParameterException, DataValidationException {
         for (Order order : orders) {
             order.printOutput();
         }
-    }
-
-    public void computeOrders() throws NoAvailableDaysException, NullParameterException, DataValidationException, NegativeQuantityException, NullPriorityQueueException, NullFacilityException, EmptyNeighborListException, NullNeighborListException {
-        orderProcessor.generateFacilityRecords(orders);
     }
 
     public void computeSolutions() {
@@ -50,10 +52,28 @@ public final class OrderManager {
 
     public void generateLogistics() {
         for (Order order : orders) {
-            order.generateOrderItemLogisticsRecord();
+            // order.generateOrderItemLogisticsRecord();
         }
     }
 
+    public void addSolutionToOrder(Solution solution) {
+        // for each order
+            // if order.get id and order.get quantity
+    }
 
+    public void addItemCalculationToOrderSolution(OrderItemCalculation orderItemCalculation) throws NullParameterException {
+        /*
+        if (orderItemCalculation == null) throw new NullParameterException("Null Order Item Calculation");
 
+        for (Order order : orders) {
+            for (Item item : order.getOrderItems()) {
+                if (item.getId() == orderItemCalculation.getItemId()) {
+                    if (order.getSolution != null) {
+                        order.getSolution.addItemCalculation(orderItemCalculation);
+                    }
+                }
+            }
+        }
+        */
+    }
 }

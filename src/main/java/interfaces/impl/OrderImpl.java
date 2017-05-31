@@ -1,5 +1,6 @@
 package src.main.java.interfaces.impl;
 
+import src.main.java.exceptions.DataValidationException;
 import src.main.java.exceptions.NullParameterException;
 import src.main.java.interfaces.*;
 import src.main.java.Item;
@@ -91,14 +92,15 @@ public class OrderImpl implements Order{
     }
 
     @Override
-    public void printOutput() throws NullParameterException {
+    public void printOutput() throws NullParameterException, DataValidationException {
 
         orderOutput.printOrder();
         solution.print();
     }
 
     @Override
-    public Integer getItemQuantity(Item item) {
+    public Integer getItemQuantity(Item item) throws NullParameterException {
+        if (item == null) throw new NullParameterException("Null Item");
         for (Map.Entry<Item, Integer> entry : itemsList.entrySet()) {
             if (entry.getKey().getId().equals(item.getId())) {
                 return entry.getValue();

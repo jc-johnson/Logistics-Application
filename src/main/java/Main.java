@@ -12,13 +12,14 @@ import src.main.java.readxmls.ItemCatalogXMLLoader;
 
 import javax.xml.parsers.ParserConfigurationException;
 import java.io.IOException;
+import java.text.ParseException;
 
 /**
  * Created by Jordan on 4/14/2017.
  */
 public class Main {
 
-    public static void main(String[] args) throws IOException, NullFacilityException, NullPriorityQueueException, EmptyNeighborListException, NullNeighborListException, ParserConfigurationException, SAXException, NoAvailableDaysException, NegativeQuantityException, EmptyPathException, DataValidationException, NullParameterException {
+    public static void main(String[] args) throws IOException, NullFacilityException, NullPriorityQueueException, EmptyNeighborListException, NullNeighborListException, ParserConfigurationException, SAXException, NoAvailableDaysException, NegativeQuantityException, EmptyPathException, DataValidationException, NullParameterException, ParseException {
 
 
         // Load in facilities Network from XML - gives you all 18 facilities
@@ -92,10 +93,10 @@ public class Main {
 
         OrderManager orderManager = OrderManager.getInstance();
         orderManager.loadOrdersXml("src/main/resources/Orders.xml");
+        orderManager.createFacilityRecordsFromOrders();
 
-        OrderProcessor orderProcessor = OrderProcessor.getInstance();
-        orderProcessor.loadOrdersXml("src/main/resources/Orders.xml");
-        orderProcessor.printOrders(); // print all orders with completed solution
+
+        // orderProcessor.printOrders(); // print all orders with completed solution
 
         // print facilities after order processing
         // orderProcessor.computeSolution();

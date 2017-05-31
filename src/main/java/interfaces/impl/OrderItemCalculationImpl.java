@@ -1,12 +1,12 @@
 package src.main.java.interfaces.impl;
 
 import src.main.java.Item;
-import src.main.java.interfaces.OrderItemCalculations;
+import src.main.java.interfaces.OrderItemCalculation;
 
 /**
  * Created by Jordan on 5/11/2017.
  */
-public class OrderItemCalcluationsImpl implements OrderItemCalculations {
+public class OrderItemCalculationImpl implements OrderItemCalculation {
 
     String ItemId;
     Integer quantity;

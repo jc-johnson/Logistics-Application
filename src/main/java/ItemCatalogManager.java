@@ -23,7 +23,7 @@ import java.util.Locale;
  */
 public final class ItemCatalogManager {
 
-    private HashMap<String, Long> catalog = new HashMap<>();
+    private HashMap<String, Integer> catalog = new HashMap<>();
 
     private static ItemCatalogManager instance;
 
@@ -36,6 +36,10 @@ public final class ItemCatalogManager {
 
     private ItemCatalogManager() {}
 
+    public Integer getItemPrice(String itemID) {
+        return catalog.get(itemID);
+    }
+
     public boolean isRealItem(String itemID) throws DataValidationException {
         if (itemID.equals("") || itemID.isEmpty()) {
             throw new DataValidationException("Empty string parameter in ItemCatalogManager.isRealItem");
@@ -45,7 +49,7 @@ public final class ItemCatalogManager {
         return false;
     }
 
-    public void parseItemsInventoryXML(String path) throws DataValidationException {
+    public void parseItemsInventoryXML(String path) throws DataValidationException, ParseException {
         if (path.equals("") || path.isEmpty()) {
             throw new DataValidationException("Empty string parameter in ItemCatalogManager.parseItemsInventoryXML");
         }
@@ -81,7 +85,7 @@ public final class ItemCatalogManager {
 
                     String itemId = element.getAttribute("Id");
                     String itemPriceString = element.getElementsByTagName("price").item(0).getTextContent();
-                    Long price = (long) NumberFormat.getNumberInstance(Locale.US).parse(itemPriceString);
+                    Integer price = Integer.parseInt(itemPriceString.replaceAll(",", ""));
 
                     // System.out.println("Item ID : " + itemId);
                     // System.out.println("Price : " + itemPrice);
@@ -98,8 +102,6 @@ public final class ItemCatalogManager {
         } catch (ParserConfigurationException e) {
             e.printStackTrace();
         } catch (IOException e) {
-            e.printStackTrace();
-        } catch (ParseException e) {
             e.printStackTrace();
         }
 

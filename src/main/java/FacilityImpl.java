@@ -1,7 +1,9 @@
 package src.main.java;
 
+import src.main.java.exceptions.DataValidationException;
 import src.main.java.exceptions.NegativeQuantityException;
 import src.main.java.exceptions.NoAvailableDaysException;
+import src.main.java.exceptions.NullParameterException;
 import src.main.java.interfaces.*;
 import src.main.java.interfaces.impl.*;
 import src.main.java.shortestpath.FacilityEdge;
@@ -172,9 +174,9 @@ public class FacilityImpl implements Facility, Comparable<Facility> {
     }
 
     @Override
-    public Integer getProcessingDays(Integer quantityNeeded) throws NoAvailableDaysException, NegativeQuantityException {
-        if (quantityNeeded < 0)
-            throw new NegativeQuantityException();
+    public Integer getProcessingDays(Integer quantityNeeded) throws NoAvailableDaysException, NegativeQuantityException, NullParameterException {
+        if (quantityNeeded < 0) throw new NegativeQuantityException();
+        if (quantityNeeded == null) throw new NullParameterException("Null Quantity Needed");
 
         Integer itemsNeeded = quantityNeeded;
         Integer processDays = 1;

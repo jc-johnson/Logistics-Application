@@ -1,10 +1,14 @@
 package src.main.java.interfaces.impl;
 
+import src.main.java.ItemCatalogManager;
+import src.main.java.exceptions.DataValidationException;
 import src.main.java.exceptions.NegativeQuantityException;
 import src.main.java.exceptions.NullParameterException;
 import src.main.java.interfaces.FacilityRecord;
-import src.main.java.interfaces.OrderItemCalculations;
+import src.main.java.interfaces.LogisticsRecord;
+import src.main.java.interfaces.OrderItemCalculation;
 import src.main.java.interfaces.Solution;
+import sun.rmi.server.InactiveGroupException;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,7 +21,7 @@ public class SolutionImpl implements Solution {
     Integer totalCost = 0;
     Integer firstDeliveryDay = 0;
     Integer lastDeliveryDay = 0;
-    List<OrderItemCalculations> orderItemCalculationsList = new ArrayList<>();
+    List<OrderItemCalculation> orderItemCalculationsList = new ArrayList<>();
 
     List<FacilityRecord> facilityRecords = new ArrayList<>();
 
@@ -36,7 +40,7 @@ public class SolutionImpl implements Solution {
 
     @Override
     public void setTotalCost(Integer cost) throws NegativeQuantityException {
-        if (cost < 0 ) throw new NegativeQuantityException("SolutionImpl.setTotalCost()");
+        if (cost < 0 ) throw new NegativeQuantityException("Cost cannot be negative");
 
         this.totalCost = cost;
     }
@@ -48,7 +52,7 @@ public class SolutionImpl implements Solution {
 
     @Override
     public void setFirstDeliveryDay(Integer day) throws NegativeQuantityException {
-        if (day < 0) throw new NegativeQuantityException("SolutionImpl.setFirstDeliveryDay()");
+        if (day < 0) throw new NegativeQuantityException("Day cannot be negative");
 
         this.firstDeliveryDay = day;
     }
@@ -60,24 +64,56 @@ public class SolutionImpl implements Solution {
 
     @Override
     public void setLastDeliveryDay(Integer day) throws NegativeQuantityException {
-        if (day < 0 ) throw new NegativeQuantityException("SolutionImpl.setLastDeliveryDay()");
+        if (day < 0 ) throw new NegativeQuantityException("Day cannot be negative");
         this.lastDeliveryDay = day;
     }
 
     @Override
-    public void addOrderItemCalculation(OrderItemCalculations orderItemCalculation) throws NullParameterException {
-        if (orderItemCalculation == null) throw new NullParameterException("SolutionImpl.addOrderItemCalculation()");
+    public void addOrderItemCalculation(OrderItemCalculation orderItemCalculation) throws DataValidationException {
+        if (orderItemCalculation == null) throw new DataValidationException("Empty orderItemCalculation");
         orderItemCalculationsList.add(orderItemCalculation);
     }
 
     @Override
-    public void addFacilityRecord(FacilityRecord facilityRecord) throws NullParameterException {
-        if (facilityRecord == null) throw new NullParameterException("SolutionImpl.addFacilityRecord()");
+    public void addFacilityRecord(FacilityRecord facilityRecord) throws DataValidationException {
+        if (facilityRecord == null) throw new DataValidationException("Empty Facility Record");
         facilityRecords.add(facilityRecord);
     }
 
     @Override
-    public void print() throws NullParameterException {
+    public void computeSolution(LogisticsRecord logisticsRecord) {
+        /*Integer totalCost = computeTotalCost(logisticsRecord);
+        Integer firstDeliveryDay = getFirstDeliveryDay(logisticsRecord);
+        Integer lastDeliveryDay = getLastDeliveryDay(logisticsRecord);
+
+        this.totalCost = totalCost;
+        this.firstDeliveryDay = firstDeliveryDay;
+        this.lastDeliveryDay = lastDeliveryDay;
+
+        OrderItemCalculation orderItemCalculation = new OrderItemCalculationImpl();*/
+
+
+
+    }
+
+
+
+    private Integer computeTotalCost(LogisticsRecord logisticsRecord) {
+        return 0;
+
+    }
+
+    private Integer computeSolutionTotalCost(){
+        Integer totalCost = 0;
+
+        // for each OrderItemCalculation in this solution
+            // totalCost += OrderItemCalculation.getCost
+
+        return totalCost;
+    }
+
+    @Override
+    public void print() throws NullParameterException, DataValidationException {
         System.out.println("Processing Solution:");
         System.out.println("\tTotal Cost:\t\t$" + getTotalCost());
         System.out.println("\t1st Delivery Day: " + getFirstDeliveryDay());
@@ -86,10 +122,10 @@ public class SolutionImpl implements Solution {
     }
 
     @Override
-    public void printOrderItems(List<OrderItemCalculations> itemCalculationsList) throws NullParameterException {
-        if (itemCalculationsList == null) throw new NullParameterException("SolutionImpl.printOrderItems()");
+    public void printOrderItems(List<OrderItemCalculation> itemCalculationsList) throws DataValidationException {
+        if (itemCalculationsList == null) throw new DataValidationException("Empty itemsCalculationsList");
         System.out.println("Item ID\t\tQuantity\t\tCost\t\t# Sources Used\t\tFirst Day\t\tLast Day");
-        for(OrderItemCalculations orderItemCalculations : orderItemCalculationsList) {
+        for(OrderItemCalculation orderItemCalculations : orderItemCalculationsList) {
             System.out.println(orderItemCalculations.getItemId() + "\t\t" + orderItemCalculations.getQuantity() +
                     "\t\t" + orderItemCalculations.getCost() + "\t\t" + orderItemCalculations.getNumberOfSources() +
                     "\t\t" + orderItemCalculations.getFirstDay() + "\t\t" + orderItemCalculations.getLastDay());
