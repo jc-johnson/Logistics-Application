@@ -71,15 +71,14 @@ public final class OrderProcessor {
                 List<FacilityRecord> facilityRecords = new ArrayList<>();
                 Integer quantityNeeded = order.getItemQuantity(item);
 
-
                 // create facility record for each facility with the item
                 for (Facility facility : facilitiesWithItem) {
                     // skip destination facility
                     if (facility.getLocation().equals(destination)) continue;
 
-                    // FacilityManager.getInstance().runShortestPath(facility.getLocation(), destination);
-                    // Facility destinationFacility = FacilityManager.getInstance().getFacility(destination);
                     Integer facilityItems = facility.getItemQuantity(item);
+                    System.out.println("Item Quantity available at facility: " + facilityItems);
+
                     Integer processingEndDay = facility.getProcessingDays(facilityItems);
                     Integer travelDays = FacilityManager.getInstance().getShortestPathInDays(facility.getLocation(), destination);
                     arrivalDay = travelDays + processingEndDay;
@@ -93,7 +92,7 @@ public final class OrderProcessor {
                    // System.out.println("Arrival Day: " + arrivalDay);
                     FacilityRecord facilityRecord = new FacilityRecordImpl(destination, arrivalDay);
                     facilityRecord.setItemID(item.getId());
-                    facilityRecord.setNumberOfItemsProcessed(facilityItems);
+                    facilityRecord.setNumberOfItemsAbleToProcess(facilityItems);
                     facilityRecord.setProcessingEndDay(processingEndDay);
                     facilityRecord.setTravelTime(travelDays);
                     facilityRecord.setArrivalDay(arrivalDay);
@@ -125,29 +124,49 @@ public final class OrderProcessor {
 
                 while (quantityNeeded > 0) {
 
-                    // Update facility inventory and schedule
+                    // Process Facility Record
                     for (FacilityRecord facilityRecord : facilityRecords) {
 
-                        // generate log record from facility record
-                        LogisticsRecordManager.getInstance().gernerateLogisticsRecord(facilityRecord);
-
-
-                        // record manager generate logRecord(faciltyRecord)
+                        Integer itemsProcessedAtFacility = facilityRecord.getNumberOfItemsAbleToProcess();
 
                         String currentFacilityLocation = facilityRecord.getFacilityLocation();
                         Facility currentFacility = FacilityManager.getInstance().getFacility(currentFacilityLocation);
                         Integer currentFacilityItems = currentFacility.getItemQuantity(item);
-                        Integer newFacilityQuantity = currentFacilityItems - facilityRecord.getNumberOfItemsProcessed();
+                        quantityNeeded -= currentFacilityItems;
+                        Integer newFacilityQuantity = 0;
                         currentFacility.updateInventory(item, newFacilityQuantity);
-                        quantityNeeded -= facilityRecord.getNumberOfItemsProcessed();
-                        // update facility schedule
-                        for (Integer i = facilityRecord.getArrivalDay(); i <= facilityRecord.getProcessingEndDay(); i++) {
-                            currentFacility.updateSchedule(i, currentFacility.getAvailableItems(i));
-                        }
-                    }
 
-                    // create Log record and add item cost
-                    // pass to log record manager
+                        // Process schedule days
+                        while (currentFacilityItems > 0) {
+                            Integer newScheduleDayAmount;
+                            Integer processingDays = facilityRecord.getProcessingEndDay();
+                            Integer startDay = facilityRecord.getArrivalDay();
+                            Integer scheduleQuantityNeeded = facilityRecord.getNumberOfItemsAbleToProcess();
+
+                            for (Integer i = 0; i <= processingDays; i++) {
+                                Integer currentScheduleDayAmount = currentFacility.getAvailableScheduleItems(startDay);
+                                if (currentScheduleDayAmount == 0) {
+                                    startDay = currentFacility.getNextAvailableDay(startDay);
+                                }
+
+                                // get next available start day if currentScheduleDayAmount is 0
+                                if (scheduleQuantityNeeded >= currentScheduleDayAmount) {
+                                    // take all available items for the day
+                                    newScheduleDayAmount = currentScheduleDayAmount;
+                                    currentFacility.updateSchedule(startDay, 0);
+                                    scheduleQuantityNeeded -= currentScheduleDayAmount;
+                                } else {
+                                    newScheduleDayAmount = currentScheduleDayAmount-scheduleQuantityNeeded;
+                                    currentFacility.updateSchedule(startDay, currentScheduleDayAmount-scheduleQuantityNeeded);
+                                }
+                                startDay = startDay + 1;
+                                currentFacilityItems -= newScheduleDayAmount;
+                                }
+                            }
+
+                        // generate log record from facility record
+                        LogisticsRecordManager.getInstance().gernerateLogisticsRecord(facilityRecord);
+                    }
                 }
             }
         }

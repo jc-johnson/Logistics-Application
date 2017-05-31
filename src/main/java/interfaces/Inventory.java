@@ -1,6 +1,8 @@
 package src.main.java.interfaces;
 
 import src.main.java.Item;
+import src.main.java.exceptions.DataValidationException;
+import src.main.java.exceptions.NullParameterException;
 
 import java.util.Map;
 
@@ -9,10 +11,12 @@ import java.util.Map;
  */
 public interface Inventory {
 
-    void updateInventoryItem(Item item, Integer quantity);
+    void setInventoryItem(Item item, Integer quantity) throws DataValidationException;
+    void updateInventoryItem(Item item, Integer quantity) throws DataValidationException, NullParameterException;
     void printInventory();
     boolean containsItem(Item item);
     Integer getItemQuantity(Item item);
+
 
 
 

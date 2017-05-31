@@ -1,5 +1,7 @@
 package src.main.java;
 
+import src.main.java.exceptions.DataValidationException;
+import src.main.java.exceptions.NullParameterException;
 import src.main.java.interfaces.Inventory;
 
 import java.util.HashMap;
@@ -10,18 +12,27 @@ import java.util.Map;
  */
 public class FacilityInventory implements Inventory {
 
-    Map<String, Integer> activeInventory = new HashMap<>();
-    Map<String, Integer> depletedInventory = new HashMap<>();
+    private Map<String, Integer> activeInventory = new HashMap<>();
+    private Map<String, Integer> depletedInventory = new HashMap<>();
+
+    public void initializeInventory() {
+        for (Map.Entry<String,Integer> entry : activeInventory.entrySet()) {
+            entry.setValue(0);
+        }
+    }
+
+    public void setInventoryItem(Item item, Integer quantity) throws DataValidationException {
+        if (item == null || quantity < 0) throw new DataValidationException("Null parameter or Negative Quantity");
+
+        activeInventory.put(item.getId(), quantity);
+
+    }
 
     @Override
-    public void updateInventoryItem(Item item, Integer quantity) {
-        if (activeInventory.size() == 0 || activeInventory.get(item) == null) {
-            activeInventory.put(item.getId(), quantity);
-            return;
-        }
+    public void updateInventoryItem(Item item, Integer newQuantity) throws DataValidationException, NullParameterException {
+        if (item == null) throw new NullParameterException();
 
-        Integer originalQuantity = activeInventory.get(item);
-        Integer newQuantity = quantity;
+        Integer originalQuantity = activeInventory.get(item.getId());
 
         // Need to update depleted inventory
         if (newQuantity < originalQuantity) {
@@ -29,7 +40,7 @@ public class FacilityInventory implements Inventory {
             depletedInventory.put(item.getId(), numberOfDepleted);
         }
 
-        activeInventory.put(item.getId(), quantity);
+        activeInventory.put(item.getId(), newQuantity);
     }
 
     @Override
@@ -52,8 +63,8 @@ public class FacilityInventory implements Inventory {
 
     @Override
     public Integer getItemQuantity(Item item) {
-        Integer itemQuantity = activeInventory.get(item.getId());
-        return itemQuantity;
+        return activeInventory.get(item.getId());
+
     }
 
 

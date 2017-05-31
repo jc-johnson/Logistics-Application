@@ -2,6 +2,7 @@ package src.main.java.interfaces.impl;
 
 import src.main.java.exceptions.NegativeQuantityException;
 import src.main.java.exceptions.NoAvailableDaysException;
+import src.main.java.exceptions.NullParameterException;
 import src.main.java.interfaces.Schedule;
 
 import java.net.Inet4Address;
@@ -14,7 +15,7 @@ import java.util.Map;
  */
 public class FacilitySchedule implements Schedule {
 
-    Map<Integer, Integer> scheduleMap = new HashMap<>();
+    private Map<Integer, Integer> scheduleMap = new HashMap<>();
 
     public void addScheduleDay(Integer day, Integer itemsAvailable) {
         if (day < 0 || itemsAvailable < 0) try {
@@ -27,6 +28,21 @@ public class FacilitySchedule implements Schedule {
     }
 
     @Override
+    public Integer getNextAvailableDay(Integer startDay) throws NullParameterException {
+        if (startDay == null) throw new NullParameterException();
+
+        scheduleMap.get(startDay);
+        for (Map.Entry<Integer, Integer> entry : scheduleMap.entrySet()) {
+            if (isLastEntry(startDay)) extendSchedule();
+
+            startDay = startDay + 1;
+            if (scheduleMap.get(startDay) > 0) return startDay;
+        }
+
+        return 0;
+    }
+
+    @Override
     public void setScheduleDay(Integer day, Integer itemNumber) {
         if (day < 0 || itemNumber < 0) try {
             throw new NegativeQuantityException();
@@ -35,7 +51,7 @@ public class FacilitySchedule implements Schedule {
         }
 
         if (day > scheduleMap.size()) {
-            extendSchedule(); // TODO: maybe have Facility or FacilityManager do this
+            extendSchedule();
         }
         scheduleMap.put(day, itemNumber);
     }
@@ -62,10 +78,8 @@ public class FacilitySchedule implements Schedule {
 
     public Integer getLastScheduleDay() {
         Integer day = 0;
-        Iterator iterator = scheduleMap.entrySet().iterator();
-        while (iterator.hasNext()) {
-            Map.Entry entry = (Map.Entry) iterator.next();
-            day = (Integer) entry.getKey();
+        for (Map.Entry<Integer, Integer> entry : scheduleMap.entrySet()) {
+            day = entry.getKey();
         }
         return day;
     }
@@ -73,10 +87,8 @@ public class FacilitySchedule implements Schedule {
     public void extendSchedule() {
         // adds 10 days to schedule
         Integer lastScheduleDay = 0;
-        Iterator iterator = scheduleMap.entrySet().iterator();
-        while (iterator.hasNext()) {
-            Map.Entry entry = (Map.Entry) iterator.next();
-            lastScheduleDay = (Integer) entry.getKey();
+        for (Map.Entry<Integer, Integer> entry : scheduleMap.entrySet()) {
+            lastScheduleDay = entry.getKey();
         }
         lastScheduleDay++;
         for (int i = 0; i < 11; i++) {
@@ -96,9 +108,7 @@ public class FacilitySchedule implements Schedule {
         if (day >= scheduleMap.size()) {
             extendSchedule(); // TODO: maybe have Facility or FacilityManager do this
         }
-        Integer availableItemsForDay = scheduleMap.get(day);
-        return availableItemsForDay;
-
+        return scheduleMap.get(day);
     }
 
     @Override

@@ -98,22 +98,19 @@ public class FacilityImpl implements Facility, Comparable<Facility> {
         return neighborCopy;
     }
 
-    public boolean inNeighbors(Facility facility, String neighborLocation) {
-        return false;
-    }
-
-    public Integer getNeighborDistance(Facility facility, String neighborName) {
-
-        return 0;
-    }
-
     @Override
     public String getCity() {
         return getLocation().substring(0, getLocation().length()-4);
     }
 
+    public void setInventory(Item item, Integer quantity) throws DataValidationException, NullParameterException {
+        if (item == null || quantity == null) throw new NullParameterException();
+
+        inventory.setInventoryItem(item, quantity);
+    }
+
     @Override
-    public void updateInventory(Item item, Integer quantity) {
+    public void updateInventory(Item item, Integer quantity) throws DataValidationException, NullParameterException {
         inventory.updateInventoryItem(item, quantity);
     }
 
@@ -174,28 +171,22 @@ public class FacilityImpl implements Facility, Comparable<Facility> {
     }
 
     @Override
-    public Integer getProcessingDays(Integer quantityNeeded) throws NoAvailableDaysException, NegativeQuantityException, NullParameterException {
-        if (quantityNeeded < 0) throw new NegativeQuantityException();
-        if (quantityNeeded == null) throw new NullParameterException("Null Quantity Needed");
+    public Integer getProcessingDays(Integer quantityNeeded) throws NoAvailableDaysException, NullParameterException, DataValidationException {
+        if (quantityNeeded <= 0) throw new DataValidationException("Negative or 0 Quantity");
 
         Integer itemsNeeded = quantityNeeded;
         Integer processDays = 1;
 
-        if (itemsNeeded > 0 ) {
-            while (itemsNeeded > 0) {
-                Integer firstAvailable = this.schedule.getFirstAvailableDay();
-                if (firstAvailable.equals(this.schedule.getLastScheduleDay())) {
-                    this.schedule.extendSchedule();
-                }
-                Integer itemsAvailable = this.schedule.getAvailableItems(firstAvailable);
-                itemsNeeded -= itemsAvailable;
-                // itemsAvailable = itemsAvailable - itemsAvailable;
-                // this.schedule.setScheduleDay(firstAvailable, itemsAvailable);
-                processDays++;
+        while (itemsNeeded > 0) {
+            Integer firstAvailable = this.schedule.getFirstAvailableDay();
+            if (firstAvailable.equals(this.schedule.getLastScheduleDay())) {
+                this.schedule.extendSchedule();
             }
-            return processDays;
+            Integer itemsAvailable = this.schedule.getAvailableItems(firstAvailable);
+            itemsNeeded -= itemsAvailable;
+            processDays++;
         }
-        return 0;
+        return processDays;
     }
 
     @Override
@@ -214,12 +205,11 @@ public class FacilityImpl implements Facility, Comparable<Facility> {
                 }
                 Integer itemsAvailable = this.schedule.getAvailableItems(firstAvailable);
                 itemsNeeded -= itemsAvailable;
-                itemsAvailable = itemsAvailable - itemsAvailable;
+                itemsAvailable = 0;
                 this.schedule.setScheduleDay(firstAvailable, itemsAvailable);
                 // processDays++;
             }
         }
-        return;
     }
 
     @Override
@@ -228,11 +218,16 @@ public class FacilityImpl implements Facility, Comparable<Facility> {
     }
 
     @Override
-    public Integer getAvailableItems(Integer day) {
+    public Integer getAvailableScheduleItems(Integer day) {
         return schedule.getAvailableItems(day);
     }
 
     public void addScheduleDay(Integer day, Integer itemsAvailable) {
         schedule.addScheduleDay(day, itemsAvailable);
+    }
+
+    @Override
+    public Integer getNextAvailableDay(Integer startDay) throws NullParameterException {
+        return this.schedule.getNextAvailableDay(startDay);
     }
 }

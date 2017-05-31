@@ -24,12 +24,11 @@ public class Main {
 
         // Load in facilities Network from XML - gives you all 18 facilities
         FacilityManager facilityManager = FacilityManager.getInstance();
-        facilityManager.loadFacilitesAndNeighborsFromXML("src/main/resources/FacilityNetwork.xml");
+        facilityManager.loadFacilitiesAndNeighborsFromXML("src/main/resources/FacilityNetwork.xml");
 
         // Load each facilities' inventory
         facilityManager.loadFacilityInventoryFromXML("src/main/resources/FacilityInventory.xml");
-        facilityManager.initializeSchedules();
-
+        facilityManager.printEachFacilityOutput();
 
         // Output 1
         // facilityManager.printEachFacilityOutput();

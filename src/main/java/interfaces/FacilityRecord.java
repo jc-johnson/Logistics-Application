@@ -16,9 +16,9 @@ public interface FacilityRecord {
 
     void setFacilityLocation(String facilityLocation) throws DataValidationException;
 
-    Integer getNumberOfItemsProcessed();
+    Integer getNumberOfItemsAbleToProcess();
 
-    void setNumberOfItemsProcessed(Integer numberOfItems) throws NegativeQuantityException;
+    void setNumberOfItemsAbleToProcess(Integer numberOfItems) throws NegativeQuantityException;
 
     Integer getProcessingEndDay();
 

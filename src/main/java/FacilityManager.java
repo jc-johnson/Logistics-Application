@@ -16,12 +16,12 @@ import java.util.List;
  */
 public final class FacilityManager {
 
-    List<Facility> facilitiesList = new ArrayList<>();
+    private List<Facility> facilitiesList = new ArrayList<>();
 
-    FacilityNetworkXMLLoader facilityNetworkXMLLoader = new FacilityNetworkXmlLoaderImpl();
-    FacilityInventoryXMLLoader facilityInventoryXMLLoader = new FacilityInventoryXMLLoaderImpl();
+    private FacilityNetworkXMLLoader facilityNetworkXMLLoader = new FacilityNetworkXmlLoaderImpl();
+    private FacilityInventoryXMLLoader facilityInventoryXMLLoader = new FacilityInventoryXMLLoaderImpl();
 
-    FacilityDijkstra facilityDijkstra = new FacilityDijkstra(facilitiesList);
+    private FacilityDijkstra facilityDijkstra = new FacilityDijkstra(facilitiesList);
 
     private static FacilityManager instance;
 
@@ -34,7 +34,7 @@ public final class FacilityManager {
 
     private FacilityManager() {}
 
-    public void loadFacilitesAndNeighborsFromXML(String path) throws FileNotFoundException, NullFacilityException, DataValidationException {
+    public void loadFacilitiesAndNeighborsFromXML(String path) throws FileNotFoundException, NullFacilityException, DataValidationException {
         if (path.equals("") || path.isEmpty()) {
             throw new DataValidationException("Empty String Parameter");
         }
@@ -43,10 +43,12 @@ public final class FacilityManager {
         facilityDijkstra = new FacilityDijkstra(facilitiesList);
     }
 
-    public void loadFacilityInventoryFromXML(String path) throws FileNotFoundException, NullFacilityException, DataValidationException {
+    public void loadFacilityInventoryFromXML(String path) throws FileNotFoundException, NullFacilityException, DataValidationException, NullParameterException {
         if (path.equals("") || path.isEmpty()) {
             throw new DataValidationException("Empty String Parameter");
         }
+        FacilityManager.getInstance().initializeSchedules();
+        // FacilityManager.getInstance().initializeFacilityInventory();
         facilityInventoryXMLLoader.parse(facilitiesList, path);
     }
 
@@ -58,20 +60,20 @@ public final class FacilityManager {
         }
     }
 
-    public void resetFacilitiesMinDistance() {
+    private void resetFacilitiesMinDistance() {
         for (Facility facility : facilitiesList) {
             facility.setMinDistance(Integer.MAX_VALUE);
         }
     }
 
-    public void resetPrevious() {
+    private void resetPrevious() {
         for (Facility facility : facilitiesList) {
             facility.setPrevious(null);
         }
     }
 
     // Initalized schedule to 20 days
-    public void initializeSchedules() {
+    private void initializeSchedules() {
         for (Facility facility : facilitiesList) {
             for (int i = 1; i < 21 ; i++) {
                 facility.addScheduleDay(i, 10);
@@ -83,8 +85,8 @@ public final class FacilityManager {
         if (sourceFacility.isEmpty() || targetFacility.isEmpty()) throw new DataValidationException("Empty String Parameter");
 
         facilityDijkstra.run(sourceFacility, targetFacility);
-        this.getInstance().resetFacilitiesMinDistance();
-        this.getInstance().resetPrevious();
+        this.resetFacilitiesMinDistance();
+        this.resetPrevious();
     }
 
     public List<Facility> getFacilitiesWithItem(Item item) throws NullParameterException {
@@ -116,8 +118,8 @@ public final class FacilityManager {
             throw new DataValidationException("Empty String Parameter");
         }
         facilityDijkstra.run(sourceFacility, targetFacility);
-        this.getInstance().resetFacilitiesMinDistance();
-        this.getInstance().resetPrevious();
+        this.resetFacilitiesMinDistance();
+        this.resetPrevious();
         return facilityDijkstra.getTotalDays();
     }
 
@@ -125,7 +127,7 @@ public final class FacilityManager {
         if (facilityLocation.isEmpty()) throw new DataValidationException("Empty String Parameter");
 
         for(Facility facility : facilitiesList) {
-            if (facility.getLocation() == facilityLocation) {
+            if (facility.getLocation().equals(facilityLocation)) {
                 return facility.getCostPerDay();
             }
         }

@@ -1,6 +1,7 @@
 package src.main.java.interfaces;
 
 import src.main.java.Item;
+import src.main.java.exceptions.DataValidationException;
 import src.main.java.exceptions.NegativeQuantityException;
 import src.main.java.exceptions.NoAvailableDaysException;
 import src.main.java.exceptions.NullParameterException;
@@ -40,7 +41,9 @@ public interface Facility  {
 
     String getCity();
 
-    void updateInventory(Item item, Integer quantity);
+    void setInventory(Item item, Integer quantity) throws DataValidationException, NullParameterException;
+
+    void updateInventory(Item item, Integer quantity) throws DataValidationException, NullParameterException;
 
     void addNeighbor(FacilityEdge facilityEdge);
 
@@ -56,15 +59,17 @@ public interface Facility  {
 
     boolean containsItem(Item item);
 
-    Integer getProcessingDays(Integer itemQuantity) throws NoAvailableDaysException, NegativeQuantityException, NullParameterException;
+    Integer getProcessingDays(Integer itemQuantity) throws NoAvailableDaysException, NegativeQuantityException, NullParameterException, DataValidationException;
 
-    public void processInventory(Integer quantityNeeded) throws NegativeQuantityException, NoAvailableDaysException;
+    void processInventory(Integer quantityNeeded) throws NegativeQuantityException, NoAvailableDaysException;
 
     Integer getItemQuantity(Item item);
 
-    Integer getAvailableItems(Integer day);
+    Integer getAvailableScheduleItems(Integer day);
 
     void addScheduleDay(Integer day, Integer itemsAvailable);
+
+    Integer getNextAvailableDay(Integer startDay) throws NullParameterException;
 
 
 }

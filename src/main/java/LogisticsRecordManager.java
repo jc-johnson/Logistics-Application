@@ -72,7 +72,7 @@ public final class LogisticsRecordManager {
         logisticsRecords.add(logisticsRecord);
     }
 
-    public LogisticsDetail createLogisticsDetail(FacilityRecord facilityRecord) throws DataValidationException {
+    private LogisticsDetail createLogisticsDetail(FacilityRecord facilityRecord) throws DataValidationException {
 
         if (facilityRecord == null) throw new DataValidationException("Null Facility Record");
 
@@ -84,7 +84,7 @@ public final class LogisticsRecordManager {
         logisticsDetail.setProcessingStart(facilityRecord.getArrivalDay());
         logisticsDetail.setProcessingEnd(facilityRecord.getProcessingEndDay());
         logisticsDetail.setTotalQuantity(facilityRecord.getTotalItemQuantity());
-        logisticsDetail.setitemsProcessed(facilityRecord.getNumberOfItemsProcessed());
+        logisticsDetail.setitemsProcessed(facilityRecord.getNumberOfItemsAbleToProcess());
 
         Integer travelStart = facilityRecord.getTravelTime() - (facilityRecord.getTravelTime()-1);
         logisticsDetail.setTravelStart(travelStart);
@@ -94,7 +94,7 @@ public final class LogisticsRecordManager {
         return logisticsDetail;
     }
 
-    public ItemArrival createItemArrival(LogisticsDetail logisticsDetail) throws DataValidationException {
+    private ItemArrival createItemArrival(LogisticsDetail logisticsDetail) throws DataValidationException {
 
         if (logisticsDetail == null) throw new DataValidationException("Null Logistics Detail");
 
@@ -116,8 +116,7 @@ public final class LogisticsRecordManager {
             solution.computeSolution(currentLogisticsRecord);
             OrderManager.getInstance().addSolutionToOrder(solution);
 
-            OrderItemCalculation orderItemCalculation = new OrderItemCalculationImpl();
-            orderItemCalculation = computeOrderItemCalculation(logisticsRecord);
+            OrderItemCalculation orderItemCalculation = computeOrderItemCalculation(logisticsRecord);
             OrderManager.getInstance().addItemCalculationToOrderSolution(orderItemCalculation);
 
         }

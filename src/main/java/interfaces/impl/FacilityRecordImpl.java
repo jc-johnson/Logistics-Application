@@ -73,12 +73,12 @@ public class FacilityRecordImpl implements FacilityRecord, Comparator<FacilityRe
     }
 
     @Override
-    public Integer getNumberOfItemsProcessed() {
+    public Integer getNumberOfItemsAbleToProcess() {
         return totalItemQuantity;
     }
 
     @Override
-    public void setNumberOfItemsProcessed(Integer number) throws NegativeQuantityException {
+    public void setNumberOfItemsAbleToProcess(Integer number) throws NegativeQuantityException {
         if (number < 0 ) throw new NegativeQuantityException("Negative parameter");
         this.totalItemQuantity = number;
     }
@@ -119,7 +119,10 @@ public class FacilityRecordImpl implements FacilityRecord, Comparator<FacilityRe
         } catch (NullParameterException e) {
             e.printStackTrace();
         }
-        return Integer.compare(this.getArrivalDay(), otherFacilityRecord.getArrivalDay());
+        Integer currentArrivalDay = this.getArrivalDay();
+        Integer otherArrivalDay = otherFacilityRecord.getArrivalDay();
+
+        return Integer.compare(currentArrivalDay, otherArrivalDay);
     }
 
     @Override
@@ -129,7 +132,11 @@ public class FacilityRecordImpl implements FacilityRecord, Comparator<FacilityRe
         } catch (NullParameterException e) {
             e.printStackTrace();
         }
-        return Integer.compare(facilityRecord1.getArrivalDay(), facilityRecord2.getArrivalDay());
+
+        Integer currentArrivalDay = this.getArrivalDay();
+        Integer otherArrivalDay = facilityRecord2.getArrivalDay();
+
+        return Integer.compare(currentArrivalDay, otherArrivalDay);
     }
 
     @Override
@@ -137,7 +144,7 @@ public class FacilityRecordImpl implements FacilityRecord, Comparator<FacilityRe
         System.out.println("FacilityRecord:");
         System.out.println("----------------------------");
         System.out.println("Item ID: " + getItemID());
-        System.out.println("Number of Items Processed: " + getNumberOfItemsProcessed());
+        System.out.println("Number of Items Processed: " + getNumberOfItemsAbleToProcess());
         System.out.println("Processing End Day: " + getProcessingEndDay());
         System.out.println("Travel Time: " + getTravelTime());
         System.out.println("Facility Location: " + getFacilityLocation());

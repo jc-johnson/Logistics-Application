@@ -30,16 +30,13 @@ import java.util.Map;
 public class FacilityInventoryXMLLoaderImpl implements FacilityInventoryXMLLoader {
 
     @Override
-    public void parse(List<Facility> facilities, String path) throws FileNotFoundException, NullFacilityException, DataValidationException {
+    public void parse(List<Facility> facilities, String path) throws FileNotFoundException, NullFacilityException, DataValidationException, NullParameterException {
         if (facilities == null || path.isEmpty() || path.equals("")) throw new DataValidationException("Empty parameter in FacilityInventoryXMLLoaderImpl.parse");
 
         try {
             // Open file path to xml
             File xmlFile = new File(path); // File Path C:\Logistics-Program\LogisticsApplication\src\main\resources\FacilityInventory.xml
 
-            if (xmlFile == null) {
-                throw new FileNotFoundException();
-            }
             // System.out.println("File found...");
 
             // Parser setup
@@ -100,7 +97,7 @@ public class FacilityInventoryXMLLoaderImpl implements FacilityInventoryXMLLoade
                         if (facility.getLocation().equals(currentFacility)) {
                             // System.out.println("Facility : " + facility.getLocation());
                             for (Map.Entry<Item, Integer> entry : itemList.entrySet()) {
-                                facility.updateInventory(entry.getKey(), entry.getValue());
+                                facility.setInventory(entry.getKey(), entry.getValue());
                             }
                             // facility.printInventory();
                         }
