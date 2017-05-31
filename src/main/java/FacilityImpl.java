@@ -114,7 +114,7 @@ public class FacilityImpl implements Facility, Comparable<Facility> {
         inventory.updateInventoryItem(itemID, quantity);
     }
 
-    public void processOrderSchedule(Integer arrivalDay, Integer processingDays, Integer totalItemsProcessed) {
+    public void processOrderSchedule(Integer arrivalDay, Integer processingDays, Integer totalItemsProcessed) throws NullParameterException, NegativeQuantityException {
         schedule.processOrderSchedule(arrivalDay, processingDays, totalItemsProcessed);
     }
 

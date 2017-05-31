@@ -136,7 +136,7 @@ public final class FacilityManager {
         throw new FacilityNotFoundException();
     }
 
-    public void processFacilityRecord(FacilityRecord facilityRecord) throws DataValidationException, NullParameterException {
+    public void processFacilityRecord(FacilityRecord facilityRecord) throws DataValidationException, NullParameterException, NegativeQuantityException {
         String currentFacilityString = facilityRecord.getFacilityLocation();
         Facility currentFacility = this.getFacility(currentFacilityString);
 

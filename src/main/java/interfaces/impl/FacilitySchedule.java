@@ -43,15 +43,22 @@ public class FacilitySchedule implements Schedule {
     }
 
     @Override
-    public void processOrderSchedule(Integer arrivalDay, Integer processingDays, Integer totalItemsProcessed) throws NegativeQuantityException {
+    public void processOrderSchedule(Integer arrivalDay, Integer processingDays, Integer totalItemsProcessed) throws NegativeQuantityException, NullParameterException {
         // go to arrival day in schedule
         if (getAvailableItems(arrivalDay) == 0) {
-
+            arrivalDay = getNextAvailableDay(arrivalDay);
         }
 
-        for (int i = 0; i < processingDays ; i++) {
-            // setScheduleDay();
+        while (totalItemsProcessed > 0) {
+            for (int i = 0; i < processingDays ; i++) {
+                Integer availableItemsForDay = getAvailableItems(arrivalDay);
+                totalItemsProcessed -= availableItemsForDay;
+                Integer itemsTaken = Math.min(availableItemsForDay, totalItemsProcessed);
+                setScheduleDay(arrivalDay, itemsTaken);
+            }
         }
+
+
     }
 
     @Override

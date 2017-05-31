@@ -71,7 +71,7 @@ public interface Facility  {
 
     Integer getNextAvailableDay(Integer startDay) throws NullParameterException;
 
-    void processOrderSchedule(Integer arrivalDay, Integer processingDays, Integer totalItemsProcessed);
+    void processOrderSchedule(Integer arrivalDay, Integer processingDays, Integer totalItemsProcessed) throws NullParameterException, NegativeQuantityException;
 
 
 }

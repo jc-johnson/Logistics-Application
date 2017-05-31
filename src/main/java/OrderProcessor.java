@@ -106,7 +106,7 @@ public final class OrderProcessor {
         }
     }
 
-    private void processFacilityRecords(List<FacilityRecord> facilityRecords, Integer totalItemQuantityNeeded) throws DataValidationException, NullParameterException {
+    private void processFacilityRecords(List<FacilityRecord> facilityRecords, Integer totalItemQuantityNeeded) throws DataValidationException, NullParameterException, NegativeQuantityException {
 
         Collections.sort(facilityRecords, new Comparator<FacilityRecord>() {
             @Override
