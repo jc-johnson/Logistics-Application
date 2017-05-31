@@ -10,13 +10,13 @@ import java.util.Map;
  */
 public class FacilityInventory implements Inventory {
 
-    Map<Item, Integer> activeInventory = new HashMap<>();
-    Map<Item, Integer> depletedInventory = new HashMap<>();
+    Map<String, Integer> activeInventory = new HashMap<>();
+    Map<String, Integer> depletedInventory = new HashMap<>();
 
     @Override
     public void updateInventoryItem(Item item, Integer quantity) {
         if (activeInventory.size() == 0 || activeInventory.get(item) == null) {
-            activeInventory.put(item, quantity);
+            activeInventory.put(item.getId(), quantity);
             return;
         }
 
@@ -26,10 +26,10 @@ public class FacilityInventory implements Inventory {
         // Need to update depleted inventory
         if (newQuantity < originalQuantity) {
             Integer numberOfDepleted = originalQuantity - newQuantity;
-            depletedInventory.put(item, numberOfDepleted);
+            depletedInventory.put(item.getId(), numberOfDepleted);
         }
 
-        activeInventory.put(item, quantity);
+        activeInventory.put(item.getId(), quantity);
     }
 
     @Override
@@ -40,8 +40,8 @@ public class FacilityInventory implements Inventory {
 
     @Override
     public boolean containsItem(Item item) {
-        for (Map.Entry<Item, Integer> entry : activeInventory.entrySet()) {
-            if (item.getId().equals(entry.getKey().getId()) && entry.getValue() > 0) {
+        for (Map.Entry<String, Integer> entry : activeInventory.entrySet()) {
+            if (item.getId().equals(entry.getKey()) && entry.getValue() > 0) {
                 return true;
             }
         }
@@ -52,7 +52,7 @@ public class FacilityInventory implements Inventory {
 
     @Override
     public Integer getItemQuantity(Item item) {
-        Integer itemQuantity = activeInventory.get(item);
+        Integer itemQuantity = activeInventory.get(item.getId());
         return itemQuantity;
     }
 
@@ -60,8 +60,8 @@ public class FacilityInventory implements Inventory {
     private void printActiveInventory() {
         System.out.println("Active Inventory: ");
         System.out.println("\tItem ID\t\tQuantity");
-        for (Map.Entry<Item, Integer> entry : activeInventory.entrySet()) {
-            System.out.println("\t" + entry.getKey().getId() + "\t\t" + entry.getValue() );
+        for (Map.Entry<String, Integer> entry : activeInventory.entrySet()) {
+            System.out.println("\t" + entry.getKey() + "\t\t" + entry.getValue() );
         }
         System.out.println("");
     }
@@ -75,8 +75,8 @@ public class FacilityInventory implements Inventory {
 
         System.out.println("\tDepleted (Used-Up) Inventory: ");
         System.out.println("\tItem ID\tQuantity");
-        for (Map.Entry<Item, Integer> entry : activeInventory.entrySet()) {
-            System.out.println("\t" + entry.getKey().getId() + "\t" + entry.getValue() );
+        for (Map.Entry<String, Integer> entry : activeInventory.entrySet()) {
+            System.out.println("\t" + entry.getKey() + "\t" + entry.getValue() );
         }
         System.out.println("");
         System.out.println("");
