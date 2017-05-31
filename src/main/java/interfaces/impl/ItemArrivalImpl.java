@@ -10,6 +10,9 @@ public class ItemArrivalImpl implements ItemArrival {
     private Integer arrivalDay;
     private Integer itemsProcessed;
     private Integer percentOfTotal;
+    private Integer percentOfItemArrivals;
+
+    private Integer itemArrivalsTotal;
 
     public Integer getPercentOfTotal() {
         return percentOfTotal;
@@ -26,7 +29,7 @@ public class ItemArrivalImpl implements ItemArrival {
 
     @Override
     public void setArrivalDay(Integer day) {
-
+        arrivalDay = day;
     }
 
     @Override
@@ -36,13 +39,29 @@ public class ItemArrivalImpl implements ItemArrival {
 
     @Override
     public void setItemsProcessed(Integer quantity) {
+        itemsProcessed = quantity;
+    }
 
+    public Integer getPercentOfItemArrivals() {
+        return percentOfItemArrivals;
+    }
+
+    public void setPercentOfItemArrivals(Integer percentOfItemArrivals) {
+        this.percentOfItemArrivals = percentOfItemArrivals;
+    }
+
+    public Integer getItemArrivalsTotal() {
+        return itemArrivalsTotal;
+    }
+
+    public void setItemArrivalsTotal(Integer itemArrivalsTotal) {
+        this.itemArrivalsTotal = itemArrivalsTotal;
     }
 
     @Override
     public void print() {
         System.out.println("\tDay " + arrivalDay + ": " + itemsProcessed +
-                " (" + getPercentOfTotal() + "," );
+                " (" + getPercentOfTotal() + "%, " + percentOfItemArrivals + "% of total)");
 
     }
 }

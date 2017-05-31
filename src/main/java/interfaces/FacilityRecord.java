@@ -36,6 +36,10 @@ public interface FacilityRecord {
 
     void setItemCost(Integer itemCost);
 
+    Integer getTotalItemQuantity();
+
+    void setTotalItemQuantity(Integer totalItemQuantity);
+
     void print();
 
 }

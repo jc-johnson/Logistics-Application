@@ -68,7 +68,7 @@ public class FacilityRecordImpl implements FacilityRecord, Comparator<FacilityRe
 
     @Override
     public void setFacilityLocation(String location) throws DataValidationException {
-        if (location.isEmpty() || location.equals("")) throw new DataValidationException("Empty string parameter FacilityRecordImpl.setFacilityLocation");
+        if (location.isEmpty() || location.equals("")) throw new DataValidationException("Empty string parameter");
         facilityLocation = location;
     }
 
@@ -79,7 +79,7 @@ public class FacilityRecordImpl implements FacilityRecord, Comparator<FacilityRe
 
     @Override
     public void setNumberOfItemsProcessed(Integer number) throws NegativeQuantityException {
-        if (number < 0 ) throw new NegativeQuantityException("Negative parameter FacilityRecordImpl.setNumberOfItems");
+        if (number < 0 ) throw new NegativeQuantityException("Negative parameter");
         this.totalItemQuantity = number;
     }
 
@@ -88,7 +88,7 @@ public class FacilityRecordImpl implements FacilityRecord, Comparator<FacilityRe
     }
 
     public void setProcessingEndDay(Integer processingEndDay) throws NegativeQuantityException {
-        if (processingEndDay < 0) throw new NegativeQuantityException("Negative parameter FacilityRecordImpl.setProcessingEndDay()");
+        if (processingEndDay < 0) throw new NegativeQuantityException("Negative parameter");
         this.processingEndDay = processingEndDay;
     }
 
@@ -97,7 +97,7 @@ public class FacilityRecordImpl implements FacilityRecord, Comparator<FacilityRe
     }
 
     public void setTravelTime(Integer travelTime) throws NegativeQuantityException {
-        if (travelTime < 0) throw new NegativeQuantityException("Negative parameter FacilityRecordImpl.setTravelTime()");
+        if (travelTime < 0) throw new NegativeQuantityException("Negative parameter");
         this.travelTime = travelTime;
     }
 
@@ -108,7 +108,7 @@ public class FacilityRecordImpl implements FacilityRecord, Comparator<FacilityRe
 
     @Override
     public void setArrivalDay(Integer day) throws NegativeQuantityException {
-        if (day < 0) throw new NegativeQuantityException("Negative parameter FacilityRecordImpl.setArrivalDay()");
+        if (day < 0) throw new NegativeQuantityException("Negative parameter ");
         arrivalDay = day;
     }
 
@@ -141,6 +141,9 @@ public class FacilityRecordImpl implements FacilityRecord, Comparator<FacilityRe
         System.out.println("Processing End Day: " + getProcessingEndDay());
         System.out.println("Travel Time: " + getTravelTime());
         System.out.println("Facility Location: " + getFacilityLocation());
+        System.out.println("Arrival Day: " + getArrivalDay());
+        System.out.println("Total Item Quantity: " + getTotalItemQuantity());
         System.out.println("----------------------------");
+        System.out.println("");
     }
 }

@@ -33,5 +33,9 @@ public interface LogisticsRecord {
 
     Integer getTotalSources();
 
+    Integer getTotalItemQuantity();
+
+    void setTotalItemQuantity(Integer itemQuantity);
+
     void print();
 }

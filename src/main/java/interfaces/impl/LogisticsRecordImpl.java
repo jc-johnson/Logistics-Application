@@ -21,7 +21,7 @@ import java.util.Map;
 public class LogisticsRecordImpl implements LogisticsRecord {
 
     private String itemId;
-    private Integer itemQuantity;
+    private Integer totalItemQuantity;
 
     // private Map<Integer, Integer> itemArrivals = new HashMap<>();
     private List<LogisticsDetail> logisticsDetails = new ArrayList<>();
@@ -102,7 +102,7 @@ public class LogisticsRecordImpl implements LogisticsRecord {
 
     private Integer getItemCost(String itemId) {
         Integer itemPrice =  ItemCatalogManager.getInstance().getItemPrice(this.itemId);
-        Integer itemQuantity = this.getItemQuantity();
+        Integer itemQuantity = this.getTotalItemQuantity();
         return itemPrice * itemQuantity;
     }
 
@@ -134,17 +134,18 @@ public class LogisticsRecordImpl implements LogisticsRecord {
     public void setItemId(String itemId) {
         this.itemId = itemId;
     }
-    public Integer getItemQuantity() {
-        return itemQuantity;
+
+    public Integer getTotalItemQuantity() {
+        return totalItemQuantity;
     }
 
-    public void setItemQuantity(Integer itemQuantity) {
-        this.itemQuantity = itemQuantity;
+    public void setTotalItemQuantity(Integer itemQuantity) {
+        this.totalItemQuantity = itemQuantity;
     }
 
     private Integer computeQuantityPercent(Integer number) {
 
-        return (getItemQuantity() / number) * 100;
+        return (getTotalItemQuantity() / number) * 100;
     }
 
     private Integer computeTotalPercent() {
@@ -157,17 +158,20 @@ public class LogisticsRecordImpl implements LogisticsRecord {
 
     @Override
     public void print() {
-        System.out.println("Item ID: " + getItemId() + ", Quantity: " + getItemQuantity());
-        System.out.println("");
+        System.out.println("Item ID: " + getItemId() + ", Quantity: " + getTotalItemQuantity());
         System.out.println("Item Arrivals:");
-        System.out.println("");
 
-        // TODO: print item arrivals
+        // Item arrivals should already be sorted by arrival day
+        for (ItemArrival itemArrival : itemArrivals) {
+            System.out.print("\t-  ");
+            itemArrival.print();
+        }
 
-        System.out.println("Logistics Details");
-        for (int i = 0; i < logisticsDetails.size(); i++) {
-            System.out.println(i + ")");
+        System.out.println("Logistics Details:");
+        for (int i = 1; i < logisticsDetails.size(); i++) {
+            System.out.print("\t" + i + ") ");
             logisticsDetails.get(i).print();
         }
+        System.out.println("");
     }
 }

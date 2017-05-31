@@ -51,6 +51,7 @@ public final class LogisticsRecordManager {
         if (facilityRecord == null) throw new DataValidationException("Null Facility Record");
 
         LogisticsRecord logisticsRecord = new LogisticsRecordImpl(facilityRecord.getItemID());
+        logisticsRecord.setTotalItemQuantity(facilityRecord.getTotalItemQuantity());
 
         LogisticsDetail logisticsDetail = createLogisticsDetail(facilityRecord);
 
@@ -59,7 +60,7 @@ public final class LogisticsRecordManager {
 
         for (LogisticsRecord currentLogisticsRecord : logisticsRecords) {
             // logistics record already exists
-            if (currentLogisticsRecord.getItemId() == logisticsRecord.getItemId()) {
+            if (currentLogisticsRecord.getItemId().equals(logisticsRecord.getItemId())) {
                 currentLogisticsRecord.addLogisticsDetail(logisticsDetail);
                 currentLogisticsRecord.addItemArrival(itemArrival);
                 return;
@@ -76,13 +77,14 @@ public final class LogisticsRecordManager {
         if (facilityRecord == null) throw new DataValidationException("Null Facility Record");
 
         LogisticsDetail logisticsDetail = new LogisticsDetailImpl();
-        // TODO: Query mediator for this
         Facility facility = FacilityManager.getInstance().getFacility(facilityRecord.getFacilityLocation());
         String logisticDetailsCity = facility.getCity();
 
         logisticsDetail.setFacilityLocation(logisticDetailsCity);
         logisticsDetail.setProcessingStart(facilityRecord.getArrivalDay());
         logisticsDetail.setProcessingEnd(facilityRecord.getProcessingEndDay());
+        logisticsDetail.setTotalQuantity(facilityRecord.getTotalItemQuantity());
+        logisticsDetail.setitemsProcessed(facilityRecord.getNumberOfItemsProcessed());
 
         Integer travelStart = facilityRecord.getTravelTime() - (facilityRecord.getTravelTime()-1);
         logisticsDetail.setTravelStart(travelStart);
@@ -99,6 +101,8 @@ public final class LogisticsRecordManager {
         ItemArrival itemArrival = new ItemArrivalImpl();
         itemArrival.setArrivalDay(logisticsDetail.getTravelEnd());
         itemArrival.setItemsProcessed(logisticsDetail.getItemsProcessed());
+        itemArrival.setPercentOfTotal(logisticsDetail.getTotalQuantity());
+
 
         return itemArrival;
     }
@@ -142,7 +146,11 @@ public final class LogisticsRecordManager {
 
     }
 
-    public void print() {
+    public void printLogisticsRecords() {
+        System.out.println("ORDER ITEM LOGISTICS RECORDS");
+        System.out.println("");
+        for (LogisticsRecord logisticsRecord : logisticsRecords) {
+            logisticsRecord.print();
+        }
     }
-
 }

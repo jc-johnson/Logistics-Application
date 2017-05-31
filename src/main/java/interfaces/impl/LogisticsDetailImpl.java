@@ -116,10 +116,11 @@ public class LogisticsDetailImpl implements LogisticsDetail {
 
     @Override
     public void print() {
-        System.out.println("Name: " + facilityLocation + "( " + getItemsProcessed() + " of " + getTotalQuantity());
-        System.out.println("\tProcessing Start: \tDay " + getProcessingStart());
-        System.out.println("\tProcessing End: \tDay " + getProcessingEnd() );
-        System.out.println("\tTravel Start: \tDay " + getTravelStart());
-        System.out.println("\tTravel End: \tDay " + getTravelEnd());
+        System.out.println("Name: " + facilityLocation + " (" + getItemsProcessed() + " of " + getTotalQuantity() + ")");
+        System.out.println("\t\tProcessing Start: \tDay " + getProcessingStart());
+        System.out.println("\t\tProcessing End: \tDay " + getProcessingEnd() );
+        System.out.println("\t\tTravel Start: \tDay " + getTravelStart());
+        System.out.println("\t\tTravel End: \tDay " + getTravelEnd());
+        System.out.println("");
     }
 }

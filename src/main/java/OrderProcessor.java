@@ -27,8 +27,6 @@ public final class OrderProcessor {
     private OrderProcessor() {}
 
 
-
-    // TODO: Make private
     public void generateFacilityRecords(List<Order> orders) throws EmptyNeighborListException, NullNeighborListException, NullPriorityQueueException, NullFacilityException, NoAvailableDaysException, NegativeQuantityException, DataValidationException, NullParameterException {
         if (orders.size() == 0) throw new DataValidationException("Empty Orders List");
 
@@ -87,8 +85,8 @@ public final class OrderProcessor {
                     arrivalDay = travelDays + processingEndDay;
 
                     // compute total cost
-                    // Integer orderItemQuanity = order.getItemQuantity(item);
-                    // Integer itemCost = getItemCost(item, orderItemQuanity, facility, travelDays);
+                    // Integer orderItemQuantity = order.getItemQuantity(item);
+                    // Integer itemCost = getItemCost(item, orderItemQuantity, facility, travelDays);
 
                    // System.out.println("Processing Days: " + processingEndDay);
                    // System.out.println("Number of travel days to " + destination + ": " + travelDays + " via shortest path");
@@ -98,15 +96,18 @@ public final class OrderProcessor {
                     facilityRecord.setNumberOfItemsProcessed(facilityItems);
                     facilityRecord.setProcessingEndDay(processingEndDay);
                     facilityRecord.setTravelTime(travelDays);
+                    facilityRecord.setArrivalDay(arrivalDay);
+                    facilityRecord.setTotalItemQuantity(order.getItemQuantity(item));
                     // facilityRecord.setItemCost(itemCost);
                     facilityRecord.setFacilityLocation(facility.getLocation());
                     facilityRecords.add(facilityRecord);
                 }
 
                 // Print each facility record
+                /*System.out.println("Unsorted Facility Records");
                 for (FacilityRecord facilityRecord : facilityRecords) {
                     facilityRecord.print();
-                }
+                }*/
 
 
                 // sort facility records based on shortest arrivalDay
@@ -117,12 +118,20 @@ public final class OrderProcessor {
                     }
                 });
 
+                System.out.println("Sorted Facility Records");
+                for (FacilityRecord facilityRecord : facilityRecords) {
+                    facilityRecord.print();
+                }
+
                 while (quantityNeeded > 0) {
+
                     // Update facility inventory and schedule
                     for (FacilityRecord facilityRecord : facilityRecords) {
 
                         // generate log record from facility record
                         LogisticsRecordManager.getInstance().gernerateLogisticsRecord(facilityRecord);
+
+
                         // record manager generate logRecord(faciltyRecord)
 
                         String currentFacilityLocation = facilityRecord.getFacilityLocation();
@@ -142,6 +151,8 @@ public final class OrderProcessor {
                 }
             }
         }
+
+        LogisticsRecordManager.getInstance().printLogisticsRecords();
     }
 
     private void generateSolutions(){
