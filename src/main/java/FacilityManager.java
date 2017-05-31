@@ -136,10 +136,22 @@ public final class FacilityManager {
         throw new FacilityNotFoundException();
     }
 
-    public void processFacilityRecord(FacilityRecord facilityRecord) throws DataValidationException {
+    public void processFacilityRecord(FacilityRecord facilityRecord) throws DataValidationException, NullParameterException {
         String currentFacilityString = facilityRecord.getFacilityLocation();
         Facility currentFacility = this.getFacility(currentFacilityString);
 
+        Integer currentFacilityQuantity = facilityRecord.getTotalItemsAtFacility();
+        Integer currentItemsNeeded = facilityRecord.getItemsNeeded();
+
+        Integer newFacilityQuantity = currentFacilityQuantity - currentItemsNeeded;
+
+        currentFacility.updateInventory(facilityRecord.getItemID(), newFacilityQuantity);
+
+
+        Integer arrivalDay = facilityRecord.getArrivalDay();
+        Integer processingDays = facilityRecord.getProcessingEndDay();
+
+        currentFacility.processOrderSchedule(arrivalDay, processingDays, currentItemsNeeded);
 
     }
 }

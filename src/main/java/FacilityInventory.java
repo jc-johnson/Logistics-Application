@@ -29,18 +29,18 @@ public class FacilityInventory implements Inventory {
     }
 
     @Override
-    public void updateInventoryItem(Item item, Integer newQuantity) throws DataValidationException, NullParameterException {
-        if (item == null) throw new NullParameterException();
+    public void updateInventoryItem(String itemID, Integer newQuantity) throws DataValidationException, NullParameterException {
+        if (itemID.isEmpty()) throw new NullParameterException();
 
-        Integer originalQuantity = activeInventory.get(item.getId());
+        Integer originalQuantity = activeInventory.get(itemID);
 
         // Need to update depleted inventory
         if (newQuantity < originalQuantity) {
             Integer numberOfDepleted = originalQuantity - newQuantity;
-            depletedInventory.put(item.getId(), numberOfDepleted);
+            depletedInventory.put(itemID, numberOfDepleted);
         }
 
-        activeInventory.put(item.getId(), newQuantity);
+        activeInventory.put(itemID, newQuantity);
     }
 
     @Override

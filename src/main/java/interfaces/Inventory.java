@@ -12,7 +12,7 @@ import java.util.Map;
 public interface Inventory {
 
     void setInventoryItem(Item item, Integer quantity) throws DataValidationException;
-    void updateInventoryItem(Item item, Integer quantity) throws DataValidationException, NullParameterException;
+    void updateInventoryItem(String itemID, Integer quantity) throws DataValidationException, NullParameterException;
     void printInventory();
     boolean containsItem(Item item);
     Integer getItemQuantity(Item item);

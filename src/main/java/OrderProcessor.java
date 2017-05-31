@@ -30,7 +30,6 @@ public final class OrderProcessor {
     public void generateFacilityRecords(List<Order> orders) throws EmptyNeighborListException, NullNeighborListException, NullPriorityQueueException, NullFacilityException, NoAvailableDaysException, NegativeQuantityException, DataValidationException, NullParameterException {
         if (orders.size() == 0) throw new DataValidationException("Empty Orders List");
 
-
         for (Order order : orders) {
 
             order.printOutput();
@@ -107,7 +106,7 @@ public final class OrderProcessor {
         }
     }
 
-    private void processFacilityRecords(List<FacilityRecord> facilityRecords, Integer totalItemQuantityNeeded) throws DataValidationException {
+    private void processFacilityRecords(List<FacilityRecord> facilityRecords, Integer totalItemQuantityNeeded) throws DataValidationException, NullParameterException {
 
         Collections.sort(facilityRecords, new Comparator<FacilityRecord>() {
             @Override

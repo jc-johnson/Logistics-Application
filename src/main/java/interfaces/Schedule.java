@@ -25,7 +25,7 @@ public interface Schedule {
 
     Integer getNextAvailableDay(Integer startDay) throws NullParameterException;
 
-
+    void processOrderSchedule(Integer arrivalDay, Integer processingDays, Integer totalItemsProcessed) throws NegativeQuantityException;
 
 
 

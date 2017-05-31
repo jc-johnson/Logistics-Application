@@ -43,6 +43,18 @@ public class FacilitySchedule implements Schedule {
     }
 
     @Override
+    public void processOrderSchedule(Integer arrivalDay, Integer processingDays, Integer totalItemsProcessed) throws NegativeQuantityException {
+        // go to arrival day in schedule
+        if (getAvailableItems(arrivalDay) == 0) {
+
+        }
+
+        for (int i = 0; i < processingDays ; i++) {
+            // setScheduleDay();
+        }
+    }
+
+    @Override
     public void setScheduleDay(Integer day, Integer itemNumber) {
         if (day < 0 || itemNumber < 0) try {
             throw new NegativeQuantityException();

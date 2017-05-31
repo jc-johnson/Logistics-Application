@@ -43,7 +43,7 @@ public interface Facility  {
 
     void setInventory(Item item, Integer quantity) throws DataValidationException, NullParameterException;
 
-    void updateInventory(Item item, Integer quantity) throws DataValidationException, NullParameterException;
+    void updateInventory(String itemID, Integer quantity) throws DataValidationException, NullParameterException;
 
     void addNeighbor(FacilityEdge facilityEdge);
 
@@ -70,6 +70,8 @@ public interface Facility  {
     void addScheduleDay(Integer day, Integer itemsAvailable);
 
     Integer getNextAvailableDay(Integer startDay) throws NullParameterException;
+
+    void processOrderSchedule(Integer arrivalDay, Integer processingDays, Integer totalItemsProcessed);
 
 
 }

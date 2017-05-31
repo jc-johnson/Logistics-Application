@@ -110,8 +110,12 @@ public class FacilityImpl implements Facility, Comparable<Facility> {
     }
 
     @Override
-    public void updateInventory(Item item, Integer quantity) throws DataValidationException, NullParameterException {
-        inventory.updateInventoryItem(item, quantity);
+    public void updateInventory(String itemID, Integer quantity) throws DataValidationException, NullParameterException {
+        inventory.updateInventoryItem(itemID, quantity);
+    }
+
+    public void processOrderSchedule(Integer arrivalDay, Integer processingDays, Integer totalItemsProcessed) {
+        schedule.processOrderSchedule(arrivalDay, processingDays, totalItemsProcessed);
     }
 
     @Override
