@@ -171,7 +171,7 @@ public class FacilityImpl implements Facility, Comparable<Facility> {
     }
 
     @Override
-    public Integer getProcessingDays(Integer quantityNeeded) throws NoAvailableDaysException, NullParameterException, DataValidationException {
+    public Integer getProcessingDays(Integer quantityNeeded) throws NoAvailableDaysException, NullParameterException, DataValidationException, NegativeQuantityException {
         if (quantityNeeded <= 0) throw new DataValidationException("Negative or 0 Quantity");
 
         Integer itemsNeeded = quantityNeeded;
@@ -218,7 +218,7 @@ public class FacilityImpl implements Facility, Comparable<Facility> {
     }
 
     @Override
-    public Integer getAvailableScheduleItems(Integer day) {
+    public Integer getAvailableScheduleItems(Integer day) throws NegativeQuantityException {
         return schedule.getAvailableItems(day);
     }
 

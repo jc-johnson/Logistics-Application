@@ -50,12 +50,6 @@ public final class OrderManager {
 
     }
 
-    public void generateLogistics() {
-        for (Order order : orders) {
-            // order.generateOrderItemLogisticsRecord();
-        }
-    }
-
     public void addSolutionToOrder(Solution solution) {
         // for each order
             // if order.get id and order.get quantity

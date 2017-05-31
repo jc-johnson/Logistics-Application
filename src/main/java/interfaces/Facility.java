@@ -65,7 +65,7 @@ public interface Facility  {
 
     Integer getItemQuantity(Item item);
 
-    Integer getAvailableScheduleItems(Integer day);
+    Integer getAvailableScheduleItems(Integer day) throws NegativeQuantityException;
 
     void addScheduleDay(Integer day, Integer itemsAvailable);
 

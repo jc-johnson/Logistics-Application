@@ -13,45 +13,26 @@ import static javafx.scene.input.KeyCode.T;
  */
 public class FacilityRecordImpl implements FacilityRecord, Comparator<FacilityRecord>, Comparable<FacilityRecord> {
 
-    private String orderID;
     private String itemID;
-    private Integer totalItemQuantity;
 
     private String facilityLocation;
     private Integer processingEndDay;
     private Integer travelTime;
     private Integer arrivalDay;
+    private Integer totalItemsAtFacility;
 
     private Integer itemCost;
+
+
+    public FacilityRecordImpl() {
+
+    }
 
     public FacilityRecordImpl(String location, Integer day) {
         this.facilityLocation = location;
         this.arrivalDay = day;
     }
 
-    public Integer getItemCost() {
-        return itemCost;
-    }
-
-    public void setItemCost(Integer itemCost) {
-        this.itemCost = itemCost;
-    }
-
-    public String getOrderID() {
-        return orderID;
-    }
-
-    public void setOrderID(String orderID) {
-        this.orderID = orderID;
-    }
-
-    public Integer getTotalItemQuantity() {
-        return totalItemQuantity;
-    }
-
-    public void setTotalItemQuantity(Integer totalItemQuantity) {
-        this.totalItemQuantity = totalItemQuantity;
-    }
 
     public String getItemID() {
         return itemID;
@@ -73,14 +54,14 @@ public class FacilityRecordImpl implements FacilityRecord, Comparator<FacilityRe
     }
 
     @Override
-    public Integer getNumberOfItemsAbleToProcess() {
-        return totalItemQuantity;
+    public Integer getTotalItemsAtFacility() {
+        return totalItemsAtFacility;
     }
 
     @Override
-    public void setNumberOfItemsAbleToProcess(Integer number) throws NegativeQuantityException {
+    public void setTotalItemsAtFacility(Integer number) throws NegativeQuantityException {
         if (number < 0 ) throw new NegativeQuantityException("Negative parameter");
-        this.totalItemQuantity = number;
+        this.totalItemsAtFacility = number;
     }
 
     public Integer getProcessingEndDay() {
@@ -92,13 +73,23 @@ public class FacilityRecordImpl implements FacilityRecord, Comparator<FacilityRe
         this.processingEndDay = processingEndDay;
     }
 
-    public Integer getTravelTime() {
+    public Integer getTravelDays() {
         return travelTime;
     }
 
-    public void setTravelTime(Integer travelTime) throws NegativeQuantityException {
+    public void setTravelDays(Integer travelTime) throws NegativeQuantityException {
         if (travelTime < 0) throw new NegativeQuantityException("Negative parameter");
         this.travelTime = travelTime;
+    }
+
+    @Override
+    public Integer getItemsNeeded() {
+        return null;
+    }
+
+    @Override
+    public void setItemsNeeded(Integer itemsNeeded) {
+
     }
 
     @Override
@@ -144,12 +135,11 @@ public class FacilityRecordImpl implements FacilityRecord, Comparator<FacilityRe
         System.out.println("FacilityRecord:");
         System.out.println("----------------------------");
         System.out.println("Item ID: " + getItemID());
-        System.out.println("Number of Items Processed: " + getNumberOfItemsAbleToProcess());
+        System.out.println("Number of Items at Facility: " + getTotalItemsAtFacility());
         System.out.println("Processing End Day: " + getProcessingEndDay());
-        System.out.println("Travel Time: " + getTravelTime());
+        System.out.println("Travel Time: " + getTravelDays());
         System.out.println("Facility Location: " + getFacilityLocation());
         System.out.println("Arrival Day: " + getArrivalDay());
-        System.out.println("Total Item Quantity: " + getTotalItemQuantity());
         System.out.println("----------------------------");
         System.out.println("");
     }

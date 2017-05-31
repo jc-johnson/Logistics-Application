@@ -90,7 +90,7 @@ public class FacilitySchedule implements Schedule {
         for (Map.Entry<Integer, Integer> entry : scheduleMap.entrySet()) {
             lastScheduleDay = entry.getKey();
         }
-        lastScheduleDay++;
+        // lastScheduleDay++;
         for (int i = 0; i < 11; i++) {
             this.addScheduleDay(lastScheduleDay, 10);
             lastScheduleDay++;
@@ -98,15 +98,11 @@ public class FacilitySchedule implements Schedule {
     }
 
     @Override
-    public Integer getAvailableItems(Integer day) {
-        if (day < 0) try {
-            throw new NegativeQuantityException();
-        } catch (NegativeQuantityException e) {
-            e.printStackTrace();
-        }
+    public Integer getAvailableItems(Integer day) throws NegativeQuantityException {
+        if (day < 0) throw new NegativeQuantityException();
 
         if (day >= scheduleMap.size()) {
-            extendSchedule(); // TODO: maybe have Facility or FacilityManager do this
+            extendSchedule();
         }
         return scheduleMap.get(day);
     }

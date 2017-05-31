@@ -2,6 +2,7 @@ package src.main.java;
 
 import src.main.java.exceptions.*;
 import src.main.java.interfaces.Facility;
+import src.main.java.interfaces.FacilityRecord;
 import src.main.java.interfaces.impl.FacilityInventoryXMLLoaderImpl;
 import src.main.java.interfaces.impl.FacilityNetworkXmlLoaderImpl;
 import src.main.java.readxmls.FacilityInventoryXMLLoader;
@@ -133,5 +134,12 @@ public final class FacilityManager {
         }
 
         throw new FacilityNotFoundException();
+    }
+
+    public void processFacilityRecord(FacilityRecord facilityRecord) throws DataValidationException {
+        String currentFacilityString = facilityRecord.getFacilityLocation();
+        Facility currentFacility = this.getFacility(currentFacilityString);
+
+
     }
 }

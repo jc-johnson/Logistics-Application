@@ -51,12 +51,11 @@ public final class LogisticsRecordManager {
         if (facilityRecord == null) throw new DataValidationException("Null Facility Record");
 
         LogisticsRecord logisticsRecord = new LogisticsRecordImpl(facilityRecord.getItemID());
-        logisticsRecord.setTotalItemQuantity(facilityRecord.getTotalItemQuantity());
+        logisticsRecord.setTotalItemQuantity(facilityRecord.getTotalItemsAtFacility());
 
         LogisticsDetail logisticsDetail = createLogisticsDetail(facilityRecord);
 
-        ItemArrival itemArrival = new ItemArrivalImpl();
-        itemArrival = createItemArrival(logisticsDetail);
+        ItemArrival itemArrival = createItemArrival(logisticsDetail);
 
         for (LogisticsRecord currentLogisticsRecord : logisticsRecords) {
             // logistics record already exists
@@ -83,12 +82,12 @@ public final class LogisticsRecordManager {
         logisticsDetail.setFacilityLocation(logisticDetailsCity);
         logisticsDetail.setProcessingStart(facilityRecord.getArrivalDay());
         logisticsDetail.setProcessingEnd(facilityRecord.getProcessingEndDay());
-        logisticsDetail.setTotalQuantity(facilityRecord.getTotalItemQuantity());
-        logisticsDetail.setitemsProcessed(facilityRecord.getNumberOfItemsAbleToProcess());
+        logisticsDetail.setTotalQuantity(facilityRecord.getTotalItemsAtFacility());
+        // logisticsDetail.setitemsProcessed(facilityRecord.getNumberOfItemsAbleToProcess());
 
-        Integer travelStart = facilityRecord.getTravelTime() - (facilityRecord.getTravelTime()-1);
+        Integer travelStart = facilityRecord.getTravelDays() - (facilityRecord.getTravelDays()-1);
         logisticsDetail.setTravelStart(travelStart);
-        Integer travelEnd = travelStart + facilityRecord.getTravelTime();
+        Integer travelEnd = travelStart + facilityRecord.getTravelDays();
         logisticsDetail.setTravelEnd(travelEnd);
 
         return logisticsDetail;

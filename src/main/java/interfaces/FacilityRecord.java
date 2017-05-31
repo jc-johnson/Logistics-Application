@@ -8,37 +8,33 @@ import src.main.java.exceptions.NegativeQuantityException;
  */
 public interface FacilityRecord {
 
-    Integer getArrivalDay();
+    String getItemID();
 
-    void setArrivalDay(Integer day) throws NegativeQuantityException;
+    void setItemID(String itemID);
 
     String getFacilityLocation();
 
     void setFacilityLocation(String facilityLocation) throws DataValidationException;
 
-    Integer getNumberOfItemsAbleToProcess();
+    Integer getArrivalDay();
 
-    void setNumberOfItemsAbleToProcess(Integer numberOfItems) throws NegativeQuantityException;
+    void setArrivalDay(Integer day) throws NegativeQuantityException;
+
+    Integer getTotalItemsAtFacility();
+
+    void setTotalItemsAtFacility(Integer quantity) throws NegativeQuantityException;
 
     Integer getProcessingEndDay();
 
     void setProcessingEndDay(Integer processingEndDay) throws NegativeQuantityException;
 
-    Integer getTravelTime();
+    Integer getTravelDays();
 
-    void setTravelTime(Integer travelTime) throws NegativeQuantityException;
+    void setTravelDays(Integer travelTime) throws NegativeQuantityException;
 
-    String getItemID();
+    Integer getItemsNeeded();
 
-    void setItemID(String itemID);
-
-    Integer getItemCost();
-
-    void setItemCost(Integer itemCost);
-
-    Integer getTotalItemQuantity();
-
-    void setTotalItemQuantity(Integer totalItemQuantity);
+    void setItemsNeeded(Integer itemsNeeded);
 
     void print();
 

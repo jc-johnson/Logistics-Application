@@ -1,5 +1,6 @@
 package src.main.java.interfaces;
 
+import src.main.java.exceptions.NegativeQuantityException;
 import src.main.java.exceptions.NoAvailableDaysException;
 import src.main.java.exceptions.NullParameterException;
 
@@ -10,7 +11,7 @@ public interface Schedule {
 
     void setScheduleDay(Integer day, Integer itemNumber);
 
-    Integer getAvailableItems(Integer day);
+    Integer getAvailableItems(Integer day) throws NegativeQuantityException;
 
     Integer getFirstAvailableDay() throws NoAvailableDaysException;
 
