@@ -134,7 +134,13 @@ public class FacilityRecordImpl implements FacilityRecord, Comparator<FacilityRe
 
     @Override
     public void print() {
-        System.out.println("Facility Location: " + facilityLocation);
-        System.out.println("Arrival Day: " + arrivalDay);
+        System.out.println("FacilityRecord:");
+        System.out.println("----------------------------");
+        System.out.println("Item ID: " + getItemID());
+        System.out.println("Number of Items Processed: " + getNumberOfItemsProcessed());
+        System.out.println("Processing End Day: " + getProcessingEndDay());
+        System.out.println("Travel Time: " + getTravelTime());
+        System.out.println("Facility Location: " + getFacilityLocation());
+        System.out.println("----------------------------");
     }
 }

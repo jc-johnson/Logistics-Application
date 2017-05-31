@@ -85,19 +85,20 @@ public final class OrderProcessor {
                     Integer processingEndDay = facility.getProcessingDays(facilityItems);
                     Integer travelDays = FacilityManager.getInstance().getShortestPathInDays(facility.getLocation(), destination);
                     arrivalDay = travelDays + processingEndDay;
+
                     // compute total cost
-                    Integer itemCost = getItemCost(item, order.getItemQuantity(item),facility, travelDays);
-                    // FacilityManager.getInstance().resetFacilitiesMinDistance();
-                    // FacilityManager.getInstance().resetPrevious();
-                    System.out.println("Processing Days: " + processingEndDay);
-                    System.out.println("Number of travel days to " + destination + ": " + travelDays + " via shortest path");
-                    System.out.println("Arrival Day: " + arrivalDay);
+                    // Integer orderItemQuanity = order.getItemQuantity(item);
+                    // Integer itemCost = getItemCost(item, orderItemQuanity, facility, travelDays);
+
+                   // System.out.println("Processing Days: " + processingEndDay);
+                   // System.out.println("Number of travel days to " + destination + ": " + travelDays + " via shortest path");
+                   // System.out.println("Arrival Day: " + arrivalDay);
                     FacilityRecord facilityRecord = new FacilityRecordImpl(destination, arrivalDay);
                     facilityRecord.setItemID(item.getId());
                     facilityRecord.setNumberOfItemsProcessed(facilityItems);
                     facilityRecord.setProcessingEndDay(processingEndDay);
                     facilityRecord.setTravelTime(travelDays);
-                    facilityRecord.setItemCost(itemCost);
+                    // facilityRecord.setItemCost(itemCost);
                     facilityRecord.setFacilityLocation(facility.getLocation());
                     facilityRecords.add(facilityRecord);
                 }

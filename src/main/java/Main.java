@@ -96,12 +96,6 @@ public class Main {
         orderManager.createFacilityRecordsFromOrders();
 
 
-        // orderProcessor.printOrders(); // print all orders with completed solution
-
-        // print facilities after order processing
-        // orderProcessor.computeSolution();
-
-
         /*
 
         Order order = new OrderImpl("123456", "Chicago, IL", 1);
@@ -112,6 +106,9 @@ public class Main {
             order.printOutput();
         }
         */
+
+        // Print all Facilities after order processing
+        FacilityManager.getInstance().printEachFacilityOutput();
 
 
     }
