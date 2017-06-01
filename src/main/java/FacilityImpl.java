@@ -114,16 +114,12 @@ public class FacilityImpl implements Facility, Comparable<Facility> {
         inventory.updateInventoryItem(itemID, quantity);
     }
 
-    public void processOrderSchedule(Integer arrivalDay, Integer processingDays, Integer totalItemsProcessed) throws NullParameterException, NegativeQuantityException {
-        schedule.processOrderSchedule(arrivalDay, processingDays, totalItemsProcessed);
-    }
-
     @Override
     public void addNeighbor(FacilityEdge facilityEdge) {
         neighbors.add(facilityEdge);
     }
 
-    public void updateSchedule(Integer day, Integer value) {
+    public void updateSchedule(Integer day, Integer value) throws NegativeQuantityException {
         schedule.setScheduleDay(day, value);
     }
 
@@ -231,7 +227,12 @@ public class FacilityImpl implements Facility, Comparable<Facility> {
     }
 
     @Override
-    public Integer getNextAvailableDay(Integer startDay) throws NullParameterException {
+    public Integer getNextAvailableDay(Integer startDay) throws NullParameterException, NegativeQuantityException {
         return this.schedule.getNextAvailableDay(startDay);
+    }
+
+    @Override
+    public void processOrderSchedule(Integer arrivalDay, Integer totalItemsProcessed) throws NullParameterException, NegativeQuantityException {
+        schedule.processOrderSchedule(arrivalDay, totalItemsProcessed);
     }
 }

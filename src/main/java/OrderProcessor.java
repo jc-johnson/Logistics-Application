@@ -134,10 +134,10 @@ public final class OrderProcessor {
             facilityRecord.print();
         }
 
-        /*
+
         for (FacilityRecord facilityRecord : facilityRecords) {
             FacilityManager.getInstance().processFacilityRecord(facilityRecord);
-        }*/
+        }
     }
 
     private int getItemCost(Item item, Integer itemQuantity, Facility facility, Integer travelDays) {

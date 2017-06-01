@@ -47,7 +47,7 @@ public interface Facility  {
 
     void addNeighbor(FacilityEdge facilityEdge);
 
-    void updateSchedule(Integer day, Integer value);
+    void updateSchedule(Integer day, Integer value) throws NegativeQuantityException;
 
     void printOutput();
 
@@ -69,9 +69,9 @@ public interface Facility  {
 
     void addScheduleDay(Integer day, Integer itemsAvailable);
 
-    Integer getNextAvailableDay(Integer startDay) throws NullParameterException;
+    Integer getNextAvailableDay(Integer startDay) throws NullParameterException, NegativeQuantityException;
 
-    void processOrderSchedule(Integer arrivalDay, Integer processingDays, Integer totalItemsProcessed) throws NullParameterException, NegativeQuantityException;
+    void processOrderSchedule(Integer arrivalDay, Integer totalItemsProcessed) throws NullParameterException, NegativeQuantityException;
 
 
 }

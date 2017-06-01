@@ -70,7 +70,7 @@ public class Main {
 
 
         // Print all Facilities after order processing
-        // FacilityManager.getInstance().printEachFacilityOutput();
+        FacilityManager.getInstance().printEachFacilityOutput();
 
 
     }

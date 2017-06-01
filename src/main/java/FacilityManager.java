@@ -153,7 +153,7 @@ public final class FacilityManager {
         Integer arrivalDay = facilityRecord.getArrivalDay();
         Integer processingDays = facilityRecord.getProcessingEndDay();
 
-        currentFacility.processOrderSchedule(arrivalDay, processingDays, currentItemsNeeded);
+        currentFacility.processOrderSchedule(arrivalDay, currentItemsNeeded);
 
     }
 }

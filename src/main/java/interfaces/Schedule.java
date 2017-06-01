@@ -9,7 +9,7 @@ import src.main.java.exceptions.NullParameterException;
  */
 public interface Schedule {
 
-    void setScheduleDay(Integer day, Integer itemNumber);
+    void setScheduleDay(Integer day, Integer itemNumber) throws NegativeQuantityException;
 
     Integer getAvailableItems(Integer day) throws NegativeQuantityException;
 
@@ -23,9 +23,9 @@ public interface Schedule {
 
     void addScheduleDay(Integer day, Integer itemsAvailable);
 
-    Integer getNextAvailableDay(Integer startDay) throws NullParameterException;
+    Integer getNextAvailableDay(Integer startDay) throws NullParameterException, NegativeQuantityException;
 
-    void processOrderSchedule(Integer arrivalDay, Integer processingDays, Integer totalItemsProcessed) throws NegativeQuantityException, NullParameterException;
+    void processOrderSchedule(Integer arrivalDay, Integer totalItemsProcessed) throws NegativeQuantityException, NullParameterException;
 
 
 

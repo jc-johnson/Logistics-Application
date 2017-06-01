@@ -28,7 +28,7 @@ public class FacilitySchedule implements Schedule {
     }
 
     @Override
-    public Integer getNextAvailableDay(Integer startDay) throws NullParameterException {
+    public Integer getNextAvailableDay(Integer startDay) throws NullParameterException, NegativeQuantityException {
         if (startDay == null) throw new NullParameterException();
 
         scheduleMap.get(startDay);
@@ -43,28 +43,19 @@ public class FacilitySchedule implements Schedule {
     }
 
     @Override
-    public void processOrderSchedule(Integer arrivalDay, Integer processingDays, Integer totalItemsProcessed) throws NegativeQuantityException, NullParameterException {
-        // go to arrival day in schedule
-        if (getAvailableItems(arrivalDay) == 0) {
-            arrivalDay = getNextAvailableDay(arrivalDay);
-        }
-
-        while (totalItemsProcessed > 0) {
-                Integer availableItemsForDay = getAvailableItems(arrivalDay);
-                totalItemsProcessed -= availableItemsForDay;
-                Integer itemsTaken = Math.min(availableItemsForDay, totalItemsProcessed);
-                setScheduleDay(arrivalDay, itemsTaken);
-                arrivalDay = arrivalDay + 1;
+    public void processOrderSchedule(Integer arrivalDay, Integer totalItemsProcessed) throws NegativeQuantityException, NullParameterException {
+        Integer itemsAvailableForDay = scheduleMap.get(arrivalDay);
+        while (totalItemsProcessed > 0 && arrivalDay < scheduleMap.size()) {
+            Integer itemsUsed = Math.min(itemsAvailableForDay, totalItemsProcessed);
+            setScheduleDay(arrivalDay, itemsUsed - itemsUsed);
+            arrivalDay++;
+            totalItemsProcessed = totalItemsProcessed - itemsUsed;
         }
     }
 
     @Override
-    public void setScheduleDay(Integer day, Integer itemNumber) {
-        if (day < 0 || itemNumber < 0) try {
-            throw new NegativeQuantityException();
-        } catch (NegativeQuantityException e) {
-            e.printStackTrace();
-        }
+    public void setScheduleDay(Integer day, Integer itemNumber) throws NegativeQuantityException {
+        if (day < 0 || itemNumber < 0) throw new NegativeQuantityException();
 
         while (day > scheduleMap.size()) {
             extendSchedule();
@@ -72,13 +63,9 @@ public class FacilitySchedule implements Schedule {
         scheduleMap.put(day, itemNumber);
     }
 
-    private boolean isLastEntry(Integer day) {
+    private boolean isLastEntry(Integer day) throws NegativeQuantityException {
 
-        if (day < 0) try {
-            throw new NegativeQuantityException();
-        } catch (NegativeQuantityException e) {
-            e.printStackTrace();
-        }
+        if (day < 0) throw new NegativeQuantityException();
 
         Boolean value = false;
         Iterator iterator = scheduleMap.entrySet().iterator();
