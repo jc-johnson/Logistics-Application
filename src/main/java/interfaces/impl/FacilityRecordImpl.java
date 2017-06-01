@@ -20,23 +20,26 @@ public class FacilityRecordImpl implements FacilityRecord, Comparator<FacilityRe
     private Integer travelTime;
     private Integer arrivalDay;
     private Integer totalItemsAtFacility;
+    private Integer itemsNeeded;
+
+    private Integer totalOrderQuantity;
 
     private Integer itemCost;
-
 
     public FacilityRecordImpl() {
 
     }
+
 
     public FacilityRecordImpl(String location, Integer day) {
         this.facilityLocation = location;
         this.arrivalDay = day;
     }
 
-
     public String getItemID() {
         return itemID;
     }
+
 
     public void setItemID(String itemID) {
         this.itemID = itemID;
@@ -84,12 +87,12 @@ public class FacilityRecordImpl implements FacilityRecord, Comparator<FacilityRe
 
     @Override
     public Integer getItemsNeeded() {
-        return null;
+        return itemsNeeded;
     }
 
     @Override
     public void setItemsNeeded(Integer itemsNeeded) {
-
+        this.itemsNeeded = itemsNeeded;
     }
 
     @Override
@@ -101,6 +104,14 @@ public class FacilityRecordImpl implements FacilityRecord, Comparator<FacilityRe
     public void setArrivalDay(Integer day) throws NegativeQuantityException {
         if (day < 0) throw new NegativeQuantityException("Negative parameter ");
         arrivalDay = day;
+    }
+
+    public Integer getTotalOrderQuantity() {
+        return totalOrderQuantity;
+    }
+
+    public void setTotalOrderQuantity(Integer totalOrderQuantity) {
+        this.totalOrderQuantity = totalOrderQuantity;
     }
 
     @Override
@@ -140,6 +151,7 @@ public class FacilityRecordImpl implements FacilityRecord, Comparator<FacilityRe
         System.out.println("Travel Time: " + getTravelDays());
         System.out.println("Facility Location: " + getFacilityLocation());
         System.out.println("Arrival Day: " + getArrivalDay());
+        System.out.println("Items needing to be processed: " + getItemsNeeded());
         System.out.println("----------------------------");
         System.out.println("");
     }

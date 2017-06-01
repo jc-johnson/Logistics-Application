@@ -39,51 +39,21 @@ public class Main {
         itemCatalogManager.parseItemsInventoryXML("src/main/resources/ItemCatalog.xml");
 
         // Output 3 : Shortest path
-        /*
+
         System.out.println("Shortest Path Tests: ");
         System.out.println("");
 
         facilityManager.runShortestPath("Santa Fe, NM", "Chicago, IL");
-        facilityManager.resetFacilitiesMinDistance();
-        facilityManager.resetPrevious();
-
         facilityManager.runShortestPath("Atlanta, GA", "St. Louis, MO");
-        facilityManager.resetFacilitiesMinDistance();
-        facilityManager.resetPrevious();
-
         facilityManager.runShortestPath("Seattle, WA", "Nashville, TN");
-        facilityManager.resetFacilitiesMinDistance();
-        facilityManager.resetPrevious();
-
         facilityManager.runShortestPath("New York City, NY", "Phoenix, AZ");
-        facilityManager.resetFacilitiesMinDistance();
-        facilityManager.resetPrevious();
-
         facilityManager.runShortestPath("Fargo, ND", "Austin, TX");
-        facilityManager.resetFacilitiesMinDistance();
-        facilityManager.resetPrevious();
-
         facilityManager.runShortestPath("Denver, CO", "Miami, FL");
-        facilityManager.resetFacilitiesMinDistance();
-        facilityManager.resetPrevious();
-
         facilityManager.runShortestPath("Austin, TX", "Norfolk, VA");
-        facilityManager.resetFacilitiesMinDistance();
-        facilityManager.resetPrevious();
-
         facilityManager.runShortestPath("Miami, FL", "Seattle, WA");
-        facilityManager.resetFacilitiesMinDistance();
-        facilityManager.resetPrevious();
-
         facilityManager.runShortestPath("Los Angeles, CA", "Chicago, IL");
-        facilityManager.resetFacilitiesMinDistance();
-        facilityManager.resetPrevious();
-
         facilityManager.runShortestPath("Detroit, MI", "Nashville, TN");
-        facilityManager.resetFacilitiesMinDistance();
-        facilityManager.resetPrevious();
 
-        */
 
         // -------------------- Part 2 Code ----------------------------------
 
@@ -92,22 +62,13 @@ public class Main {
 
         OrderManager orderManager = OrderManager.getInstance();
         orderManager.loadOrdersXml("src/main/resources/Orders.xml");
-        orderManager.createFacilityRecordsFromOrders();
+        // orderManager.createFacilityRecordsFromOrders();
+        // LogisticsRecordManager.getInstance().printLogisticsRecords();
+        // orderManager.printOrders();
 
-
-        /*
-
-        Order order = new OrderImpl("123456", "Chicago, IL", 1);
-
-        for (int i = 1; i < 7 ; i++) {
-            System.out.println("-------------------------------------------------------");
-            System.out.println("Order #" + i);
-            order.printOutput();
-        }
-        */
 
         // Print all Facilities after order processing
-        FacilityManager.getInstance().printEachFacilityOutput();
+        // FacilityManager.getInstance().printEachFacilityOutput();
 
 
     }

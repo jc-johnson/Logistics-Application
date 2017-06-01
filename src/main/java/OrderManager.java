@@ -50,7 +50,9 @@ public final class OrderManager {
 
     }
 
-    public void addSolutionToOrder(Solution solution) {
+    public void addSolutionToOrder(Solution solution) throws NullParameterException {
+        if (solution == null) throw new NullParameterException();
+
         // for each order
             // if order.get id and order.get quantity
     }

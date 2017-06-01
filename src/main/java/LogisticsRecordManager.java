@@ -51,7 +51,8 @@ public final class LogisticsRecordManager {
         if (facilityRecord == null) throw new DataValidationException("Null Facility Record");
 
         LogisticsRecord logisticsRecord = new LogisticsRecordImpl(facilityRecord.getItemID());
-        logisticsRecord.setTotalItemQuantity(facilityRecord.getTotalItemsAtFacility());
+        Integer totalOrderQuantity = facilityRecord.getTotalOrderQuantity();
+        logisticsRecord.setTotalItemQuantity(totalOrderQuantity);
 
         LogisticsDetail logisticsDetail = createLogisticsDetail(facilityRecord);
 
@@ -83,7 +84,7 @@ public final class LogisticsRecordManager {
         logisticsDetail.setProcessingStart(facilityRecord.getArrivalDay());
         logisticsDetail.setProcessingEnd(facilityRecord.getProcessingEndDay());
         logisticsDetail.setTotalQuantity(facilityRecord.getTotalItemsAtFacility());
-        // logisticsDetail.setitemsProcessed(facilityRecord.getNumberOfItemsAbleToProcess());
+        logisticsDetail.setitemsProcessed(facilityRecord.getItemsNeeded());
 
         Integer travelStart = facilityRecord.getTravelDays() - (facilityRecord.getTravelDays()-1);
         logisticsDetail.setTravelStart(travelStart);

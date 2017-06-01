@@ -71,25 +71,30 @@ public final class OrderProcessor {
 
                 // create facility record for each facility with the item
                 for (Facility facility : facilitiesWithItem) {
-                    // skip destination facility
-                    if (facility.getLocation().equals(destination)) continue;
 
-                    Integer totalFacilityItems = facility.getItemQuantity(item);
-                    Integer processingEndDay = facility.getProcessingDays(totalFacilityItems);
-                    Integer travelDays = FacilityManager.getInstance().getShortestPathInDays(facility.getLocation(), destination);
-                    arrivalDay = travelDays + processingEndDay;
-                    Integer recordItemsNeeded = Math.min(totalItemQuantityNeeded, totalFacilityItems);
+                    while (totalItemQuantityNeeded > 0) {
+                        // skip destination facility
+                        if (facility.getLocation().equals(destination)) continue;
 
-                    FacilityRecord facilityRecord = new FacilityRecordImpl(destination, arrivalDay);
-                    facilityRecord.setItemID(item.getId());
-                    facilityRecord.setTravelDays(travelDays);
-                    facilityRecord.setArrivalDay(arrivalDay);
-                    facilityRecord.setTotalItemsAtFacility(totalFacilityItems);
-                    facilityRecord.setProcessingEndDay(processingEndDay);
-                    facilityRecord.setItemsNeeded(recordItemsNeeded);
+                        Integer totalFacilityItems = facility.getItemQuantity(item);
+                        Integer processingEndDay = facility.getProcessingDays(totalFacilityItems);
+                        Integer travelDays = FacilityManager.getInstance().getShortestPathInDays(facility.getLocation(), destination);
+                        arrivalDay = travelDays + processingEndDay;
+                        Integer recordItemsNeeded = Math.min(totalItemQuantityNeeded, totalFacilityItems);
 
-                    totalItemQuantityNeeded -= totalFacilityItems;
+                        FacilityRecord facilityRecord = new FacilityRecordImpl(facility.getLocation(), arrivalDay);
+                        facilityRecord.setItemID(item.getId());
+                        facilityRecord.setTravelDays(travelDays);
+                        facilityRecord.setArrivalDay(arrivalDay);
+                        facilityRecord.setTotalItemsAtFacility(totalFacilityItems);
+                        facilityRecord.setProcessingEndDay(processingEndDay);
+                        facilityRecord.setItemsNeeded(recordItemsNeeded);
+                        facilityRecord.setTotalOrderQuantity(totalItemQuantityNeeded);
 
+                        facilityRecords.add(facilityRecord);
+
+                        totalItemQuantityNeeded = totalItemQuantityNeeded - recordItemsNeeded;
+                    }
                 }
 
                 processFacilityRecords(facilityRecords, totalItemQuantityNeeded);
@@ -114,6 +119,12 @@ public final class OrderProcessor {
                 return Integer.compare(facilityRecord1.getArrivalDay(), facilityRecord2.getArrivalDay());
             }
         });
+
+        // Print each facility record
+        System.out.println("Sorted Facility Records");
+        for (FacilityRecord facilityRecord : facilityRecords) {
+            facilityRecord.print();
+        }
 
         Integer quantityNeeded = totalItemQuantityNeeded;
         for (FacilityRecord facilityRecord : facilityRecords) {

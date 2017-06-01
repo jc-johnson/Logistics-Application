@@ -42,7 +42,7 @@ public final class ItemCatalogManager {
 
     public boolean isRealItem(String itemID) throws DataValidationException {
         if (itemID.equals("") || itemID.isEmpty()) {
-            throw new DataValidationException("Empty string parameter in ItemCatalogManager.isRealItem");
+            throw new DataValidationException("Empty string parameter");
         }
 
         if (catalog.containsKey(itemID)) return true;
@@ -51,7 +51,7 @@ public final class ItemCatalogManager {
 
     public void parseItemsInventoryXML(String path) throws DataValidationException, ParseException {
         if (path.equals("") || path.isEmpty()) {
-            throw new DataValidationException("Empty string parameter in ItemCatalogManager.parseItemsInventoryXML");
+            throw new DataValidationException("Empty string parameter");
         }
 
         try {

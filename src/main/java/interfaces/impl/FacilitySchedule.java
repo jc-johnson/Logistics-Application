@@ -50,15 +50,12 @@ public class FacilitySchedule implements Schedule {
         }
 
         while (totalItemsProcessed > 0) {
-            for (int i = 0; i < processingDays ; i++) {
                 Integer availableItemsForDay = getAvailableItems(arrivalDay);
                 totalItemsProcessed -= availableItemsForDay;
                 Integer itemsTaken = Math.min(availableItemsForDay, totalItemsProcessed);
                 setScheduleDay(arrivalDay, itemsTaken);
-            }
+                arrivalDay = arrivalDay + 1;
         }
-
-
     }
 
     @Override
@@ -69,7 +66,7 @@ public class FacilitySchedule implements Schedule {
             e.printStackTrace();
         }
 
-        if (day > scheduleMap.size()) {
+        while (day > scheduleMap.size()) {
             extendSchedule();
         }
         scheduleMap.put(day, itemNumber);
@@ -120,7 +117,7 @@ public class FacilitySchedule implements Schedule {
     public Integer getAvailableItems(Integer day) throws NegativeQuantityException {
         if (day < 0) throw new NegativeQuantityException();
 
-        if (day >= scheduleMap.size()) {
+        while (day >= scheduleMap.size()) {
             extendSchedule();
         }
         return scheduleMap.get(day);

@@ -73,10 +73,10 @@ public final class FacilityManager {
         }
     }
 
-    // Initalized schedule to 20 days
+    // Initalized schedule to 50 days
     private void initializeSchedules() {
         for (Facility facility : facilitiesList) {
-            for (int i = 1; i < 21 ; i++) {
+            for (int i = 1; i < 50 ; i++) {
                 facility.addScheduleDay(i, 10);
             }
         }
@@ -137,6 +137,8 @@ public final class FacilityManager {
     }
 
     public void processFacilityRecord(FacilityRecord facilityRecord) throws DataValidationException, NullParameterException, NegativeQuantityException {
+        if (facilityRecord == null) throw new NullParameterException();
+
         String currentFacilityString = facilityRecord.getFacilityLocation();
         Facility currentFacility = this.getFacility(currentFacilityString);
 
