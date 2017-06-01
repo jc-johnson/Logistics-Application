@@ -191,7 +191,7 @@ public class LogisticsRecordImpl implements LogisticsRecord {
         }
 
         System.out.println("Logistics Details:");
-        for (int i = 1; i < logisticsDetails.size(); i++) {
+        for (int i = 0; i < logisticsDetails.size(); i++) {
             System.out.print("\t" + i + ") ");
             logisticsDetails.get(i).print();
         }
