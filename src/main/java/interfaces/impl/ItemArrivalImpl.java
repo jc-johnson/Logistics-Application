@@ -5,19 +5,19 @@ import src.main.java.interfaces.ItemArrival;
 /**
  * Created by Jordan on 5/13/2017.
  */
-public class ItemArrivalImpl implements ItemArrival {
+public class ItemArrivalImpl implements ItemArrival, Comparable<ItemArrival> {
 
     private Integer arrivalDay;
     private Integer itemsProcessed;
-    private Integer percentOfTotal;
-    private Integer percentOfItemArrivals;
+    private Double percentOfTotal;
+    private Double percentOfItemArrivals;
 
 
-    public Integer getPercentOfTotal() {
+    public Double getPercentOfTotal() {
         return percentOfTotal;
     }
 
-    public void setPercentOfTotal(Integer totalQuantity) {
+    public void setPercentOfTotal(Double totalQuantity) {
         percentOfTotal = (itemsProcessed / totalQuantity) * 100;
     }
 
@@ -33,7 +33,7 @@ public class ItemArrivalImpl implements ItemArrival {
 
     @Override
     public Integer getItemsProcessed() {
-        return null;
+        return itemsProcessed;
     }
 
     @Override
@@ -41,11 +41,11 @@ public class ItemArrivalImpl implements ItemArrival {
         itemsProcessed = quantity;
     }
 
-    public Integer getPercentOfItemArrivals() {
+    public Double getPercentOfItemArrivals() {
         return percentOfItemArrivals;
     }
 
-    public void setPercentOfItemArrivals(Integer percentOfItemArrivals) {
+    public void setPercentOfItemArrivals(Double percentOfItemArrivals) {
         this.percentOfItemArrivals = percentOfItemArrivals;
     }
 
@@ -55,5 +55,10 @@ public class ItemArrivalImpl implements ItemArrival {
         System.out.println("\tDay " + arrivalDay + ": " + itemsProcessed +
                 " (" + getPercentOfTotal() + "%, " + percentOfItemArrivals + "% of total)");
 
+    }
+
+    @Override
+    public int compareTo(ItemArrival o) {
+        return this.arrivalDay > o.getArrivalDay() ? 1 : (this.arrivalDay < o.getArrivalDay() ? -1 : 0);
     }
 }

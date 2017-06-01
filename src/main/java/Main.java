@@ -66,6 +66,7 @@ public class Main {
 
         orderManager.createFacilityRecordsFromOrders();
         LogisticsRecordManager.getInstance().createOrderItemCalculations();
+        LogisticsRecordManager.getInstance().computeItemArrivalPercentages();
         OrderManager.getInstance().computeSolutions();
         LogisticsRecordManager.getInstance().printLogisticsRecords();
         orderManager.printOrders();

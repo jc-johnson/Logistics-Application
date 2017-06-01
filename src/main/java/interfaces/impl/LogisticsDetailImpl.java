@@ -56,7 +56,7 @@ public class LogisticsDetailImpl implements LogisticsDetail {
         return itemsProcessed;
     }
 
-    public void setitemsProcessed(Integer itemsProcessed) {
+    public void setItemsProcessed(Integer itemsProcessed) {
         if (itemsProcessed < 0) try {
             throw new NegativeQuantityException();
         } catch (NegativeQuantityException e) {

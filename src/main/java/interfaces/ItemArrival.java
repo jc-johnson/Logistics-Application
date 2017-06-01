@@ -5,9 +5,9 @@ package src.main.java.interfaces;
  */
 public interface ItemArrival {
 
-    Integer getPercentOfTotal();
+    Double getPercentOfTotal();
 
-    void setPercentOfTotal(Integer totalQuantity);
+    void setPercentOfTotal(Double totalQuantity);
 
     Integer getArrivalDay();
 
@@ -17,9 +17,9 @@ public interface ItemArrival {
 
     void setItemsProcessed(Integer quantity);
 
-    Integer getPercentOfItemArrivals();
+    Double getPercentOfItemArrivals();
 
-    void setPercentOfItemArrivals(Integer quantity);
+    void setPercentOfItemArrivals(Double quantity);
 
     void print();
 }

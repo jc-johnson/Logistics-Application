@@ -21,8 +21,6 @@ public interface LogisticsRecord {
 
     void addLogisticsDetail(LogisticsDetail logisticsDetail);
 
-    Integer getLogisticsDetailSize();
-
     void addItemArrival(ItemArrival itemArrival);
 
     Integer getTotalItemCost() throws DataValidationException, FacilityNotFoundException;
@@ -42,5 +40,11 @@ public interface LogisticsRecord {
     // returns copy of item arrivals
     List<ItemArrival> getItemArrivals();
 
+    Integer getLogisticsDetailSize();
+
     LogisticsDetail getLogisticsDetail(Integer i);
+
+    ItemArrival getItemArrival(Integer i);
+
+    Integer getItemArrivalSize();
 }

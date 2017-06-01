@@ -30,7 +30,7 @@ public interface LogisticsDetail {
 
     Integer getItemsProcessed();
 
-    void setitemsProcessed(Integer itemsProcessed);
+    void setItemsProcessed(Integer itemsProcessed);
 
     Integer getTotalQuantity();
 

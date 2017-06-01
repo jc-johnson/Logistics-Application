@@ -6,7 +6,6 @@ import src.main.java.exceptions.NegativeQuantityException;
 import src.main.java.exceptions.NullParameterException;
 import src.main.java.interfaces.*;
 import src.main.java.interfaces.impl.*;
-import sun.rmi.runtime.Log;
 
 import java.util.*;
 
@@ -60,42 +59,18 @@ public final class LogisticsRecordManager {
             // logistics record already exists
             if (currentLogisticsRecord.getItemId().equals(logisticsRecord.getItemId())) {
                 currentLogisticsRecord.addLogisticsDetail(logisticsDetail);
-                currentLogisticsRecord.addItemArrival(itemArrival);
+                if (itemArrival.getItemsProcessed() != 0)
+                    currentLogisticsRecord.addItemArrival(itemArrival);
                 return;
             }
         }
 
         logisticsRecord.addLogisticsDetail(logisticsDetail);
-        logisticsRecord.addItemArrival(itemArrival);
+
+        if (itemArrival.getItemsProcessed() != 0)
+            logisticsRecord.addItemArrival(itemArrival);
         logisticsRecords.add(logisticsRecord);
-        // this.computeItemArrivals();
-
-        /*
-        for (LogisticsRecord currentLogisticsRecord : logisticsRecords) {
-            createOrderItemCalculations(currentLogisticsRecord);
-        }
-        */
-
-
-    }
-
-    private void computeItemArrivals() {
-
-
-        for (LogisticsRecord logisticsRecord : logisticsRecords) {
-            // sort item arrivals by arrival day
-            Collections.sort(logisticsRecord.getItemArrivals(), new Comparator<ItemArrival>() {
-                @Override
-                public int compare(ItemArrival itemArrival1, ItemArrival itemArrival2) {
-                    return Integer.compare(itemArrival1.getArrivalDay(), itemArrival2.getArrivalDay());
-                }
-            });
-
-            for (ItemArrival itemArrival : logisticsRecord.getItemArrivals()) {
-                Integer result = itemArrival.getItemsProcessed() / logisticsRecord.getTotalItemQuantity();
-                itemArrival.setPercentOfTotal(result * 100);
-            }
-        }
+        
     }
 
     private LogisticsDetail createLogisticsDetail(FacilityRecord facilityRecord) throws DataValidationException {
@@ -110,7 +85,7 @@ public final class LogisticsRecordManager {
         logisticsDetail.setProcessingStart(facilityRecord.getArrivalDay());
         logisticsDetail.setProcessingEnd(facilityRecord.getProcessingEndDay());
         logisticsDetail.setTotalQuantity(facilityRecord.getTotalOrderQuantity());
-        logisticsDetail.setitemsProcessed(facilityRecord.getItemsNeeded());
+        logisticsDetail.setItemsProcessed(facilityRecord.getItemsNeeded());
 
         Integer travelStart = facilityRecord.getTravelDays() - (facilityRecord.getTravelDays()-1);
         logisticsDetail.setTravelStart(travelStart);
@@ -127,7 +102,7 @@ public final class LogisticsRecordManager {
         ItemArrival itemArrival = new ItemArrivalImpl();
         itemArrival.setArrivalDay(logisticsDetail.getTravelEnd());
         itemArrival.setItemsProcessed(logisticsDetail.getItemsProcessed());
-        itemArrival.setPercentOfTotal(logisticsDetail.getTotalQuantity());
+        itemArrival.setPercentOfTotal((double) logisticsDetail.getTotalQuantity());
 
         return itemArrival;
     }
@@ -219,6 +194,47 @@ public final class LogisticsRecordManager {
         }
 
         return 0;
+    }
+
+    public void computeItemArrivalPercentages() {
+        for (LogisticsRecord logisticsRecord : logisticsRecords) {
+
+            // sort item arrivals on day
+            List<ItemArrival> itemArrivals = new ArrayList<>();
+            for (int i = 0; i < logisticsRecord.getItemArrivalSize(); i++) {
+                ItemArrival itemArrival = logisticsRecord.getItemArrival(i);
+                itemArrivals.add(itemArrival);
+            }
+
+            Collections.sort(itemArrivals, new Comparator<ItemArrival>() {
+                @Override
+                public int compare(ItemArrival itemArrival1, ItemArrival itemArrival2) {
+                    if (itemArrival1.getArrivalDay() == null) {
+                        return (itemArrival2.getArrivalDay() == null) ? 0 : 1;
+                    }
+                    if (itemArrival2.getArrivalDay() == null) {
+                        return -1;
+                    }
+                    return Integer.compare(itemArrival1.getArrivalDay(), itemArrival2.getArrivalDay());
+                }
+            });
+
+            Integer itemArrivalSize = logisticsRecord.getItemArrivalSize();
+            for (int i = 0; i < itemArrivalSize ; i++) {
+                ItemArrival itemArrival = logisticsRecord.getItemArrival(i);
+                Double previousPercent = 0.0;
+
+                Double itemArrivalQuantity = (double) itemArrival.getItemsProcessed();
+                Double totalRecordQuantity = (double) logisticsRecord.getTotalItemQuantity();
+                Double percentOFTotalQuantity = itemArrivalQuantity / totalRecordQuantity;
+                Double finalPercentOfTotalQuantity = percentOFTotalQuantity * 100;
+                itemArrival.setPercentOfTotal(finalPercentOfTotalQuantity);
+
+                previousPercent += finalPercentOfTotalQuantity;
+                itemArrival.setPercentOfItemArrivals(previousPercent);
+            }
+
+        }
     }
 
     public void printLogisticsRecords() {
