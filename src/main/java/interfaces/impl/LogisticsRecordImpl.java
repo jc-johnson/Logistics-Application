@@ -165,6 +165,11 @@ public class LogisticsRecordImpl implements LogisticsRecord {
     }
 
     @Override
+    public LogisticsDetail getLogisticsDetail(Integer i) {
+        return logisticsDetails.get(i);
+    }
+
+    @Override
     public void print() {
         System.out.println("Item ID: " + getItemId() + ", Quantity: " + getTotalItemQuantity());
         System.out.println("Item Arrivals:");

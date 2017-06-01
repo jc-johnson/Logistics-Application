@@ -22,5 +22,8 @@ public interface Order {
     void printOutput() throws NullParameterException, DataValidationException;
     Integer getItemQuantity(Item item) throws NullParameterException;
     void addOrderItemCalculation(OrderItemCalculation orderItemCalculation);
+    Integer getOrderItemCalulationSize();
+    OrderItemCalculation getOrderItemCalculation(Integer i);
+    void addSolution(Solution solution);
 
 }

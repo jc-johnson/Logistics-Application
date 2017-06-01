@@ -132,42 +132,91 @@ public final class LogisticsRecordManager {
         return itemArrival;
     }
 
-    public void createOrderItemCalculations(LogisticsRecord logisticsRecord) throws NullParameterException, DataValidationException, FacilityNotFoundException, NegativeQuantityException {
-
-        if (logisticsRecord == null) throw new DataValidationException("Null Logistics Record");
-
-        for (LogisticsRecord currentLogisticsRecord : logisticsRecords) {
-
-            // create OrderItemCalculation
+    public void createOrderItemCalculations() throws NullParameterException, DataValidationException, FacilityNotFoundException, NegativeQuantityException {
+        for (LogisticsRecord logisticsRecord : logisticsRecords) {
             OrderItemCalculation orderItemCalculation = new OrderItemCalculationImpl();
-            orderItemCalculation.setFirstDay(logisticsRecord.getFirstProcessingDay());
-            orderItemCalculation.setLastDay(logisticsRecord.getLastProcessingDay());
-            orderItemCalculation.setNumberOfSources(logisticsRecord.getTotalSources());
-            orderItemCalculation.setCost(logisticsRecord.getTotalItemCost());
-            orderItemCalculation.setQuantity(logisticsRecord.getTotalItemQuantity());
             orderItemCalculation.setItemId(logisticsRecord.getItemId());
-
-            // add orderItemCalculation to order
+            orderItemCalculation.setQuantity(logisticsRecord.getTotalItemQuantity());
+            Integer totalRecordCost = this.calculateTotalCost(orderItemCalculation.getItemId());
+            orderItemCalculation.setCost(totalRecordCost);
+            Integer firstDay = this.getFirstDay(orderItemCalculation.getItemId());
+            Integer lastDay = this.getLastDay(orderItemCalculation.getItemId());
+            orderItemCalculation.setFirstDay(firstDay);
+            orderItemCalculation.setLastDay(lastDay);
             OrderManager.getInstance().addOrderItemCalculationToOrder(orderItemCalculation.getItemId(), orderItemCalculation);
-
         }
-
     }
 
-    private OrderItemCalculation computeOrderItemCalculation(LogisticsRecord logisticsRecord) throws DataValidationException, FacilityNotFoundException {
+    private Integer calculateTotalCost(String itemId) throws DataValidationException, NullParameterException, FacilityNotFoundException {
+        if (itemId.isEmpty()) throw new NullParameterException();
 
-        if (logisticsRecord == null) throw new DataValidationException("Null Logistics Record");
+        for (LogisticsRecord logisticsRecord : logisticsRecords) {
+            if (logisticsRecord.getItemId().equals(itemId)) {
+                Integer itemPrice = ItemCatalogManager.getInstance().getItemPrice(itemId);
+                Integer totalCost = 0;
 
-        OrderItemCalculation orderItemCalculation = new OrderItemCalculationImpl();
-        orderItemCalculation.setItemId(logisticsRecord.getItemId());
-        orderItemCalculation.setQuantity(logisticsRecord.getItemQuantityProcessed());
-        orderItemCalculation.setCost(logisticsRecord.getTotalItemCost());
-        orderItemCalculation.setNumberOfSources(logisticsRecord.getTotalSources());
-        orderItemCalculation.setFirstDay(logisticsRecord.getFirstProcessingDay());
-        orderItemCalculation.setLastDay(logisticsRecord.getLastProcessingDay());
+                if (logisticsRecord.getLogisticsDetailSize() == 0) throw new DataValidationException("No logistics details");
 
-        return orderItemCalculation;
+                for (int i = 0; i < logisticsRecord.getLogisticsDetailSize() ; i++) {
+                    LogisticsDetail logisticsDetail = logisticsRecord.getLogisticsDetail(i);
+                    String fullFacilityLocation = FacilityManager.getInstance().getFacilityLocationFromCity(logisticsDetail.getFacilityLocation());
+                    Integer facilityProcessingCost = FacilityManager.getInstance().getDailyFacilityCost(fullFacilityLocation);
+                    Integer logisticDetailProcessingEnd = logisticsDetail.getProcessingEnd();
+                    Integer logisticsDetailProcessingStart = logisticsDetail.getProcessingStart();
+                    Integer processingDays = logisticsDetailProcessingStart - logisticDetailProcessingEnd;
+                    facilityProcessingCost *= processingDays;
+                    Integer logisticsDetailTransportEndDay = logisticsDetail.getTravelEnd();
+                    Integer logisticsDetailTransportStartDay = logisticsDetail.getTravelStart();
+                    Integer transportDays = logisticsDetailTransportEndDay - logisticsDetailTransportStartDay;
+                    Integer transportCost = 500 * transportDays;
+                    itemPrice *= logisticsDetail.getItemsProcessed();
+                    totalCost += itemPrice + transportCost + facilityProcessingCost;
+                }
+                return  totalCost;
+            }
+        }
 
+        return 0;
+    }
+
+    private Integer getLastDay(String itemId) throws NullParameterException {
+        if (itemId.isEmpty()) throw new NullParameterException();
+
+        for (LogisticsRecord logisticsRecord : logisticsRecords) {
+            if (logisticsRecord.getItemId().equals(itemId)) {
+                Integer lastDay = 0;
+                for (int i = 0; i < logisticsRecord.getLogisticsDetailSize(); i++) {
+                    LogisticsDetail logisticsDetail = logisticsRecord.getLogisticsDetail(i);
+                    Integer logisticsDetailEndDay = logisticsDetail.getProcessingEnd();
+                    if (logisticsDetailEndDay > lastDay) {
+                        lastDay = logisticsDetailEndDay;
+                    }
+                }
+                return lastDay;
+            }
+        }
+
+        return 0;
+    }
+
+    private Integer getFirstDay(String itemId) throws NullParameterException {
+        if (itemId.isEmpty()) throw new NullParameterException();
+
+        for (LogisticsRecord logisticsRecord : logisticsRecords) {
+            if (logisticsRecord.getItemId().equals(itemId)) {
+                Integer lowestDay = Integer.MAX_VALUE;
+                for (int i = 0; i < logisticsRecord.getLogisticsDetailSize(); i++) {
+                    LogisticsDetail logisticsDetail = logisticsRecord.getLogisticsDetail(i);
+                    Integer logisticsDetailStartDay = logisticsDetail.getProcessingStart();
+                    if (logisticsDetailStartDay < lowestDay) {
+                        lowestDay = logisticsDetailStartDay;
+                    }
+                }
+                return lowestDay;
+            }
+        }
+
+        return 0;
     }
 
     public void printLogisticsRecords() {

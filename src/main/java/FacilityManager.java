@@ -156,4 +156,18 @@ public final class FacilityManager {
         currentFacility.processOrderSchedule(arrivalDay, currentItemsNeeded);
 
     }
+
+    public String getFacilityLocationFromCity(String city) throws NullParameterException, FacilityNotFoundException {
+        if (city.isEmpty()) throw new NullParameterException();
+
+        for (Facility facility: facilitiesList) {
+            String facilityLocation = facility.getLocation();
+            if (facilityLocation.contains(city)) {
+                return facilityLocation;
+            }
+        }
+
+        throw new FacilityNotFoundException();
+    }
+
 }

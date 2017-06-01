@@ -135,6 +135,21 @@ public class OrderImpl implements Order{
         orderItemCalculations.add(orderItemCalculation);
     }
 
+    @Override
+    public Integer getOrderItemCalulationSize() {
+        return orderItemCalculations.size();
+    }
+
+    @Override
+    public OrderItemCalculation getOrderItemCalculation(Integer i) {
+        return orderItemCalculations.get(i);
+    }
+
+    @Override
+    public void addSolution(Solution solution) {
+        this.solution = solution;
+    }
+
     public void addFacilityRecord(Item  item, FacilityRecord facilityRecord) {
         List<FacilityRecord> facilityRecords = itemFacilityRecords.get(item);
 

@@ -7,6 +7,7 @@ import src.main.java.interfaces.OrderItemCalculation;
 import src.main.java.interfaces.Solution;
 import src.main.java.interfaces.XmlReader;
 import src.main.java.interfaces.impl.OrderImpl;
+import src.main.java.interfaces.impl.SolutionImpl;
 import src.main.java.interfaces.impl.XmlReaderImpl;
 
 import javax.xml.parsers.ParserConfigurationException;
@@ -65,29 +66,23 @@ public final class OrderManager {
     }
 
     public void computeSolutions() {
-
-    }
-
-    public void addSolutionToOrder(Solution solution) throws NullParameterException {
-        if (solution == null) throw new NullParameterException();
-
-        // for each order
-            // if order.get id and order.get quantity
-    }
-
-    public void addItemCalculationToOrderSolution(OrderItemCalculation orderItemCalculation) throws NullParameterException {
-        /*
-        if (orderItemCalculation == null) throw new NullParameterException("Null Order Item Calculation");
-
         for (Order order : orders) {
-            for (Item item : order.getOrderItems()) {
-                if (item.getId() == orderItemCalculation.getItemId()) {
-                    if (order.getSolution != null) {
-                        order.getSolution.addItemCalculation(orderItemCalculation);
-                    }
-                }
+            Integer solutionTotalCost = 0;
+            Integer solutionFirstDeliveryDay = Integer.MAX_VALUE;
+            Integer solutionLastDeliveryDay = 0;
+            for (int i = 0; i < order.getOrderItemCalulationSize(); i++) {
+                OrderItemCalculation orderItemCalculation = order.getOrderItemCalculation(i);
+                solutionTotalCost += orderItemCalculation.getCost();
+                Integer orderItemCalculationFirstDay = orderItemCalculation.getFirstDay();
+                if (orderItemCalculationFirstDay < solutionFirstDeliveryDay)
+                    solutionFirstDeliveryDay = orderItemCalculationFirstDay;
+                Integer orderItemCalculationLastDay = orderItemCalculation.getLastDay();
+                if (orderItemCalculationLastDay > solutionLastDeliveryDay)
+                    solutionLastDeliveryDay = orderItemCalculationLastDay;
+                Solution solution = new SolutionImpl(solutionTotalCost, solutionFirstDeliveryDay, solutionLastDeliveryDay);
+                order.addSolution(solution);
             }
         }
-        */
     }
+
 }

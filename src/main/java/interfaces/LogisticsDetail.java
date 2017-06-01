@@ -1,29 +1,32 @@
 package src.main.java.interfaces;
 
+import src.main.java.exceptions.FacilityNotFoundException;
+import src.main.java.exceptions.NullParameterException;
+
 /**
  * Created by Jordan on 5/13/2017.
  */
 public interface LogisticsDetail {
 
-    public String getFacilityLocation();
+    String getFacilityLocation();
 
-    public void setFacilityLocation(String facilityLocation);
+    void setFacilityLocation(String facilityLocation);
 
-    public Integer getProcessingStart();
+    Integer getProcessingStart();
 
-    public void setProcessingStart(Integer processingStart);
+    void setProcessingStart(Integer processingStart);
 
-    public Integer getProcessingEnd();
+    Integer getProcessingEnd();
 
-    public void setProcessingEnd(Integer processingEnd);
+    void setProcessingEnd(Integer processingEnd);
 
-    public Integer getTravelStart();
+    Integer getTravelStart();
 
-    public void setTravelStart(Integer processingStart);
+    void setTravelStart(Integer processingStart);
 
-    public Integer getTravelEnd();
+    Integer getTravelEnd();
 
-    public void setTravelEnd(Integer processingStart);
+    void setTravelEnd(Integer processingStart);
 
     Integer getItemsProcessed();
 
@@ -34,4 +37,6 @@ public interface LogisticsDetail {
     void setTotalQuantity(Integer totalQuantity);
 
     void print();
+
+    String getFullFacilityLocation() throws NullParameterException, FacilityNotFoundException;
 }

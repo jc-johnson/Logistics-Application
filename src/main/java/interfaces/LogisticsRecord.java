@@ -41,4 +41,6 @@ public interface LogisticsRecord {
 
     // returns copy of item arrivals
     List<ItemArrival> getItemArrivals();
+
+    LogisticsDetail getLogisticsDetail(Integer i);
 }

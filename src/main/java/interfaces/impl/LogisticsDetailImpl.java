@@ -1,5 +1,7 @@
 package src.main.java.interfaces.impl;
 
+import src.main.java.FacilityManager;
+import src.main.java.exceptions.FacilityNotFoundException;
 import src.main.java.exceptions.NegativeQuantityException;
 import src.main.java.exceptions.NullParameterException;
 import src.main.java.interfaces.LogisticsDetail;
@@ -9,16 +11,21 @@ import src.main.java.interfaces.LogisticsDetail;
  */
 public class LogisticsDetailImpl implements LogisticsDetail {
 
-    String facilityLocation;
-    Integer totalQuantity;
-    Integer itemsProcessed;
-    Integer processingStart;
-    Integer processingEnd;
-    Integer travelStart;
-    Integer travelEnd;
+    private String facilityLocation;
+    private Integer totalQuantity;
+    private Integer itemsProcessed;
+    private Integer processingStart;
+    private Integer processingEnd;
+    private Integer travelStart;
+    private Integer travelEnd;
     
     public String getFacilityLocation() {
         return facilityLocation;
+    }
+
+    public String getFullFacilityLocation() throws NullParameterException, FacilityNotFoundException {
+        String fullFacilityLocation = FacilityManager.getInstance().getFacilityLocationFromCity(facilityLocation);
+        return fullFacilityLocation;
     }
 
     public void setFacilityLocation(String facilityLocation) {
