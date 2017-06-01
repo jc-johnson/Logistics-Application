@@ -5,10 +5,7 @@ import src.main.java.exceptions.NullParameterException;
 import src.main.java.interfaces.*;
 import src.main.java.Item;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Created by Jordan on 5/7/2017.
@@ -20,7 +17,6 @@ public class OrderImpl implements Order{
     private Map<Item, Integer> itemsList = new HashMap<>();
     private Solution solution = new SolutionImpl();
     private Integer orderTime = 0;
-    private Map<Item, List<FacilityRecord>> itemFacilityRecords = new HashMap<>();
 
     private List<OrderItemCalculation> orderItemCalculations = new ArrayList<>();
 
@@ -51,14 +47,6 @@ public class OrderImpl implements Order{
         this.destination = destination;
     }
 
-    @Override
-    public List<Item> getOrderItems() {
-        List<Item> itemsCopy = new ArrayList<>();
-        for (Map.Entry<Item, Integer> entry : itemsList.entrySet()) {
-            itemsCopy.add(entry.getKey());
-        }
-        return itemsCopy;
-    }
 
     @Override
     public Integer getOrderTime() {
@@ -150,17 +138,28 @@ public class OrderImpl implements Order{
         this.solution = solution;
     }
 
-    public void addFacilityRecord(Item  item, FacilityRecord facilityRecord) {
-        List<FacilityRecord> facilityRecords = itemFacilityRecords.get(item);
-
-        // if list does note exist create it
-        if (facilityRecords == null) {
-            facilityRecords = new ArrayList<>();
-            facilityRecords.add(facilityRecord);
-            itemFacilityRecords.put(item, facilityRecords);
-        } else {
-            facilityRecords.add(facilityRecord);
-            itemFacilityRecords.put(item, facilityRecords);
+    @Override
+    public boolean containItem(String itemId) {
+        for (Map.Entry<Item, Integer> entry : itemsList.entrySet()) {
+            if (entry.getKey().getId().equals(itemId)) return true;
         }
+        return false;
     }
+
+    @Override
+    public Integer getItemSize() {
+        return itemsList.size();
+    }
+
+    @Override
+    public List<Item> getOrderItems() {
+        List<Item> itemsCopy = new ArrayList<>();
+        for (Map.Entry<Item, Integer> entry : itemsList.entrySet()) {
+            itemsCopy.add(entry.getKey());
+        }
+        return itemsCopy;
+    }
+
+
+
 }

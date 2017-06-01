@@ -25,5 +25,7 @@ public interface Order {
     Integer getOrderItemCalulationSize();
     OrderItemCalculation getOrderItemCalculation(Integer i);
     void addSolution(Solution solution);
+    boolean containItem(String itemId);
+    Integer getItemSize();
 
 }

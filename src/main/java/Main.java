@@ -67,11 +67,11 @@ public class Main {
         orderManager.createFacilityRecordsFromOrders();
         LogisticsRecordManager.getInstance().createOrderItemCalculations();
         OrderManager.getInstance().computeSolutions();
-        //LogisticsRecordManager.getInstance().printLogisticsRecords();
-        //// orderManager.printOrders();
+        LogisticsRecordManager.getInstance().printLogisticsRecords();
+        orderManager.printOrders();
 
         //// Print all Facilities after order processing
-        //FacilityManager.getInstance().printEachFacilityOutput();
+        FacilityManager.getInstance().printEachFacilityOutput();
 
 
 

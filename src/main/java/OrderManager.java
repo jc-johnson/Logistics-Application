@@ -56,13 +56,12 @@ public final class OrderManager {
         }
     }
 
-    public void addOrderItemCalculationToOrder(String orderId, OrderItemCalculation orderItemCalculation) {
+    public void addOrderItemCalculationToOrder(String itemId, OrderItemCalculation orderItemCalculation) {
         for (Order order : orders) {
-            if (order.getId().equals(orderId)) {
+            if (order.containItem(itemId)) {
                 order.addOrderItemCalculation(orderItemCalculation);
             }
         }
-
     }
 
     public void computeSolutions() {

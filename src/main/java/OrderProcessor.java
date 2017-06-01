@@ -108,6 +108,8 @@ public final class OrderProcessor {
 
             }
         }
+
+        System.out.println("All facility records processed and generated from orders");
     }
 
     private void processFacilityRecords(List<FacilityRecord> facilityRecords, Integer totalItemQuantityNeeded) throws DataValidationException, NullParameterException, NegativeQuantityException {

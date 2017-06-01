@@ -139,6 +139,8 @@ public final class LogisticsRecordManager {
             orderItemCalculation.setQuantity(logisticsRecord.getTotalItemQuantity());
             Integer totalRecordCost = this.calculateTotalCost(orderItemCalculation.getItemId());
             orderItemCalculation.setCost(totalRecordCost);
+            Integer numberOfSources = logisticsRecord.getLogisticsDetailSize();
+            orderItemCalculation.setNumberOfSources(numberOfSources);
             Integer firstDay = this.getFirstDay(orderItemCalculation.getItemId());
             Integer lastDay = this.getLastDay(orderItemCalculation.getItemId());
             orderItemCalculation.setFirstDay(firstDay);
