@@ -17,18 +17,10 @@ public class OrderImpl implements Order{
 
     private String id;
     private String destination;
-    private List<Item> items;
     private Map<Item, Integer> itemsList = new HashMap<>();
-
     private Solution solution = new SolutionImpl();
-
     private Integer orderTime = 0;
-
-    private ItemPrinter itemPrinter = new ItemPrinterImpl();
-    private OrderOutput orderOutput = new OrderOutputImpl(this);
-
     private Map<Item, List<FacilityRecord>> itemFacilityRecords = new HashMap<>();
-    private Map<Item, List<LogisticsDetail>> itemLogisticDetails = new HashMap<>();
 
 
     public OrderImpl(String id, String destination, Integer orderTime) {
@@ -82,20 +74,37 @@ public class OrderImpl implements Order{
     }
 
     @Override
-    public void printItemList() {
-        itemPrinter.print(itemsList);
-    }
-
-    @Override
-    public void printProcessingSolution() {
-
-    }
-
-    @Override
     public void printOutput() throws NullParameterException, DataValidationException {
+        System.out.println("\tOrder Id:\t\t" + this.getId());
+        System.out.println("\tOrder Time:\t\tDay " + this.getOrderTime());
+        System.out.println("\tDestination:\t" + this.getDestination());
+        System.out.println("");
 
-        orderOutput.printOrder();
+        System.out.println("\tList of Order Items:");
+        this.printItemList();
+        System.out.println("");
+
+        this.printProcessingSolution();
+    }
+
+    private void printProcessingSolution() throws NullParameterException, DataValidationException {
         solution.print();
+    }
+
+    private void printItemList() {
+        if (itemsList == null) try {
+            throw new NullParameterException();
+        } catch (NullParameterException e) {
+            e.printStackTrace();
+        }
+
+        int i = 1;
+        for (Map.Entry<Item, Integer> entry : itemsList.entrySet()) {
+            Item item = entry.getKey();
+            Integer quantity = entry.getValue();
+            System.out.println(i + ") Item ID:\t\t" + item.getId() + ",\t\tQuantity: " + quantity);
+            i++;
+        }
     }
 
     @Override
@@ -123,11 +132,5 @@ public class OrderImpl implements Order{
             facilityRecords.add(facilityRecord);
             itemFacilityRecords.put(item, facilityRecords);
         }
-    }
-
-    public void addFacilityRecords(Item item, List<FacilityRecord> facilityRecords) {
-
-        itemFacilityRecords.put(item, facilityRecords);
-
     }
 }

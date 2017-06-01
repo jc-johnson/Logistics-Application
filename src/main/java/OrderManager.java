@@ -41,8 +41,16 @@ public final class OrderManager {
     }
 
     public void printOrders() throws NullParameterException, DataValidationException {
+
+        Integer i = 1;
         for (Order order : orders) {
+            System.out.println("-----------------------------------------------");
+            System.out.println("Order #" + i);
             order.printOutput();
+            i++;
+            System.out.println("-----------------------------------------------");
+            System.out.println("");
+            System.out.println("");
         }
     }
 

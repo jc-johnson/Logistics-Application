@@ -19,10 +19,8 @@ public interface Order {
     Integer getOrderTime();
     void setOrderTime(Integer orderTime);
     void addOrderItem(Item item, Integer quantity);
-    void printItemList();
-    void printProcessingSolution();
     void printOutput() throws NullParameterException, DataValidationException;
     Integer getItemQuantity(Item item) throws NullParameterException;
     void addFacilityRecord(Item item, FacilityRecord facilityRecord);
-    public void addFacilityRecords(Item item, List<FacilityRecord> facilityRecords);
+
 }
