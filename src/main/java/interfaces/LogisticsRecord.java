@@ -19,8 +19,6 @@ public interface LogisticsRecord {
 
     void addLogisticsDetail(LogisticsDetail logisticsDetail);
 
-    // void removeLogisticsDetail(LogisticsDetail logisticsDetail);
-
     Integer getLogisticsDetailSize();
 
     void addItemArrival(ItemArrival itemArrival);

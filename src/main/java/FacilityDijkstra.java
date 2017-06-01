@@ -56,7 +56,7 @@ public class FacilityDijkstra {
         setTotalMiles(path);
         setTotalDays(totalMiles);
 
-        printFacilityPath(path);
+        // printFacilityPath(path);
 
         return path;
     }

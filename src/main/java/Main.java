@@ -63,7 +63,8 @@ public class Main {
         OrderManager orderManager = OrderManager.getInstance();
         orderManager.loadOrdersXml("src/main/resources/Orders.xml");
         orderManager.printOrders();
-        // orderManager.createFacilityRecordsFromOrders();
+
+        orderManager.createFacilityRecordsFromOrders();
         // LogisticsRecordManager.getInstance().printLogisticsRecords();
         // orderManager.printOrders();
 
