@@ -58,14 +58,16 @@ public final class LogisticsRecordManager {
         for (LogisticsRecord currentLogisticsRecord : logisticsRecords) {
             // logistics record already exists
             if (currentLogisticsRecord.getItemId().equals(logisticsRecord.getItemId())) {
-                currentLogisticsRecord.addLogisticsDetail(logisticsDetail);
+                if (logisticsDetail.getItemsProcessed() > 0)
+                    currentLogisticsRecord.addLogisticsDetail(logisticsDetail);
                 if (itemArrival.getItemsProcessed() != 0)
                     currentLogisticsRecord.addItemArrival(itemArrival);
                 return;
             }
         }
 
-        logisticsRecord.addLogisticsDetail(logisticsDetail);
+        if (logisticsDetail.getItemsProcessed() > 0)
+            logisticsRecord.addLogisticsDetail(logisticsDetail);
 
         if (itemArrival.getItemsProcessed() != 0)
             logisticsRecord.addItemArrival(itemArrival);
