@@ -12,7 +12,6 @@ public class ItemArrivalImpl implements ItemArrival {
     private Integer percentOfTotal;
     private Integer percentOfItemArrivals;
 
-    private Integer itemArrivalsTotal;
 
     public Integer getPercentOfTotal() {
         return percentOfTotal;
@@ -50,13 +49,6 @@ public class ItemArrivalImpl implements ItemArrival {
         this.percentOfItemArrivals = percentOfItemArrivals;
     }
 
-    public Integer getItemArrivalsTotal() {
-        return itemArrivalsTotal;
-    }
-
-    public void setItemArrivalsTotal(Integer itemArrivalsTotal) {
-        this.itemArrivalsTotal = itemArrivalsTotal;
-    }
 
     @Override
     public void print() {

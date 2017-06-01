@@ -118,7 +118,7 @@ public class SolutionImpl implements Solution {
         System.out.println("\tTotal Cost:\t\t$" + getTotalCost());
         System.out.println("\t1st Delivery Day: " + getFirstDeliveryDay());
         System.out.println("\tLast Delivery Day: " + getLastDeliveryDay());
-        printOrderItems(orderItemCalculationsList);
+        // printOrderItems(orderItemCalculationsList);
     }
 
     @Override

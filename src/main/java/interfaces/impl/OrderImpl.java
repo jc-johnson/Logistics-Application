@@ -22,6 +22,8 @@ public class OrderImpl implements Order{
     private Integer orderTime = 0;
     private Map<Item, List<FacilityRecord>> itemFacilityRecords = new HashMap<>();
 
+    private List<OrderItemCalculation> orderItemCalculations = new ArrayList<>();
+
 
     public OrderImpl(String id, String destination, Integer orderTime) {
         this.id = id;
@@ -119,7 +121,20 @@ public class OrderImpl implements Order{
         return null;
     }
 
+    private void printOrderItemCalculations() {
+        System.out.println("Item ID\t\tQuantity\t\tCost\t\t# Sources Used\t\tFirst Day\t\tLast Day");
+        for(OrderItemCalculation orderItemCalculation : orderItemCalculations) {
+            System.out.println(orderItemCalculation.getItemId() + "\t\t" + orderItemCalculation.getQuantity() +
+                    "\t\t" + orderItemCalculation.getCost() + "\t\t" + orderItemCalculation.getNumberOfSources() +
+                    "\t\t" + orderItemCalculation.getFirstDay() + "\t\t" + orderItemCalculation.getLastDay());
+        }
+    }
+
     @Override
+    public void addOrderItemCalculation(OrderItemCalculation orderItemCalculation) {
+        orderItemCalculations.add(orderItemCalculation);
+    }
+
     public void addFacilityRecord(Item  item, FacilityRecord facilityRecord) {
         List<FacilityRecord> facilityRecords = itemFacilityRecords.get(item);
 

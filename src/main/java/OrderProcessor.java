@@ -27,7 +27,7 @@ public final class OrderProcessor {
     private OrderProcessor() {}
 
 
-    public void generateFacilityRecords(List<Order> orders) throws EmptyNeighborListException, NullNeighborListException, NullPriorityQueueException, NullFacilityException, NoAvailableDaysException, NegativeQuantityException, DataValidationException, NullParameterException {
+    public void generateFacilityRecords(List<Order> orders) throws EmptyNeighborListException, NullNeighborListException, NullPriorityQueueException, NullFacilityException, NoAvailableDaysException, NegativeQuantityException, DataValidationException, NullParameterException, FacilityNotFoundException {
         if (orders.size() == 0) throw new DataValidationException("Empty Orders List");
 
         for (Order order : orders) {
@@ -100,11 +100,11 @@ public final class OrderProcessor {
                 }*/
 
                 processFacilityRecords(facilityRecords, totalItemQuantityNeeded);
-                /*
+
                 for (FacilityRecord facilityRecord : facilityRecords) {
                     LogisticsRecordManager.getInstance().gernerateLogisticsRecord(facilityRecord);
                 }
-                */
+
 
             }
         }
@@ -130,6 +130,7 @@ public final class OrderProcessor {
 
         // Print each facility record
         System.out.println("Sorted Facility Records");
+        System.out.println("");
         for (FacilityRecord facilityRecord : facilityRecords) {
             facilityRecord.print();
         }

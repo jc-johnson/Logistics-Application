@@ -17,5 +17,9 @@ public interface ItemArrival {
 
     void setItemsProcessed(Integer quantity);
 
+    Integer getPercentOfItemArrivals();
+
+    void setPercentOfItemArrivals(Integer quantity);
+
     void print();
 }

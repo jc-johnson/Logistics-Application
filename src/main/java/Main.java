@@ -19,7 +19,7 @@ import java.text.ParseException;
  */
 public class Main {
 
-    public static void main(String[] args) throws IOException, NullFacilityException, NullPriorityQueueException, EmptyNeighborListException, NullNeighborListException, ParserConfigurationException, SAXException, NoAvailableDaysException, NegativeQuantityException, EmptyPathException, DataValidationException, NullParameterException, ParseException {
+    public static void main(String[] args) throws IOException, NullFacilityException, NullPriorityQueueException, EmptyNeighborListException, NullNeighborListException, ParserConfigurationException, SAXException, NoAvailableDaysException, NegativeQuantityException, EmptyPathException, DataValidationException, NullParameterException, ParseException, FacilityNotFoundException {
 
 
         // Load in facilities Network from XML - gives you all 18 facilities
@@ -65,7 +65,7 @@ public class Main {
         orderManager.printOrders();
 
         orderManager.createFacilityRecordsFromOrders();
-        // LogisticsRecordManager.getInstance().printLogisticsRecords();
+        LogisticsRecordManager.getInstance().printLogisticsRecords();
         // orderManager.printOrders();
 
 

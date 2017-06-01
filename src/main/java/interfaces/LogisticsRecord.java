@@ -4,6 +4,8 @@ import src.main.java.Item;
 import src.main.java.exceptions.DataValidationException;
 import src.main.java.exceptions.FacilityNotFoundException;
 
+import java.util.List;
+
 /**
  * Created by Jordan on 5/13/2017.
  */
@@ -36,4 +38,7 @@ public interface LogisticsRecord {
     void setTotalItemQuantity(Integer itemQuantity);
 
     void print();
+
+    // returns copy of item arrivals
+    List<ItemArrival> getItemArrivals();
 }

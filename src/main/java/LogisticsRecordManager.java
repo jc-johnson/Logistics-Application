@@ -2,15 +2,13 @@ package src.main.java;
 
 import src.main.java.exceptions.DataValidationException;
 import src.main.java.exceptions.FacilityNotFoundException;
+import src.main.java.exceptions.NegativeQuantityException;
 import src.main.java.exceptions.NullParameterException;
 import src.main.java.interfaces.*;
 import src.main.java.interfaces.impl.*;
 import sun.rmi.runtime.Log;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Created by Jordan on 5/18/2017.
@@ -46,7 +44,7 @@ public final class LogisticsRecordManager {
         facilityRecords.add(facilityRecord);
     }
 
-    public void gernerateLogisticsRecord(FacilityRecord facilityRecord) throws DataValidationException {
+    public void gernerateLogisticsRecord(FacilityRecord facilityRecord) throws DataValidationException, FacilityNotFoundException, NegativeQuantityException, NullParameterException {
 
         if (facilityRecord == null) throw new DataValidationException("Null Facility Record");
 
@@ -70,6 +68,34 @@ public final class LogisticsRecordManager {
         logisticsRecord.addLogisticsDetail(logisticsDetail);
         logisticsRecord.addItemArrival(itemArrival);
         logisticsRecords.add(logisticsRecord);
+        // this.computeItemArrivals();
+
+        /*
+        for (LogisticsRecord currentLogisticsRecord : logisticsRecords) {
+            createOrderItemCalculations(currentLogisticsRecord);
+        }
+        */
+
+
+    }
+
+    private void computeItemArrivals() {
+
+
+        for (LogisticsRecord logisticsRecord : logisticsRecords) {
+            // sort item arrivals by arrival day
+            Collections.sort(logisticsRecord.getItemArrivals(), new Comparator<ItemArrival>() {
+                @Override
+                public int compare(ItemArrival itemArrival1, ItemArrival itemArrival2) {
+                    return Integer.compare(itemArrival1.getArrivalDay(), itemArrival2.getArrivalDay());
+                }
+            });
+
+            for (ItemArrival itemArrival : logisticsRecord.getItemArrivals()) {
+                Integer result = itemArrival.getItemsProcessed() / logisticsRecord.getTotalItemQuantity();
+                itemArrival.setPercentOfTotal(result * 100);
+            }
+        }
     }
 
     private LogisticsDetail createLogisticsDetail(FacilityRecord facilityRecord) throws DataValidationException {
@@ -83,7 +109,7 @@ public final class LogisticsRecordManager {
         logisticsDetail.setFacilityLocation(logisticDetailsCity);
         logisticsDetail.setProcessingStart(facilityRecord.getArrivalDay());
         logisticsDetail.setProcessingEnd(facilityRecord.getProcessingEndDay());
-        logisticsDetail.setTotalQuantity(facilityRecord.getTotalItemsAtFacility());
+        logisticsDetail.setTotalQuantity(facilityRecord.getTotalOrderQuantity());
         logisticsDetail.setitemsProcessed(facilityRecord.getItemsNeeded());
 
         Integer travelStart = facilityRecord.getTravelDays() - (facilityRecord.getTravelDays()-1);
@@ -103,29 +129,28 @@ public final class LogisticsRecordManager {
         itemArrival.setItemsProcessed(logisticsDetail.getItemsProcessed());
         itemArrival.setPercentOfTotal(logisticsDetail.getTotalQuantity());
 
-
         return itemArrival;
     }
 
-    public Solution createSolution(LogisticsRecord logisticsRecord) throws NullParameterException, DataValidationException, FacilityNotFoundException {
+    public void createOrderItemCalculations(LogisticsRecord logisticsRecord) throws NullParameterException, DataValidationException, FacilityNotFoundException, NegativeQuantityException {
 
         if (logisticsRecord == null) throw new DataValidationException("Null Logistics Record");
 
         for (LogisticsRecord currentLogisticsRecord : logisticsRecords) {
-            Solution solution = new SolutionImpl();
-            solution.computeSolution(currentLogisticsRecord);
-            OrderManager.getInstance().addSolutionToOrder(solution);
 
-            OrderItemCalculation orderItemCalculation = computeOrderItemCalculation(logisticsRecord);
-            OrderManager.getInstance().addItemCalculationToOrderSolution(orderItemCalculation);
+            // create OrderItemCalculation
+            OrderItemCalculation orderItemCalculation = new OrderItemCalculationImpl();
+            orderItemCalculation.setFirstDay(logisticsRecord.getFirstProcessingDay());
+            orderItemCalculation.setLastDay(logisticsRecord.getLastProcessingDay());
+            orderItemCalculation.setNumberOfSources(logisticsRecord.getTotalSources());
+            orderItemCalculation.setCost(logisticsRecord.getTotalItemCost());
+            orderItemCalculation.setQuantity(logisticsRecord.getTotalItemQuantity());
+            orderItemCalculation.setItemId(logisticsRecord.getItemId());
+
+            // add orderItemCalculation to order
+            OrderManager.getInstance().addOrderItemCalculationToOrder(orderItemCalculation.getItemId(), orderItemCalculation);
 
         }
-
-
-        // create solution
-        // find corresponding order with order ID
-        // add solution to Order
-        return  null;
 
     }
 

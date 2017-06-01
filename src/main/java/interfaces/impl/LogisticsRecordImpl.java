@@ -156,6 +156,14 @@ public class LogisticsRecordImpl implements LogisticsRecord {
         return value;
     }
 
+    public List<ItemArrival> getItemArrivals(){
+        List<ItemArrival> itemArrivals = new ArrayList<>();
+        for(ItemArrival itemArrival : this.itemArrivals) {
+            itemArrivals.add(itemArrival);
+        }
+        return itemArrivals;
+    }
+
     @Override
     public void print() {
         System.out.println("Item ID: " + getItemId() + ", Quantity: " + getTotalItemQuantity());

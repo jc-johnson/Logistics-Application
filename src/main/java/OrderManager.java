@@ -6,6 +6,7 @@ import src.main.java.interfaces.Order;
 import src.main.java.interfaces.OrderItemCalculation;
 import src.main.java.interfaces.Solution;
 import src.main.java.interfaces.XmlReader;
+import src.main.java.interfaces.impl.OrderImpl;
 import src.main.java.interfaces.impl.XmlReaderImpl;
 
 import javax.xml.parsers.ParserConfigurationException;
@@ -36,7 +37,7 @@ public final class OrderManager {
         orders = xmlReader.parseOrdersXml(path);
     }
 
-    public void createFacilityRecordsFromOrders() throws NoAvailableDaysException, NullParameterException, DataValidationException, NegativeQuantityException, NullPriorityQueueException, NullFacilityException, EmptyNeighborListException, NullNeighborListException {
+    public void createFacilityRecordsFromOrders() throws NoAvailableDaysException, NullParameterException, DataValidationException, NegativeQuantityException, NullPriorityQueueException, NullFacilityException, EmptyNeighborListException, NullNeighborListException, FacilityNotFoundException {
         orderProcessor.generateFacilityRecords(orders);
     }
 
@@ -52,6 +53,15 @@ public final class OrderManager {
             System.out.println("");
             System.out.println("");
         }
+    }
+
+    public void addOrderItemCalculationToOrder(String orderId, OrderItemCalculation orderItemCalculation) {
+        for (Order order : orders) {
+            if (order.getId().equals(orderId)) {
+                order.addOrderItemCalculation(orderItemCalculation);
+            }
+        }
+
     }
 
     public void computeSolutions() {
