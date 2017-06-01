@@ -224,7 +224,7 @@ public final class LogisticsRecordManager {
             Integer itemArrivalSize = logisticsRecord.getItemArrivalSize();
             for (int i = 0; i < itemArrivalSize ; i++) {
                 ItemArrival itemArrival = logisticsRecord.getItemArrival(i);
-                Double previousPercent = 0.0;
+
 
                 Double itemArrivalQuantity = (double) itemArrival.getItemsProcessed();
                 Double totalRecordQuantity = (double) logisticsRecord.getTotalItemQuantity();
@@ -232,10 +232,19 @@ public final class LogisticsRecordManager {
                 Double finalPercentOfTotalQuantity = percentOFTotalQuantity * 100;
                 itemArrival.setPercentOfTotal(finalPercentOfTotalQuantity);
 
-                previousPercent += finalPercentOfTotalQuantity;
-                itemArrival.setPercentOfItemArrivals(previousPercent);
+
             }
 
+            for (int i = 0; i < logisticsRecord.getItemArrivalSize(); i++) {
+                ItemArrival itemArrival = logisticsRecord.getItemArrival(i);
+                Double percent = itemArrival.getPercentOfTotal();
+
+                for (int j = 0; j < i; j++) {
+                    percent += logisticsRecord.getItemArrival(j).getPercentOfTotal();
+                }
+
+                itemArrival.setPercentOfItemArrivals(percent);
+            }
         }
     }
 
