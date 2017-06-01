@@ -171,8 +171,8 @@ public final class LogisticsRecordManager {
                     Integer logisticsDetailTransportStartDay = logisticsDetail.getTravelStart();
                     Integer transportDays = logisticsDetailTransportEndDay - logisticsDetailTransportStartDay;
                     Integer transportCost = 500 * transportDays;
-                    itemPrice *= logisticsDetail.getItemsProcessed();
-                    totalCost += itemPrice + transportCost + facilityProcessingCost;
+                    Integer itemCost = itemPrice * logisticsDetail.getItemsProcessed();
+                    totalCost += itemCost + transportCost + facilityProcessingCost;
                 }
                 return  totalCost;
             }

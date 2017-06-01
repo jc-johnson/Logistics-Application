@@ -26,25 +26,25 @@ public class Main {
         FacilityManager facilityManager = FacilityManager.getInstance();
         facilityManager.loadFacilitiesAndNeighborsFromXML("src/main/resources/FacilityNetwork.xml");
 
-        //// Load each facilities' inventory
+        // Load each facilities' inventory
         facilityManager.loadFacilityInventoryFromXML("src/main/resources/FacilityInventory.xml");
         facilityManager.printEachFacilityOutput();
 
-        //// Output 1
-        //// facilityManager.printEachFacilityOutput();
+        // Output 1
+        // facilityManager.printEachFacilityOutput();
 
-        //// Output 2 : Item catalog
-        //// Parse and Print Item Catalog
+        // Output 2 : Item catalog
+        // Parse and Print Item Catalog
         ItemCatalogManager itemCatalogManager = ItemCatalogManager.getInstance();
         itemCatalogManager.parseItemsInventoryXML("src/main/resources/ItemCatalog.xml");
 
-        //// Output 3 : Shortest path
+        // Output 3 : Shortest path
 
         //System.out.println("Shortest Path Tests: ");
         //System.out.println("");
 
-        ///*
-        //// TODO: put back print statements in shortest path
+        /* Shortest Path
+
         //facilityManager.runShortestPath("Santa Fe, NM", "Chicago, IL");
         //facilityManager.runShortestPath("Atlanta, GA", "St. Louis, MO");
         //facilityManager.runShortestPath("Seattle, WA", "Nashville, TN");
@@ -55,7 +55,7 @@ public class Main {
         //facilityManager.runShortestPath("Miami, FL", "Seattle, WA");
         //facilityManager.runShortestPath("Los Angeles, CA", "Chicago, IL");
         //facilityManager.runShortestPath("Detroit, MI", "Nashville, TN");
-        //*/
+        */
 
 
         //// -------------------- Part 2 Code ----------------------------------
@@ -72,12 +72,6 @@ public class Main {
 
         //// Print all Facilities after order processing
         FacilityManager.getInstance().printEachFacilityOutput();
-
-
-
-        // Test
-        // String facilityLocation = FacilityManager.getInstance().getFacilityLocationFromCity("Chicago");
-        // System.out.println(facilityLocation);
 
 
 

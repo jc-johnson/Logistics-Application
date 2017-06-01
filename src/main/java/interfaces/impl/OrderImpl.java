@@ -75,6 +75,7 @@ public class OrderImpl implements Order{
         System.out.println("");
 
         this.printProcessingSolution();
+        this.printOrderItemCalculations();
     }
 
     private void printProcessingSolution() throws NullParameterException, DataValidationException {
@@ -113,8 +114,8 @@ public class OrderImpl implements Order{
         System.out.println("Item ID\t\tQuantity\t\tCost\t\t# Sources Used\t\tFirst Day\t\tLast Day");
         for(OrderItemCalculation orderItemCalculation : orderItemCalculations) {
             System.out.println(orderItemCalculation.getItemId() + "\t\t" + orderItemCalculation.getQuantity() +
-                    "\t\t" + orderItemCalculation.getCost() + "\t\t" + orderItemCalculation.getNumberOfSources() +
-                    "\t\t" + orderItemCalculation.getFirstDay() + "\t\t" + orderItemCalculation.getLastDay());
+                    "\t\t\t" + orderItemCalculation.getCost() + "\t\t\t\t" + orderItemCalculation.getNumberOfSources() +
+                    "\t\t\t\t" + orderItemCalculation.getFirstDay() + "\t\t\t\t" + orderItemCalculation.getLastDay());
         }
     }
 
