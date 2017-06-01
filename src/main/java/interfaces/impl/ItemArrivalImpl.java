@@ -17,8 +17,8 @@ public class ItemArrivalImpl implements ItemArrival, Comparable<ItemArrival> {
         return percentOfTotal;
     }
 
-    public void setPercentOfTotal(Double totalQuantity) {
-        percentOfTotal = (itemsProcessed / totalQuantity) * 100;
+    public void setPercentOfTotal(Double percent) {
+        percentOfTotal = percent;
     }
 
     @Override
@@ -53,7 +53,7 @@ public class ItemArrivalImpl implements ItemArrival, Comparable<ItemArrival> {
     @Override
     public void print() {
         System.out.println("\tDay " + arrivalDay + ": " + itemsProcessed +
-                " (" + getPercentOfTotal() + "%, " + percentOfItemArrivals + "% of total)");
+                " (" + percentOfTotal + "%, " + percentOfItemArrivals + "% of total)");
 
     }
 
